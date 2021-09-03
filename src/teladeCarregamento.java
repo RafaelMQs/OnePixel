@@ -45,6 +45,7 @@ public class teladeCarregamento extends JFrame {
         			if(load >= 100) {
         				sleep(1000);
         				setVisible(false);
+        				new telaInicial().setVisible(true);
         			}
                 } catch (InterruptedException e) {
                     e.printStackTrace();
