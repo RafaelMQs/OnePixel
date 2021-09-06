@@ -17,7 +17,9 @@ import javax.swing.*;
 public class telaInicial extends JFrame implements MouseListener, KeyListener {
 	private JLabel fundoLogo;
 	private JButton iniciarNoSelected, fecharNoSelected, iniciarSelected, fecharSelected;
-
+	private boolean Iniciou = false;
+	private Clip SoundTrack1;
+	
 	public telaInicial() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 		Componentes();
 		Eventos();
@@ -82,7 +84,14 @@ public class telaInicial extends JFrame implements MouseListener, KeyListener {
 		fecharSelected.setVisible(false);
 		add(fecharSelected);
 		// FIM - Definir Botões
-		
+
+		File file = new File("SoundTrack1.wav");
+		AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+		SoundTrack1 = AudioSystem.getClip();
+		SoundTrack1.open(audioStream);
+		FloatControl gainControl = (FloatControl) SoundTrack1.getControl(FloatControl.Type.MASTER_GAIN);
+		gainControl.setValue(-20.0f); 
+		SoundTrack1.start();
 	}
 
 	public void Eventos() {
@@ -102,11 +111,12 @@ public class telaInicial extends JFrame implements MouseListener, KeyListener {
 				}
 			}
 		});
-		
+
 		iniciarSelected.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					audio("Selected Sound", 25);
+					audio("Selected Sound1", 25, 0, 0);
+					SoundTrack1.stop();
 				} catch (UnsupportedAudioFileException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -125,19 +135,25 @@ public class telaInicial extends JFrame implements MouseListener, KeyListener {
 		new telaInicial();
 	}
 
-	public void audio(String nome, float volume) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+	public void audio(String nome, float volume, int loop, int action)
+			throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 
 		File file = new File(nome + ".wav");
 		AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
 		Clip clip = AudioSystem.getClip();
 		clip.open(audioStream);
-		
+
 		FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
 		gainControl.setValue(-volume); // Reduce volume by 10 decibels.
-		clip.start();
-
+		clip.loop(loop);
+		if (action == 0) {
+			clip.start();
+		} else {
+			clip.stop();
+		}
+		
 	}
-	
+
 	// Criando evento no mouse ( Caso queira adicionar um Hover no botão por
 	// exemplo)
 	@Override
