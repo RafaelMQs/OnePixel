@@ -11,8 +11,8 @@ import javax.swing.event.*;
 
 public class prologo extends JFrame {
 	
-	private JPanel panel0,panel1,panel2;
-	private JLabel tela0,tela1,tela2;
+	private JPanel[] panel = new JPanel[11];
+	private JLabel[] tela = new JLabel[11];
 	private int contTela0 = 0;
 	
 	public prologo() {
@@ -28,42 +28,82 @@ public class prologo extends JFrame {
 		setUndecorated(true); // Desativa a Decoração
 		setLocationRelativeTo(null); // Tela Centralizada
 		
+		
+		for (int i = 0; i < 11;i++) {
+			panel[i] = new JPanel();
+			panel[i].setBackground(Color.BLACK);
+			panel[i].setBounds(0,0,600,310);
+			
+			tela[i] = new JLabel();
+			tela[i].setBounds(0,0,600,310);
+		}
+		
 		/*Panel 0 | TELA 0 | GIF | Duração de 3 segundos  */
 		
-		panel0 = new JPanel();
-		panel0.setBackground(Color.BLACK);
-		panel0.setBounds(0,0,600,310);
-		add(panel0);
+        imagem(tela[0], "000", "gif");
+        panel[0].add(tela[0]);
+        add(panel[0]);
 
-		
-		tela0 = new JLabel(new ImageIcon("prologo//000.gif"));
-		tela0.setBounds(0,0,600,310);
-		panel0.add(tela0);
 
-		
-		
 		/*Panel 1 | TELA 1 | PNG | Duração ??????  */
+        
+        imagem(tela[1], "001", "png");
+        panel[1].add(tela[1]);
+
+     	/*Panel 2 | TELA 2 | PNG | Duração ??????  */
+        
+        imagem(tela[2], "002", "png");
+        panel[2].add(tela[2]);
+        
+
+		/*Panel 3 | TELA 3 | PNG | Duração ??????  */
+		
+        imagem(tela[3], "003", "png");
+        panel[3].add(tela[3]);
+		
+		/*Panel 4 | TELA 4 | PNG | Duração ??????  */
+		
+        imagem(tela[4], "004", "png");
+        panel[4].add(tela[4]);
+		
+		/*Panel 5 | TELA 5 | PNG | Duração ??????  */
+		
+        imagem(tela[5], "005", "png");
+        panel[5].add(tela[5]);
+        
+		/*Panel 6 | TELA 6 | PNG | Duração ??????  */
+		
+        imagem(tela[6], "006", "png");
+        panel[6].add(tela[6]);
+        
+		/*Panel 7 | TELA 7 | PNG | Duração ??????  */
+		
+        imagem(tela[7], "007", "png");
+        panel[7].add(tela[7]);
+		
+		/*Panel 8 | TELA 8 | PNG | Duração ??????  */
+		
+        imagem(tela[8], "008", "png");
+        panel[8].add(tela[8]);
+		
+		/*Panel 8 | TELA 8 | PNG | Duração ??????  */
+		
+        imagem(tela[8], "008", "png");
+        panel[8].add(tela[8]);
+        
+		/*Panel 9 | TELA 9 | PNG | Duração ??????  */
+		
+        imagem(tela[9], "009", "png");
+        panel[9].add(tela[9]);
+        
+		/*Panel 9 | TELA 9 | PNG | Duração ??????  */
+		
+        imagem(tela[10], "010", "png");
+        panel[10].add(tela[10]);		
+	}
 	
-		panel1 = new JPanel();
-		panel1.setBackground(Color.BLACK);
-		panel1.setBounds(0,0,600,310);
-		
-		tela1 = new JLabel(new ImageIcon("prologo//001.png"));
-		tela1.setBounds(0,0,600,310);
-		panel1.add(tela1);
-		
-		/*Panel 2 | TELA 2 | PNG | Duração ??????  */
-		
-		panel2 = new JPanel();
-		panel2.setBackground(Color.BLACK);
-		panel2.setBounds(0,0,600,310);
-		
-		tela2 = new JLabel(new ImageIcon("prologo//001.png"));
-		tela2.setBounds(0,0,600,310);
-		panel2.add(tela2);
-		
-		
-		
+	public void imagem(JLabel nomeDaJLabel,String nomeDaImagem,String tipoDaImagem) {
+		nomeDaJLabel.setIcon(new ImageIcon("prologo//"+nomeDaImagem+"."+tipoDaImagem+""));
 	}
 	
 	
@@ -79,9 +119,9 @@ public class prologo extends JFrame {
                 	contTela0 +=1;
                     // Quando chegar 100%, esta função chamarar outra tela.	
         			if(contTela0 >= 81) {
-        				panel0.setVisible(false);
-        				add(panel1);
-        				panel1.setVisible(true);
+        				panel[0].setVisible(false);
+        				add(panel[1]);
+        				panel[1].setVisible(true);
         			}
                 } catch (InterruptedException e) {
                     e.printStackTrace();
