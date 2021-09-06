@@ -1,7 +1,10 @@
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 
 
 public class teladeCarregamento extends JFrame {
@@ -49,7 +52,16 @@ public class teladeCarregamento extends JFrame {
         			}
                 } catch (InterruptedException e) {
                     e.printStackTrace();
-                }
+                } catch (UnsupportedAudioFileException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (LineUnavailableException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         }
     }
