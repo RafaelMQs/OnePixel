@@ -31,6 +31,7 @@ public class teladeCarregamento extends JFrame {
 		fundo.setBounds(0,0,677,260);
 		add(fundo);
 		
+		System.out.println("Testando");
 	}
 
 	public static void main(String[] args) {
