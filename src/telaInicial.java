@@ -117,6 +117,9 @@ public class telaInicial extends JFrame implements MouseListener, KeyListener {
 				try {
 					audio("Selected Sound1", 25, 0, 0);
 					SoundTrack1.stop();
+					prologo prolog = new prologo();
+					prolog.setVisible(true);
+					setVisible(false);
 				} catch (UnsupportedAudioFileException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
