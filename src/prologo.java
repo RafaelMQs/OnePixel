@@ -141,39 +141,39 @@ public class prologo extends JFrame {
 				panel[0].setVisible(false);
 				panel[1].setVisible(true);
 				for (int z = 0; z < Dialogo[0].length(); z++) {
-					TextEffect(Dialogo[0], texto[0], z, 40);
+					TextEffect(Dialogo[0], texto[0], z, 30);
 				}
-				Thread.sleep(2200);
+				Thread.sleep(1750);
 				panel[1].setVisible(false);
 				panel[2].setVisible(true);
 				palavra = "";
 				for (int z = 0; z < Dialogo[1].length(); z++) {
-					TextEffect(Dialogo[1], texto[1], z, 40);
+					TextEffect(Dialogo[1], texto[1], z, 30);
 				}
-				Thread.sleep(2100);
+				Thread.sleep(1800);
 				panel[2].setVisible(false);
 				panel[3].setVisible(true);
 				palavra = "";
 				for (int z = 0; z < Dialogo[2].length(); z++) {
-					TextEffect(Dialogo[2], texto[2], z, 40);
+					TextEffect(Dialogo[2], texto[2], z, 30);
 				}			
-				Thread.sleep(2100);
+				Thread.sleep(1850);
 				panel[3].setVisible(false);
 				panel[4].setVisible(true);
 				palavra = "";
 				for (int z = 0; z < Dialogo[3].length(); z++) {
-					TextEffect(Dialogo[3], texto[3], z, 40);
+					TextEffect(Dialogo[3], texto[3], z, 30);
 				}
-				Thread.sleep(2100);
+				Thread.sleep(1800);
 				panel[4].setVisible(false);
 				panel[5].setVisible(true);
 				texto[4].setBounds(15, 135, 580, 200);
 				texto[4].setFont(new Font("Pixel Operator 8", Font.PLAIN, 20));
 				palavra = "";
 				for (int z = 0; z < Dialogo[4].length(); z++) {
-					TextEffect(Dialogo[4], texto[4], z, 50);
+					TextEffect(Dialogo[4], texto[4], z, 35);
 				}
-				Thread.sleep(2100);
+				Thread.sleep(2050);
 				panel[5].setVisible(false);
 				panel[6].setVisible(true);
 				texto[5].setBounds(15, 50, 580, 200);
@@ -182,7 +182,7 @@ public class prologo extends JFrame {
 				for (int z = 0; z < Dialogo[5].length(); z++) {
 					TextEffect(Dialogo[5], texto[5], z, 40);
 				}
-				Thread.sleep(2500);
+				Thread.sleep(2200);
 				panel[6].setVisible(false);
 				panel[7].setVisible(true);
 				texto[6].setBounds(210, 50, 490, 200);
@@ -191,25 +191,25 @@ public class prologo extends JFrame {
 				for (int z = 0; z < Dialogo[6].length(); z++) {
 					TextEffect(Dialogo[6], texto[6], z, 480);
 				}
-				Thread.sleep(2700);
+				Thread.sleep(2440);
 				panel[7].setVisible(false);
 				panel[8].setVisible(true);
 				texto[7].setBounds(15, 50, 580, 200);
 				texto[7].setFont(new Font("Pixel Operator 8", Font.PLAIN, 16));
 				palavra = "";
 				for (int z = 0; z < Dialogo[7].length(); z++) {
-					TextEffect(Dialogo[7], texto[7], z, 40);
+					TextEffect(Dialogo[7], texto[7], z, 30);
 				}
-				Thread.sleep(2600);
+				Thread.sleep(2400);
 				panel[8].setVisible(false);
 				panel[9].setVisible(true);
 				texto[8].setBounds(15, 50, 580, 200);
 				texto[8].setFont(new Font("Pixel Operator 8", Font.PLAIN, 16));
 				palavra = "";
 				for (int z = 0; z < Dialogo[8].length(); z++) {
-					TextEffect(Dialogo[8], texto[8], z, 50);
+					TextEffect(Dialogo[8], texto[8], z, 35);
 				}
-				Thread.sleep(2600);
+				Thread.sleep(2400);
 				panel[9].setVisible(false);
 				panel[10].setVisible(true);
 				texto[9].setBounds(15, 50, 580, 200);
