@@ -13,7 +13,7 @@ import javax.swing.event.*;
 /* Warning!!! Cada imagem estar em um JPanel
  * add(NomeDoJPanel) */
 
-public class prologo extends JFrame {
+public class prologo extends JFrame implements KeyListener {
 
 	private JPanel[] panel = new JPanel[11];
 	private JLabel[] tela = new JLabel[11];
@@ -37,13 +37,14 @@ public class prologo extends JFrame {
 		
 	}
 
-	public void inicializarComponentes() {
+	public void inicializarComponentes(){
 		setLayout(null);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setSize(600, 310); // Tamanho do JFrame
 		setUndecorated(true); // Desativa a Decoração
 		setLocationRelativeTo(null); // Tela Centralizada
-
+		addKeyListener(this);
+		
 		for (int i = 0; i < texto.length; i++) {
 			texto[i] = new JLabel();
 			texto[i].setForeground(Color.WHITE);
@@ -141,28 +142,28 @@ public class prologo extends JFrame {
 				panel[0].setVisible(false);
 				panel[1].setVisible(true);
 				for (int z = 0; z < Dialogo[0].length(); z++) {
-					TextEffect(Dialogo[0], texto[0], z, 30);
+					TextEffect(Dialogo[0], texto[0], z, 30, false);
 				}
 				Thread.sleep(1750);
 				panel[1].setVisible(false);
 				panel[2].setVisible(true);
 				palavra = "";
 				for (int z = 0; z < Dialogo[1].length(); z++) {
-					TextEffect(Dialogo[1], texto[1], z, 30);
+					TextEffect(Dialogo[1], texto[1], z, 30, false);
 				}
 				Thread.sleep(1800);
 				panel[2].setVisible(false);
 				panel[3].setVisible(true);
 				palavra = "";
 				for (int z = 0; z < Dialogo[2].length(); z++) {
-					TextEffect(Dialogo[2], texto[2], z, 30);
+					TextEffect(Dialogo[2], texto[2], z, 30, false);
 				}			
 				Thread.sleep(1850);
 				panel[3].setVisible(false);
 				panel[4].setVisible(true);
 				palavra = "";
 				for (int z = 0; z < Dialogo[3].length(); z++) {
-					TextEffect(Dialogo[3], texto[3], z, 30);
+					TextEffect(Dialogo[3], texto[3], z, 30, false);
 				}
 				Thread.sleep(1800);
 				panel[4].setVisible(false);
@@ -171,7 +172,7 @@ public class prologo extends JFrame {
 				texto[4].setFont(new Font("Pixel Operator 8", Font.PLAIN, 20));
 				palavra = "";
 				for (int z = 0; z < Dialogo[4].length(); z++) {
-					TextEffect(Dialogo[4], texto[4], z, 35);
+					TextEffect(Dialogo[4], texto[4], z, 35, true);
 				}
 				Thread.sleep(2050);
 				panel[5].setVisible(false);
@@ -180,7 +181,7 @@ public class prologo extends JFrame {
 				texto[5].setFont(new Font("Pixel Operator 8", Font.PLAIN, 20));
 				palavra = "";
 				for (int z = 0; z < Dialogo[5].length(); z++) {
-					TextEffect(Dialogo[5], texto[5], z, 40);
+					TextEffect(Dialogo[5], texto[5], z, 40, false);
 				}
 				Thread.sleep(2200);
 				panel[6].setVisible(false);
@@ -189,16 +190,16 @@ public class prologo extends JFrame {
 				texto[6].setFont(new Font("Pixel Operator 8", Font.PLAIN, 25));
 				palavra = "";
 				for (int z = 0; z < Dialogo[6].length(); z++) {
-					TextEffect(Dialogo[6], texto[6], z, 480);
+					TextEffect(Dialogo[6], texto[6], z, 450, true);
 				}
-				Thread.sleep(2440);
+				Thread.sleep(2550);
 				panel[7].setVisible(false);
 				panel[8].setVisible(true);
 				texto[7].setBounds(15, 50, 580, 200);
 				texto[7].setFont(new Font("Pixel Operator 8", Font.PLAIN, 16));
 				palavra = "";
 				for (int z = 0; z < Dialogo[7].length(); z++) {
-					TextEffect(Dialogo[7], texto[7], z, 30);
+					TextEffect(Dialogo[7], texto[7], z, 30, false);
 				}
 				Thread.sleep(2400);
 				panel[8].setVisible(false);
@@ -207,7 +208,7 @@ public class prologo extends JFrame {
 				texto[8].setFont(new Font("Pixel Operator 8", Font.PLAIN, 16));
 				palavra = "";
 				for (int z = 0; z < Dialogo[8].length(); z++) {
-					TextEffect(Dialogo[8], texto[8], z, 35);
+					TextEffect(Dialogo[8], texto[8], z, 35, false);
 				}
 				Thread.sleep(2400);
 				panel[9].setVisible(false);
@@ -216,8 +217,12 @@ public class prologo extends JFrame {
 				texto[9].setFont(new Font("Pixel Operator 8", Font.PLAIN, 16));
 				palavra = "";
 				for (int z = 0; z < Dialogo[9].length(); z++) {
-					TextEffect(Dialogo[9], texto[9], z, 60);
+					TextEffect(Dialogo[9], texto[9], z, 60, false);
 				}
+				
+				Thread.sleep(1000);
+				new pósprologo().setVisible(true);
+				setVisible(false);
 				
 			} catch (InterruptedException e) {
 				e.printStackTrace();
@@ -248,20 +253,68 @@ public class prologo extends JFrame {
 		new prologo().setVisible(true);
 	}
 
-	public void TextEffect(String DialogoBox, JLabel lbDialogo, int z, int milesimos) {
+	public void TextEffect(String DialogoBox, JLabel lbDialogo, int z, int milesimos, boolean Tremer) {
 		try {
-			char letra = DialogoBox.charAt(z);
-			palavra = palavra + letra;
-			if (z >= 6) {
-				lbDialogo.setVisible(true);
+			if (!Tremer) {
+				char letra = DialogoBox.charAt(z);
+				palavra = palavra + letra;
+				if (z >= 6) {
+					lbDialogo.setVisible(true);
+				}else {
+					lbDialogo.setVisible(false);				
+				}
+				lbDialogo.setText(palavra);
+				Thread.sleep(milesimos);				
 			}else {
-				lbDialogo.setVisible(false);				
+				int originalX = getLocation().x;
+	            int originalY = getLocation().y;
+	            
+	            for(int i =0; i <=2 ; i++){
+	                setLocation(originalX + 5, originalY);
+	                setLocation(originalX+ 5, originalY +5);
+	                setLocation(originalX, originalY + 5);
+	                setLocation(originalX, originalY);
+	                setLocation(originalX - 5, originalY);
+	                setLocation(originalX - 5, originalY -5);
+	                setLocation(originalX, originalY - 5);
+	            }
+	            setLocation(originalX, originalY);   
+
+				char letra = DialogoBox.charAt(z);
+				palavra = palavra + letra;
+				if (z >= 6) {
+					lbDialogo.setVisible(true);
+				}else {
+					lbDialogo.setVisible(false);				
+				}
+				lbDialogo.setText(palavra);
+				Thread.sleep(milesimos);
 			}
-			lbDialogo.setText(palavra);
 			
-			Thread.sleep(milesimos);
 		} catch (InterruptedException ex) {
 			System.out.println("Errou");
 		}
 	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getKeyChar() == KeyEvent.VK_SPACE) {
+			setVisible(false);
+			new pósprologo().setVisible(true);
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 }
+
