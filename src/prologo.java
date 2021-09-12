@@ -221,7 +221,7 @@ public class prologo extends JFrame implements KeyListener {
 				}
 				
 				Thread.sleep(1000);
-				new pósprologo().setVisible(true);
+				new introdução().setVisible(true);
 				setVisible(false);
 				
 			} catch (InterruptedException e) {
@@ -307,7 +307,9 @@ public class prologo extends JFrame implements KeyListener {
 		// TODO Auto-generated method stub
 		if(e.getKeyChar() == KeyEvent.VK_SPACE) {
 			setVisible(false);
-			new pósprologo().setVisible(true);
+			new introdução().setVisible(true);
+		}else if (e.getKeyChar() == KeyEvent.VK_ESCAPE) {
+			System.exit(0);
 		}
 	}
 
