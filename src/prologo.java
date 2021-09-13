@@ -131,7 +131,7 @@ public class prologo extends JFrame implements KeyListener {
 	}
 
 	public void imagem(JLabel nomeDaJLabel, String nomeDaImagem, String tipoDaImagem) {
-		nomeDaJLabel.setIcon(new ImageIcon("prologo//" + nomeDaImagem + "." + tipoDaImagem + ""));
+		nomeDaJLabel.setIcon(new ImageIcon("res/prologo//" + nomeDaImagem + "." + tipoDaImagem + ""));
 	}
 
 	public class Temporizador extends Thread implements KeyListener{

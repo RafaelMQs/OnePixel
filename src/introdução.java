@@ -21,31 +21,31 @@ public class introdução extends JFrame implements KeyListener {
 		addKeyListener(this);
 
 		// GIF DO FUNDO
-		imgFundo0 = new JLabel(new ImageIcon("imgIntro/01-BackgroundWhiteGIF.gif"));
+		imgFundo0 = new JLabel(new ImageIcon("res/imgIntro/01-BackgroundWhiteGIF.gif"));
 		imgFundo0.setBounds(0, 0, 600, 310);
 		imgFundo0.setVisible(false);
 		add(imgFundo0);
 		
 		
 		//GIT DO GURI PRETO BRANCO
-		guriPretoBrancoAndando = new JLabel(new ImageIcon("Guri img/GuriPretoBrancoAndando.gif"));
+		guriPretoBrancoAndando = new JLabel(new ImageIcon("res/Guri img/GuriPretoBrancoAndando.gif"));
 		guriPretoBrancoAndando.setBounds(-10,160,64,64);
 		guriPretoBrancoAndando.setVisible(false);
 		add(guriPretoBrancoAndando);
 		
 		
-		guriPretoBranParado = new JLabel(new ImageIcon("Guri img/GuriParadoPretoBranco.gif"));
+		guriPretoBranParado = new JLabel(new ImageIcon("res/Guri img/GuriParadoPretoBranco.gif"));
 		guriPretoBranParado.setBounds(120,220,64,64);
 		guriPretoBranParado.setVisible(false);
 		add(guriPretoBranParado);
 		
 		// BALÂO DE FALA 
-		balaoOpen = new JLabel(new ImageIcon("balao de fala/balãoOpen.gif"));
+		balaoOpen = new JLabel(new ImageIcon("res/balao de fala/balãoOpen.gif"));
 		balaoOpen.setBounds(0,0,600,310);
 		balaoOpen.setVisible(false);
 		add(balaoOpen);
 		
-		balaoFixo = new JLabel(new ImageIcon("balao de fala/BalaoFixo.png"));
+		balaoFixo = new JLabel(new ImageIcon("res/balao de fala/BalaoFixo.png"));
 		balaoFixo.setBounds(0,0,600,310);
 		balaoFixo.setVisible(false);
 		add(balaoFixo);
@@ -62,7 +62,7 @@ public class introdução extends JFrame implements KeyListener {
 		//add(opcaoN);
 
 		// IMAGEM DE FUNDO
-		imgFundo1 = new JLabel(new ImageIcon("imgIntro/01-BackgroundWhite.png"));
+		imgFundo1 = new JLabel(new ImageIcon("res/imgIntro/01-BackgroundWhite.png"));
 		imgFundo1.setBounds(0, 0, 600, 310);
 		imgFundo1.setVisible(false);
 		add(imgFundo1);
@@ -108,6 +108,9 @@ public class introdução extends JFrame implements KeyListener {
 				guriPretoBrancoAndando.setVisible(false);
 				guriPretoBranParado.setVisible(true);
 				Thread.sleep(1000);
+				
+				
+				//Abrindo o balão de fala
 				balaoOpen.setVisible(true);
 				Thread.sleep(2000);
 				balaoOpen.setVisible(false);

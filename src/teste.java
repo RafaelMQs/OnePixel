@@ -22,7 +22,7 @@ public class teste extends JFrame implements KeyListener {
 		Dialogo.setFont(new Font("Pixel Operator 8", Font.PLAIN, 12));
 		add(Dialogo);
 		
-		img = new JLabel(new ImageIcon("prologo//000.gif"));
+		img = new JLabel(new ImageIcon("res/prologo//000.gif"));
 		add(img);
 
 		for (int i = 0; i < Dialogo1.length; i++){
