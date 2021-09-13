@@ -5,7 +5,8 @@ import java.security.Key;
 import javax.swing.*;
 
 public class introdução extends JFrame implements KeyListener {
-	private JLabel imgFundo0, imgFundo1, opcaoS, opcaoN;
+	private JLabel imgFundo0, imgFundo1, guriPretoBrancoAndando,guriPretoBranParado, balaoOpen,balaoFixo,opcaoS, opcaoN;
+	private String[] dialogoDoGuri = {}; // diálogo do Guri
 	private int opcao = 0;
 	
 	public introdução() {
@@ -24,17 +25,41 @@ public class introdução extends JFrame implements KeyListener {
 		imgFundo0.setBounds(0, 0, 600, 310);
 		imgFundo0.setVisible(false);
 		add(imgFundo0);
+		
+		
+		//GIT DO GURI PRETO BRANCO
+		guriPretoBrancoAndando = new JLabel(new ImageIcon("Guri img/GuriPretoBrancoAndando.gif"));
+		guriPretoBrancoAndando.setBounds(-10,160,64,64);
+		guriPretoBrancoAndando.setVisible(false);
+		add(guriPretoBrancoAndando);
+		
+		
+		guriPretoBranParado = new JLabel(new ImageIcon("Guri img/GuriParadoPretoBranco.gif"));
+		guriPretoBranParado.setBounds(120,220,64,64);
+		guriPretoBranParado.setVisible(false);
+		add(guriPretoBranParado);
+		
+		// BALÂO DE FALA 
+		balaoOpen = new JLabel(new ImageIcon("balao de fala/balãoOpen.gif"));
+		balaoOpen.setBounds(0,0,600,310);
+		balaoOpen.setVisible(false);
+		add(balaoOpen);
+		
+		balaoFixo = new JLabel(new ImageIcon("balao de fala/BalaoFixo.png"));
+		balaoFixo.setBounds(0,0,600,310);
+		balaoFixo.setVisible(false);
+		add(balaoFixo);
 
 		// TESTANDO
 		opcaoS = new JLabel("SIM");
 		opcaoS.setBounds(100, 100, 100, 100);
 		opcaoS.setVisible(false);
-		add(opcaoS);
+		//add(opcaoS);
 		// TESTANDO
 		opcaoN = new JLabel("NÃO");
 		opcaoN.setBounds(100, 0, 100, 100);
 		opcaoN.setVisible(false);
-		add(opcaoN);
+		//add(opcaoN);
 
 		// IMAGEM DE FUNDO
 		imgFundo1 = new JLabel(new ImageIcon("imgIntro/01-BackgroundWhite.png"));
@@ -72,8 +97,24 @@ public class introdução extends JFrame implements KeyListener {
 				Thread.sleep(2000);
 				imgFundo0.setVisible(false);
 				imgFundo1.setVisible(true);
-				opcaoS.setVisible(true);
-				opcaoN.setVisible(true);
+				Thread.sleep(3000);
+				
+				// FAZENDO O GURI ANDAR
+				for (int i=0; i < 120;i++) {
+					guriPretoBrancoAndando.setVisible(true);
+					guriPretoBrancoAndando.setBounds(i,220,64,64);
+					Thread.sleep(20);
+				}
+				guriPretoBrancoAndando.setVisible(false);
+				guriPretoBranParado.setVisible(true);
+				Thread.sleep(1000);
+				balaoOpen.setVisible(true);
+				Thread.sleep(2000);
+				balaoOpen.setVisible(false);
+				balaoFixo.setVisible(true);
+				
+//				opcaoS.setVisible(true);
+//				opcaoN.setVisible(true);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
