@@ -20,7 +20,7 @@ public class introdução extends JFrame implements KeyListener {
 		setLayout(null);
 		addKeyListener(this);
 
-		// GIF DO FUNDO
+		// GIF DO FUNDOa
 		imgFundo0 = new JLabel(new ImageIcon("res/imgIntro/01-BackgroundWhiteGIF.gif"));
 		imgFundo0.setBounds(0, 0, 600, 310);
 		imgFundo0.setVisible(false);
