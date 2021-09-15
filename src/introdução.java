@@ -5,8 +5,9 @@ import java.security.Key;
 import javax.swing.*;
 
 public class introdução extends JFrame {
-	private JLabel imgFundo0, imgFundo1, guriPretoBrancoAndando, guriPretoBranParado, balaoOpen, balaoFixo, opcaoS,
+	private JLabel imgFundo0, imgFundo1, guriPretoBrancoAndando, guriPretoBranParado,GuriParadoColorido, GuriAndandoColorido,GuriComTochaColorido, balaoOpen, balaoFixo, balaoClose, opcaoS,
 			opcaoN, zeroGif, Op1NoSelected, Op1Selected, Op2NoSelected, Op2Selected;
+	
 	private String[] TextoDoGuri = { "<html>Guri: Quem é você? O que Aconteceu? Onde Estou?",
 			"<html>Guri: Por que só eu estou aqui? Cadê meus pais?",
 			// CASO ELE ESCOLHA MORRER
@@ -16,6 +17,7 @@ public class introdução extends JFrame {
 			"<html>Guri: He he... Pensando bem... Posso mudar de opção?",
 			"<html>Guri: Certo, mas onde encontrarei estes pixels?"}; // Texto do Guri
 	private JLabel dialogoDoGuri; // Diálogo do Guri
+	
 	private String[] TextoDoZero = {
 			"<html>Zero: Eu me chamo Zero, sou o servidor do mundo virtual. Você está na nuvem da rede de internet. Por algum motivo houve um bug no sistema e todos os pixels se apagaram",
 			"<html>Zero: Você é a única pessoa que encontrei nessa escuridão. Aproveitando o momento, te escolho para uma missão super importante. Você tera que encontrar os 3 pixels e reacende-los com esta tocha magica, estou com um pouco de preguiça pra isso",
@@ -94,9 +96,26 @@ public class introdução extends JFrame {
 		guriPretoBranParado.setBounds(120, 220, 64, 64);
 		guriPretoBranParado.setVisible(false);
 		add(guriPretoBranParado);
+		
+		// GIF DO GURI COLORIDO
+		
+		GuriParadoColorido = new JLabel(new ImageIcon("res/Guri01.gif"));
+		GuriParadoColorido.setBounds(120, 220, 64, 64);
+		GuriParadoColorido.setVisible(false);
+		add(GuriParadoColorido);
+		
+		GuriAndandoColorido = new JLabel(new ImageIcon("res/imgIntro/Guri02AndandoColorido.gif"));
+		GuriAndandoColorido.setBounds(-10, 160, 64, 64);
+		GuriAndandoColorido.setVisible(false);
+		add(GuriAndandoColorido);
+		
+		GuriComTochaColorido = new JLabel(new ImageIcon("res/imgIntro/Guri06PegandoTocha.gif"));
+		GuriComTochaColorido.setBounds(120, 210, 65, 75);
+		GuriComTochaColorido.setVisible(false);
+		add(GuriComTochaColorido);
 
 		// BALÂO DE FALA
-		balaoOpen = new JLabel(new ImageIcon("res/imgIntro/balãoOpen.gif"));
+		balaoOpen = new JLabel(new ImageIcon("res/imgIntro/BalãoOpen.gif"));
 		balaoOpen.setBounds(0, 0, 600, 310);
 		balaoOpen.setVisible(false);
 		add(balaoOpen);
@@ -105,6 +124,11 @@ public class introdução extends JFrame {
 		balaoFixo.setBounds(0, 0, 600, 310);
 		balaoFixo.setVisible(false);
 		add(balaoFixo);
+		
+		balaoClose = new JLabel(new ImageIcon("res/imgIntro/BalaoClose.gif"));
+		balaoClose.setBounds(0, 0, 600, 310);
+		balaoClose.setVisible(false);
+		add(balaoClose);
 
 		// TESTANDO
 		opcaoS = new JLabel("SIM");
@@ -164,7 +188,7 @@ public class introdução extends JFrame {
 
 				// Abrindo o balão de fala
 				balaoOpen.setVisible(true);
-				Thread.sleep(2000);
+				Thread.sleep(1800);
 				balaoOpen.setVisible(false);
 				balaoFixo.setVisible(true);
 				addKeyListener(this);
@@ -184,6 +208,7 @@ public class introdução extends JFrame {
 						break;
 					}
 				}
+				
 				// DIALOGO ZERO
 				palavra = "";
 				dialogoDoZero.setVisible(true);
@@ -224,6 +249,11 @@ public class introdução extends JFrame {
 						break;
 					}
 				}
+				guriPretoBranParado.setVisible(false);
+				GuriComTochaColorido.setVisible(true);
+				Thread.sleep(4500);
+				GuriComTochaColorido.setVisible(false);
+				GuriParadoColorido.setVisible(true);
 
 				// DIALOGO ZERO
 				Thread.sleep(3000);
@@ -414,10 +444,44 @@ public class introdução extends JFrame {
 						}
 					}
 					
+					// TROCANDO DE TELA
+					Thread.sleep(2200);
+					balaoFixo.setVisible(false);
+					dialogoDoGuri.setVisible(false);
+					dialogoDoZero.setVisible(false);
+					balaoClose.setVisible(true);
+					
+					Thread.sleep(1500);
+					balaoClose.setVisible(false);
+					Thread.sleep(1000);
+					GuriParadoColorido.setVisible(false);
+					zeroGif.setVisible(false);
+					imgFundo1.setVisible(false);
+					
+					for (int i = 255; i > 0 ; i--) {
+						getContentPane().setBackground(new Color(i, i, i));
+						Thread.sleep(12);
+					}
+					
 					
 					// ESCOLHER IR PARA A MISSÃO
 				} else if (opcaoReal == 2) {
-					System.out.println(opcaoReal + "2");
+					balaoFixo.setVisible(false);
+					dialogoDoGuri.setVisible(false);
+					dialogoDoZero.setVisible(false);
+					balaoClose.setVisible(true);
+					
+					Thread.sleep(1500);
+					balaoClose.setVisible(false);
+					Thread.sleep(1000);
+					GuriParadoColorido.setVisible(false);
+					zeroGif.setVisible(false);
+					imgFundo1.setVisible(false);
+					
+					for (int i = 255; i > 0 ; i--) {
+						getContentPane().setBackground(new Color(i, i, i));
+						Thread.sleep(12);
+					}
 				}
 
 //				opcaoS.setVisible(true);
@@ -470,10 +534,6 @@ public class introdução extends JFrame {
 
 			if (e.getKeyChar() == KeyEvent.VK_SPACE) {
 				pularDialog = true;
-				Op1NoSelected.setVisible(false);
-				Op1Selected.setVisible(false);
-				Op2NoSelected.setVisible(false);
-				Op2Selected.setVisible(false);
 			}
 
 		}

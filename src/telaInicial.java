@@ -31,7 +31,7 @@ public class telaInicial extends JFrame implements MouseListener, KeyListener {
 		setSize(600, 310); // Tamanho do JFrame
 		setUndecorated(true); // Desativa a Decoração
 		setLocationRelativeTo(null); // Tela Centralizada
-		setVisible(false);
+		setVisible(true);
 		getContentPane().add(fundoLogo);
 	}
 

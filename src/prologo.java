@@ -16,34 +16,36 @@ public class prologo extends JFrame implements KeyListener {
 
 	private JPanel[] panel = new JPanel[11];
 	private JLabel[] tela = new JLabel[11];
-	private String[] Dialogo = { "<html>Era mais um dia normal no Mundo Virtual.", "<html>Pelo menos, era o que Guri achava...",
+	private String[] Dialogo = { "<html>Era mais um dia normal no Mundo Virtual.",
+			"<html>Pelo menos, era o que Guri achava...",
 			"<html>Ele estava discutindo com os seus pais, eles queriam que ele fizesse a faxina da casa.",
 			"<html>Guri odiava faxina, Então sem pensar duas vezes ele disse:",
 			"<html>“Se eu fosse a única pessoa nesse mundo tudo seria diferente”",
 			"<html>Após o último som de sua voz, tudo começou a tremer e o que estava ao seu redor foi consumido pela...",
 			"<html>ESCURIDÃO",
-"<html>Guri, ficou 15 horas naquele breu. Ainda afobado na escuridão ele descobriu algo que o fez chorar. Ele percebeu que ele não aproveitou nada em sua vida, pois era apenas um egoísta.",
+			"<html>Guri, ficou 15 horas naquele breu. Ainda afobado na escuridão ele descobriu algo que o fez chorar. Ele percebeu que ele não aproveitou nada em sua vida, pois era apenas um egoísta.",
 			"<html>Enquanto Guri estava em total desespero... Ele ouve a seguinte frase:",
 			"<html>Você sabe quantas cores há no mundo virtual? Você consegue acendê-las?" };
 	private JLabel[] texto = new JLabel[Dialogo.length];
 	private String palavra = "";
+	private boolean pulouTudo = false;
 	private int contTela = 1;
 
 	public prologo() {
 		// TODO Auto-generated constructor stub
 		inicializarComponentes();
 		new Temporizador().start();
-		
+
 	}
 
-	public void inicializarComponentes(){
+	public void inicializarComponentes() {
 		setLayout(null);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setSize(600, 310); // Tamanho do JFrame
 		setUndecorated(true); // Desativa a Decoração
 		setLocationRelativeTo(null); // Tela Centralizada
 		addKeyListener(this);
-		
+
 		for (int i = 0; i < texto.length; i++) {
 			texto[i] = new JLabel();
 			texto[i].setForeground(Color.WHITE);
@@ -134,7 +136,7 @@ public class prologo extends JFrame implements KeyListener {
 		nomeDaJLabel.setIcon(new ImageIcon("res/prologo//" + nomeDaImagem + "." + tipoDaImagem + ""));
 	}
 
-	public class Temporizador extends Thread implements KeyListener{
+	public class Temporizador extends Thread implements KeyListener {
 		public void run() {
 			try {
 				Thread.sleep(4300);
@@ -156,7 +158,7 @@ public class prologo extends JFrame implements KeyListener {
 				palavra = "";
 				for (int z = 0; z < Dialogo[2].length(); z++) {
 					TextEffect(Dialogo[2], texto[2], z, 30, false);
-				}			
+				}
 				Thread.sleep(1850);
 				panel[3].setVisible(false);
 				panel[4].setVisible(true);
@@ -218,11 +220,13 @@ public class prologo extends JFrame implements KeyListener {
 				for (int z = 0; z < Dialogo[9].length(); z++) {
 					TextEffect(Dialogo[9], texto[9], z, 60, false);
 				}
-				
+
 				Thread.sleep(1000);
-				new introdução().setVisible(true);
-				setVisible(false);
-				
+				if (!pulouTudo) {
+					setVisible(false);
+					new introdução().setVisible(true);
+					System.out.println("CHAMANDO A CORNA");
+				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 
@@ -232,21 +236,21 @@ public class prologo extends JFrame implements KeyListener {
 		@Override
 		public void keyTyped(KeyEvent e) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void keyPressed(KeyEvent e) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void keyReleased(KeyEvent e) {
 			// TODO Auto-generated method stub
-			
+
 		}
-	} 
+	}
 
 	public static void main(String[] args) {
 		new prologo().setVisible(true);
@@ -259,37 +263,37 @@ public class prologo extends JFrame implements KeyListener {
 				palavra = palavra + letra;
 				if (z >= 6) {
 					lbDialogo.setVisible(true);
-				}else {
-					lbDialogo.setVisible(false);				
+				} else {
+					lbDialogo.setVisible(false);
 				}
 				lbDialogo.setText(palavra);
-				Thread.sleep(milesimos);				
-			}else {
+				Thread.sleep(milesimos);
+			} else {
 				int originalX = getLocation().x;
-	            int originalY = getLocation().y;
-	            
-	            for(int i =0; i <=2 ; i++){
-	                setLocation(originalX + 5, originalY);
-	                setLocation(originalX+ 5, originalY +5);
-	                setLocation(originalX, originalY + 5);
-	                setLocation(originalX, originalY);
-	                setLocation(originalX - 5, originalY);
-	                setLocation(originalX - 5, originalY -5);
-	                setLocation(originalX, originalY - 5);
-	            }
-	            setLocation(originalX, originalY);   
+				int originalY = getLocation().y;
+
+				for (int i = 0; i <= 2; i++) {
+					setLocation(originalX + 5, originalY);
+					setLocation(originalX + 5, originalY + 5);
+					setLocation(originalX, originalY + 5);
+					setLocation(originalX, originalY);
+					setLocation(originalX - 5, originalY);
+					setLocation(originalX - 5, originalY - 5);
+					setLocation(originalX, originalY - 5);
+				}
+				setLocation(originalX, originalY);
 
 				char letra = DialogoBox.charAt(z);
 				palavra = palavra + letra;
 				if (z >= 6) {
 					lbDialogo.setVisible(true);
-				}else {
-					lbDialogo.setVisible(false);				
+				} else {
+					lbDialogo.setVisible(false);
 				}
 				lbDialogo.setText(palavra);
 				Thread.sleep(milesimos);
 			}
-			
+
 		} catch (InterruptedException ex) {
 			System.out.println("Errou");
 		}
@@ -298,16 +302,17 @@ public class prologo extends JFrame implements KeyListener {
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		if(e.getKeyChar() == KeyEvent.VK_SPACE) {
+		if (e.getKeyChar() == KeyEvent.VK_SPACE) {
+			pulouTudo = true;
 			setVisible(false);
 			new introdução().setVisible(true);
-		}else if (e.getKeyChar() == KeyEvent.VK_ESCAPE) {
+		} else if (e.getKeyChar() == KeyEvent.VK_ESCAPE) {
 			System.exit(0);
 		}
 	}
@@ -315,7 +320,6 @@ public class prologo extends JFrame implements KeyListener {
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
-

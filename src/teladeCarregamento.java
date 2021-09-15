@@ -46,7 +46,6 @@ public class teladeCarregamento extends JFrame {
                     System.out.println(load);
                     // Quando chegar 100%, esta função chamarar outra tela.	
         			if(load >= 100) {
-        				sleep(1000);
         				setVisible(false);
         				new telaInicial().setVisible(true);
         			}
