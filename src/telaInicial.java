@@ -19,6 +19,7 @@ public class telaInicial extends JFrame implements MouseListener, KeyListener {
 	private JButton iniciarNoSelected, fecharNoSelected, iniciarSelected, fecharSelected;
 	private boolean Iniciou = false;
 	private Clip SoundTrack1;
+	private ImageIcon imgLogo = new ImageIcon("res/IconGame.png");
 	
 	public telaInicial() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 		Componentes();
@@ -27,6 +28,7 @@ public class telaInicial extends JFrame implements MouseListener, KeyListener {
 	}
 
 	public void Tela() {
+		setIconImage(imgLogo.getImage());
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setSize(600, 310); // Tamanho do JFrame
 		setUndecorated(true); // Desativa a Decoração
@@ -40,14 +42,14 @@ public class telaInicial extends JFrame implements MouseListener, KeyListener {
 		addKeyListener(this);
 
 		// INICIO - Definir Fundo
-		fundoLogo = new JLabel(new ImageIcon("res/TelaInicial//BkTelaPrinc.gif"));
+		fundoLogo = new JLabel(new ImageIcon("res/TelaInicial/BkTelaPrinc.gif"));
 		fundoLogo.setBounds(0, 0, 600, 310);
 		// FIM - Definir Fundo
 
 		// INICIO - Definir Botões
 
 		// BOTÃO INICIAR NÃO SELECIONADO
-		iniciarNoSelected = new JButton(new ImageIcon("res/TelaInicial//iniciar01-noSelect.png"));
+		iniciarNoSelected = new JButton(new ImageIcon("res/TelaInicial/iniciar01-noSelect.png"));
 		iniciarNoSelected.setBounds(200, 180, 200, 30);
 		iniciarNoSelected.addMouseListener(this); // Adicionando um evento de mouse ( para algum hover talvez )
 		iniciarNoSelected.setFocusable(false);
@@ -56,7 +58,7 @@ public class telaInicial extends JFrame implements MouseListener, KeyListener {
 		add(iniciarNoSelected);
 
 		// BOTÃO INICIAR SELECIONADO
-		iniciarSelected = new JButton(new ImageIcon("res/TelaInicial//iniciar01-Select.png"));
+		iniciarSelected = new JButton(new ImageIcon("res/TelaInicial/iniciar01-Select.png"));
 		iniciarSelected.setBounds(200, 180, 200, 30);
 		iniciarSelected.addMouseListener(this); // Adicionando um evento de mouse ( para algum hover talvez )
 		iniciarSelected.setFocusable(false);
@@ -66,7 +68,7 @@ public class telaInicial extends JFrame implements MouseListener, KeyListener {
 		add(iniciarSelected);
 
 		// BOTÃO FECHAR NÃO SELECIONADO
-		fecharNoSelected = new JButton(new ImageIcon("res/TelaInicial//fechar01-noSelect.png"));
+		fecharNoSelected = new JButton(new ImageIcon("res/TelaInicial/fechar01-noSelect.png"));
 		fecharNoSelected.setBounds(200, 230, 200, 30);
 		fecharNoSelected.addMouseListener(this); // Adicionando um evento de mouse ( para algum hover talvez )
 		fecharNoSelected.setFocusable(false);
@@ -75,7 +77,7 @@ public class telaInicial extends JFrame implements MouseListener, KeyListener {
 		add(fecharNoSelected);
 
 		// BOTÃO FECHAR SELECIONADO
-		fecharSelected = new JButton(new ImageIcon("res/TelaInicial//fechar01-Select.png"));
+		fecharSelected = new JButton(new ImageIcon("res/TelaInicial/fechar01-Select.png"));
 		fecharSelected.setBounds(200, 230, 200, 30);
 		fecharSelected.addMouseListener(this); // Adicionando um evento de mouse ( para algum hover talvez )
 		fecharSelected.setFocusable(false);

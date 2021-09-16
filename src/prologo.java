@@ -30,6 +30,8 @@ public class prologo extends JFrame implements KeyListener {
 	private String palavra = "";
 	private boolean pulouTudo = false;
 	private int contTela = 1;
+	
+	private ImageIcon imgLogo = new ImageIcon("res/IconGame.png");
 
 	public prologo() {
 		// TODO Auto-generated constructor stub
@@ -40,6 +42,7 @@ public class prologo extends JFrame implements KeyListener {
 
 	public void inicializarComponentes() {
 		setLayout(null);
+		setIconImage(imgLogo.getImage());
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setSize(600, 310); // Tamanho do JFrame
 		setUndecorated(true); // Desativa a Decoração
@@ -133,7 +136,7 @@ public class prologo extends JFrame implements KeyListener {
 	}
 
 	public void imagem(JLabel nomeDaJLabel, String nomeDaImagem, String tipoDaImagem) {
-		nomeDaJLabel.setIcon(new ImageIcon("res/prologo//" + nomeDaImagem + "." + tipoDaImagem + ""));
+		nomeDaJLabel.setIcon(new ImageIcon("res/prologo/" + nomeDaImagem + "." + tipoDaImagem + ""));
 	}
 
 	public class Temporizador extends Thread implements KeyListener {
@@ -221,7 +224,7 @@ public class prologo extends JFrame implements KeyListener {
 					TextEffect(Dialogo[9], texto[9], z, 60, false);
 				}
 
-				Thread.sleep(1000);
+				Thread.sleep(2000);
 				if (!pulouTudo) {
 					setVisible(false);
 					new introdução().setVisible(true);

@@ -5,8 +5,8 @@ import java.security.Key;
 import javax.swing.*;
 
 public class introdução extends JFrame {
-	private JLabel imgFundo0, imgFundo1, guriPretoBrancoAndando, guriPretoBranParado,GuriParadoColorido, GuriAndandoColorido,GuriComTochaColorido, balaoOpen, balaoFixo, balaoClose, opcaoS,
-			opcaoN, zeroGif, Op1NoSelected, Op1Selected, Op2NoSelected, Op2Selected;
+	private JLabel imgFundo0, imgFundo1, guriPretoBrancoAndando, guriPretoBranParado,GuriParadoColorido, GuriAndandoColorido, 
+	GuriComTochaColorido, balaoOpen, balaoFixo, balaoClose, zeroGif, Op1NoSelected, Op1Selected, Op2NoSelected, Op2Selected;
 	
 	private String[] TextoDoGuri = { "<html>Guri: Quem é você? O que Aconteceu? Onde Estou?",
 			"<html>Guri: Por que só eu estou aqui? Cadê meus pais?",
@@ -21,7 +21,7 @@ public class introdução extends JFrame {
 	private String[] TextoDoZero = {
 			"<html>Zero: Eu me chamo Zero, sou o servidor do mundo virtual. Você está na nuvem da rede de internet. Por algum motivo houve um bug no sistema e todos os pixels se apagaram",
 			"<html>Zero: Você é a única pessoa que encontrei nessa escuridão. Aproveitando o momento, te escolho para uma missão super importante. Você tera que encontrar os 3 pixels e reacende-los com esta tocha magica, estou com um pouco de preguiça pra isso",
-			"<html>Zero: Agora sobre os seus pais... Eu não irei dizer nada, então tire suas próprias conclusões durante sua jornada. Agora você tem duas opções: <br> <br> <center>1° IR PARA A MISSÃO ou 2° MORRER AGORA",
+			"<html>Zero: Agora sobre os seus pais... Eu não irei dizer nada, então tire suas próprias conclusões durante sua jornada. Agora você tem duas opções: <br> <br> <center>1° MORRER AGORA ou 2° IR PARA A MISSÃO",
 			// CASO ELE ECOLHA MORRER
 			"<html>Zero: ???????????????????????????????",
 			"<html>Zero: Na verdade um egoísta pode sim salvar o mundo, basta deixar de ser um egoísta",
@@ -34,6 +34,8 @@ public class introdução extends JFrame {
 	private String palavra = "";
 	private boolean pularDialog = false, fazerEscolha = false;
 
+	private ImageIcon imgLogo = new ImageIcon("res/IconGame.png");
+	
 	public introdução() {
 		new Eventos().start();
 		Componentes();
@@ -59,19 +61,19 @@ public class introdução extends JFrame {
 		add(dialogoDoZero);
 
 		// CRIANDO OS BOTÕES DE ESCOLHA
-		Op1NoSelected = new JLabel(new ImageIcon("res/imgIntro/YesButton-NoSelected.png"));
+		Op1NoSelected = new JLabel(new ImageIcon("res/imgLBSelect/Option1Button-NoSelected.png"));
 		Op1NoSelected.setVisible(false);
 		add(Op1NoSelected);
 
-		Op1Selected = new JLabel(new ImageIcon("res/imgIntro/YesButton-Selected.png"));
+		Op1Selected = new JLabel(new ImageIcon("res/imgLBSelect/Option1Button-Selected.png"));
 		Op1Selected.setVisible(false);
 		add(Op1Selected);
 
-		Op2NoSelected = new JLabel(new ImageIcon("res/imgIntro/NoButton-NoSelected.png"));
+		Op2NoSelected = new JLabel(new ImageIcon("res/imgLBSelect/Option2Button-NoSelected.png"));
 		Op2NoSelected.setVisible(false);
 		add(Op2NoSelected);
 
-		Op2Selected = new JLabel(new ImageIcon("res/imgIntro/NoButton-Selected.png"));
+		Op2Selected = new JLabel(new ImageIcon("res/imgLBSelect/Option2Button-Selected.png"));
 		Op2Selected.setVisible(false);
 		add(Op2Selected);
 
@@ -81,65 +83,54 @@ public class introdução extends JFrame {
 		imgFundo0.setVisible(false);
 		add(imgFundo0);
 
-		zeroGif = new JLabel(new ImageIcon("res/imgIntro/ZeroServer01.gif"));
+		zeroGif = new JLabel(new ImageIcon("res/imgZero/ZeroServer01.gif"));
 		zeroGif.setBounds(400, 220, 64, 64);
 		zeroGif.setVisible(false);
 		add(zeroGif);
 
 		// GIT DO GURI PRETO BRANCO
-		guriPretoBrancoAndando = new JLabel(new ImageIcon("res/imgIntro/GuriPretoBrancoAndando.gif"));
+		guriPretoBrancoAndando = new JLabel(new ImageIcon("res/imgGuri/GuriPretoBrancoAndando.gif"));
 		guriPretoBrancoAndando.setBounds(-10, 160, 64, 64);
 		guriPretoBrancoAndando.setVisible(false);
 		add(guriPretoBrancoAndando);
 
-		guriPretoBranParado = new JLabel(new ImageIcon("res/imgIntro/GuriParadoPretoBranco.gif"));
+		guriPretoBranParado = new JLabel(new ImageIcon("res/imgGuri/GuriParadoPretoBranco.gif"));
 		guriPretoBranParado.setBounds(120, 220, 64, 64);
 		guriPretoBranParado.setVisible(false);
 		add(guriPretoBranParado);
 		
 		// GIF DO GURI COLORIDO
 		
-		GuriParadoColorido = new JLabel(new ImageIcon("res/Guri01.gif"));
+		GuriParadoColorido = new JLabel(new ImageIcon("res/imgGuri/Guri01ParadoColorido.gif"));
 		GuriParadoColorido.setBounds(120, 220, 64, 64);
 		GuriParadoColorido.setVisible(false);
 		add(GuriParadoColorido);
 		
-		GuriAndandoColorido = new JLabel(new ImageIcon("res/imgIntro/Guri02AndandoColorido.gif"));
+		GuriAndandoColorido = new JLabel(new ImageIcon("res/imgGuri/Guri02AndandoColorido.gif"));
 		GuriAndandoColorido.setBounds(-10, 160, 64, 64);
 		GuriAndandoColorido.setVisible(false);
 		add(GuriAndandoColorido);
 		
-		GuriComTochaColorido = new JLabel(new ImageIcon("res/imgIntro/Guri06PegandoTocha.gif"));
+		GuriComTochaColorido = new JLabel(new ImageIcon("res/imgGuri/Guri06PegandoTocha.gif"));
 		GuriComTochaColorido.setBounds(120, 210, 65, 75);
 		GuriComTochaColorido.setVisible(false);
 		add(GuriComTochaColorido);
 
 		// BALÂO DE FALA
-		balaoOpen = new JLabel(new ImageIcon("res/imgIntro/BalãoOpen.gif"));
+		balaoOpen = new JLabel(new ImageIcon("res/imgBalao/BalãoOpen.gif"));
 		balaoOpen.setBounds(0, 0, 600, 310);
 		balaoOpen.setVisible(false);
 		add(balaoOpen);
 
-		balaoFixo = new JLabel(new ImageIcon("res/imgIntro/BalaoFixo.png"));
+		balaoFixo = new JLabel(new ImageIcon("res/imgBalao/BalaoFixo.png"));
 		balaoFixo.setBounds(0, 0, 600, 310);
 		balaoFixo.setVisible(false);
 		add(balaoFixo);
 		
-		balaoClose = new JLabel(new ImageIcon("res/imgIntro/BalaoClose.gif"));
+		balaoClose = new JLabel(new ImageIcon("res/imgBalao/BalaoClose.gif"));
 		balaoClose.setBounds(0, 0, 600, 310);
 		balaoClose.setVisible(false);
 		add(balaoClose);
-
-		// TESTANDO
-		opcaoS = new JLabel("SIM");
-		opcaoS.setBounds(100, 100, 100, 100);
-		opcaoS.setVisible(false);
-		// add(opcaoS);
-		// TESTANDO
-		opcaoN = new JLabel("NÃO");
-		opcaoN.setBounds(100, 0, 100, 100);
-		opcaoN.setVisible(false);
-		// add(opcaoN);
 
 		// IMAGEM DE FUNDO
 		imgFundo1 = new JLabel(new ImageIcon("res/imgIntro/01-BackgroundWhite.png"));
@@ -150,6 +141,7 @@ public class introdução extends JFrame {
 	}
 
 	public void Frame() {
+		setIconImage(imgLogo.getImage());
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setSize(600, 310); // Tamanho do JFrame
 		setUndecorated(true); // Desativa a Decoração
@@ -460,8 +452,11 @@ public class introdução extends JFrame {
 					
 					for (int i = 255; i > 0 ; i--) {
 						getContentPane().setBackground(new Color(i, i, i));
-						Thread.sleep(12);
+						Thread.sleep(8);
 					}
+					
+					setVisible(false);
+					new jogo().setVisible(true);
 					
 					
 					// ESCOLHER IR PARA A MISSÃO
@@ -480,8 +475,11 @@ public class introdução extends JFrame {
 					
 					for (int i = 255; i > 0 ; i--) {
 						getContentPane().setBackground(new Color(i, i, i));
-						Thread.sleep(12);
+						Thread.sleep(8);
 					}
+		
+					setVisible(false);
+					new jogo().setVisible(true);
 				}
 
 //				opcaoS.setVisible(true);
@@ -534,6 +532,11 @@ public class introdução extends JFrame {
 
 			if (e.getKeyChar() == KeyEvent.VK_SPACE) {
 				pularDialog = true;
+			}
+			
+			// Fecha o jogo com o ESC
+			if (e.getKeyChar() == KeyEvent.VK_ESCAPE) {
+				System.exit(0);
 			}
 
 		}

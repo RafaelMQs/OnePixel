@@ -11,6 +11,7 @@ public class teladeCarregamento extends JFrame {
 	
 	private JLabel fundo,person;
 	private int load = 0;
+	private ImageIcon imgLogo = new ImageIcon("res/IconGame.png");
 	
 	public teladeCarregamento() {
 		initComponentes();
@@ -18,16 +19,17 @@ public class teladeCarregamento extends JFrame {
 	}
 	
 	public void initComponentes() {
+		setIconImage(imgLogo.getImage());
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setBounds(0,0,677,260); // tamanho do JFrame
 		setUndecorated(true);
 		setLocationRelativeTo(null); // tela fica centralizado
 		
-		person = new JLabel(new ImageIcon("res//Guri01.gif"));
+		person = new JLabel(new ImageIcon("res/imgGuri/Guri01ParadoColorido.gif"));
 		person.setBounds(305,165,64,64);
 		add(person);
 		
-		fundo = new JLabel(new ImageIcon("res//LoadingBackgroundv2.png"));
+		fundo = new JLabel(new ImageIcon("res/LoadingBackgroundv2.png"));
 		fundo.setBounds(0,0,677,260);
 		add(fundo);
 		
