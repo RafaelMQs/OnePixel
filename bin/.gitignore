@@ -1,5 +1,7 @@
 /introdução$Eventos.class
 /introdução.class
+/jogo$Eventos.class
+/jogo.class
 /prologo$Temporizador.class
 /prologo.class
 /telaInicial$1.class
@@ -8,5 +10,3 @@
 /teladeCarregamento$Temporizador.class
 /teladeCarregamento.class
 /teste.class
-/jogo.class
-/jogo$Eventos.class

@@ -19,14 +19,14 @@ public class introdução extends JFrame {
 	private JLabel dialogoDoGuri; // Diálogo do Guri
 	
 	private String[] TextoDoZero = {
-			"<html>Zero: Eu me chamo Zero, sou o servidor do mundo virtual. Você está na nuvem da rede de internet. Por algum motivo houve um bug no sistema e todos os pixels se apagaram",
-			"<html>Zero: Você é a única pessoa que encontrei nessa escuridão. Aproveitando o momento, te escolho para uma missão super importante. Você tera que encontrar os 3 pixels e reacende-los com esta tocha magica, estou com um pouco de preguiça pra isso",
-			"<html>Zero: Agora sobre os seus pais... Eu não irei dizer nada, então tire suas próprias conclusões durante sua jornada. Agora você tem duas opções: <br> <br> <center>1° MORRER AGORA ou 2° IR PARA A MISSÃO",
+			"<html>Zero: Eu me chamo Zero, sou o servidor do mundo virtual. Você está na nuvem da rede de internet. Por algum motivo houve um bug no sistema e todos os pixels se apagaram.",
+			"<html>Zero: Você é a única pessoa que encontrei nessa escuridão. Aproveitando o momento, te escolho para uma missão extremamente importante. Você terá que encontrar os 3 pixels e reacendê-los com esta tocha mágica, estou com um pouco de preguiça pra isso.",
+			"<html>Zero: Agora sobre os seus pais... Eu não irei dizer nada, então tire suas próprias conclusões nessa jornada. Agora você tem duas opções: <br> <br> <center>1° MORRER AGORA ou 2° IR PARA A MISSÃO",
 			// CASO ELE ECOLHA MORRER
 			"<html>Zero: ???????????????????????????????",
-			"<html>Zero: Na verdade um egoísta pode sim salvar o mundo, basta deixar de ser um egoísta",
-			"<html>Zero: Use essa missão de pretesto para tornar-se altruísta. Você não pode consertar os seus erros, mas pode nunca mais comete-los",
-			"<html>Zero: Como você foi o unico que encontrei irei permitir você trocar de opção. Por favor, de seu melhor",
+			"<html>Zero: Na verdade um egoísta pode sim salvar o mundo, basta deixar de ser um egoísta.",
+			"<html>Zero: Use essa missão de pretexto para tornar-se altruísta. Você não pode consertar os seus erros, mas pode nunca mais cometê-los.",
+			"<html>Zero: Como você foi o único que encontrei irei permitir você trocar de opção. Por favor, dê seu melhor.",
 			"<html>Zero: Basta seguir o seu coração"}; // Texto do Guri
 
 	private JLabel dialogoDoZero; // Diálogo do Guri

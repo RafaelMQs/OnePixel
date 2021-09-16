@@ -13,38 +13,38 @@ public class jogo extends JFrame {
 	private String[] TextoDoGuri = {
 			"<html>Guri: Estou caminhando bem devagar.<br> <br><center> Será que: 1° Devo Correr ou 2° Não correr",
 			// ESCOLHER NÃO CORRER
-			"<html>Guri: Caraca!, achei um pixel. Isso até que foi bem facil, mas qual pixel sera esse ?",
-			"<html>Guri: Coletei um pixel vermelho. Até o cenario mudou. Pelo visto estou levemente perto de encontrar as outras, mas melhor ir um passo de cada vez",
+			"<html>Guri: Caraca!, achei um pixel. Isso até que foi bem fácil, mas qual pixel será esse?",
+			"<html>Guri: Coletei um pixel vermelho. Até o cenário mudou. Pelo visto estou bem perto de encontrar os outros, melhor continuar caminhando com um passo de cada vez.",
 			"<html>Guri: Agora devo escolher uma outra direção para ir, estou sentindo algo bom para o sul. <br> <br> <center> 1° Ir para o sul ou 2° Não ir para o sul",
 			// ESCOLHER NAO IR PARA O SUL
-			"<html>Guri caminha ao norte e se depara com uma cidade abandonada.<br><br>Guri: Essa cidade dá medo.<br> <br> <center> 1° Ir embora ou 2° Não ir embora",
+			"<html>Guri caminha ao norte e se depara com uma cidade abandonada.<br><br>Guri: Essa cidade é de dar medo.<br> <br> <center> 1° Ir embora ou 2° Não ir embora",
 			// ESCOLHER NAO IR EMBORA
-			"<html>Guri: Idependente de minha escolha, sinto que estou sendo forçado a entrar na cidade. <br><br>Guri: Há uma casa com a porta aberta logo ali na frente.<br><center> 1° Ir até lá ou 2° Não ir até lá",
+			"<html>Guri: Independente de minha escolha... É melhor entrar na cidade, sinto que estou sendo forçado a entrar nela. <br><br>Guri: Há uma casa com a porta aberta logo ali em frente.<br><center> 1° Ir até lá ou 2° Não ir até lá",
 			// ESCOLHER NAO IR ATÉ A CASA
-			"<html>Guri: Caraca, que coincidencia, no final desta cidade está mais um pixel!",
-			"<html>Guri: Uau ele é verde! Estou um passo mais perto de conseguir recuperar todas as cores e de me encontrar com os meus pais!",
-			"<html>Guri: Esses pixels estão muito faceis de serem achados, isso esta meio estranho... Mas é melhor eu nao pensar nisso. Logo ali na frente tem uma floresta. <br><br><center> 1° Entrar na floresta ou 2° Não Entrar ",
+			"<html>Guri: Caraca, que coincidência, no final desta cidade está mais um pixel!",
+			"<html>Guri: Uau, ele é verde! Estou um passo mais perto de recuperar todas as cores e de me encontrar com os meus pais!",
+			"<html>Guri: Esses pixels estão muito fáceis de serem encontrados, isso está meio estranho... É melhor eu não pensar nisso. Logo ali na frente há uma floresta. <br><br><center> 1° Entrar na floresta ou 2° Não Entrar ",
 			// ESCOLHER NAO ENTRAR NA FLORESTA
-			"<html>Guri: Okay, mas eu nao posso ficar parado aqui. Logo ao lado tem uma Cidade Grande.<br><br><center> 1° Entrar na Cidade Grande ou 2° Não Entrar",
+			"<html>Guri: Okay, eu não posso ficar parado aqui. Logo ao lado há uma Cidade Grande.<br><br><center> 1° Entrar na Cidade Grande ou 2° Não Entrar",
 			// ESCOLHER ENTRAR NA CIDADE GRANDE
-			"<html>Guri: Independente de minha escolha, estou sentindo uma força superio me forçando a entrar<br><br>Guri: Que cidade meio estranha, mas Okay. Opa, parece que tem um pixel azul no cassino.<br><br><center> 1° Entrar no Cassino ou 2° Não Entrar",
-			"<html>Guri: Independente da sua escolha eu vou para o cassino, só porque eu quero e porque tem um pixel lá! xD",
-			"<html>Guri: Parece que o Pixel esta preso em uma dessas maquinas de sorte.<br><br><center> 1° Tentar a Sorte ou 2° Roubar o Pixel",
+			"<html>Guri: Independente de minha escolha... É melhor entrar na Cidade Grande, sinto que estou sendo forçado a entrar nela.<br><br>Guri: Que cidade meio estranha, mas Okay. Opa, parece que tem um pixel azul no cassino.<br><br><center> 1° Entrar no Cassino ou 2° Não Entrar",
+			"<html>Guri: Independente de minha escolha... É bom eu ir para o cassino, tem um pixel lá! xD",
+			"<html>Guri: Pixel aparenta estar preso em uma dessas maquinas da sorte.<br><br><center> 1° Tentar a Sorte ou 2° Roubar o Pixel",
 			// ESCOLHER TENTAR A SORTE E CONSEGUIR
-			"<html>Guri: Eba, consegui. Este é o ultimo pixel, agora poderei ver minha familia",
+			"<html>Guri: Eba, consegui. Este é o ultimo pixel, agora poderei ver minha família.",
 			// ESCOLHER TENTAR A SORTE E ERRAR
-			"<html>Guri: Droga, perdi. Acho que vou ter que roubar, o bom é que nao tem ninguem olhando",
+			"<html>Guri: Droga, perdi. Acho que vou ter que roubar, ainda bem que não tem ninguém olhando.",
 			// ESCOLHER ROUBAR
-			"<html>Guri: Eu sei que é errado, mas parece ser mais efetivo roubar esse pixel, a minha sorte é que ninguem está olhando, então consigo fazer isso sem pensar que é algo errado",
+			"<html>Guri: Droga, perdi. Acho que vou ter que roubar, ainda bem que não tem ninguém olhando, então consigo fazer isso sem pensar que é algo errado.",
 			// DIALOGO FINAL
-			"<html>Guri: Finalmente consegui completar essa missão, que foi bem estranha e facil por sinal. Agora poderei ver minha Familia",
-			"<html>Guri: Oshi, porque eu estou aqui, cade minha familia, cade tudo?" };// Texto do Guri
+			"<html>Guri: Finalmente consegui completar essa missão, que foi bem estranha e fácil por sinal. Agora poderei ver minha família.",
+			"<html>Guri: Oshi, porque eu estou aqui, cadê minha familia, cadê tudo?" };// Texto do Guri
 
 	private JLabel dialogoDoGuri; // Diálogo do Guri
 
 	private String[] TextoDoZero = {
-			"<html>Zero: Você achou mesmo que essa era a missão verdadeira, tipo... serio? Você conseguia reviver cara, eu basicamente facilitei e até mesmo manipulei algumas escolhas suas para você chegar até aqui. Isso foi muito facil, era apenas um teste para ver se era você mesmo o escolhido",
-			"<html>Zero: Agora que ja você sabe tem duas escolhas: <br><br><center>1° Permanecer na matrix ou 2° Enfrentar a realidade",
+			"<html>Zero: Você achou mesmo que essa era a missão verdadeira, tipo... sério? Você conseguia reviver cara, eu basicamente facilitei e até mesmo manipulei algumas escolhas suas para você chegar até aqui. Isso foi muito fácil, era apenas um teste para ver se era você mesmo o escolhido.",
+			"<html>Zero: Agora que você já sabe tem duas escolhas: <br><br><center>1° Permanecer na matrix ou 2° Enfrentar a realidade",
 			"<html> EM BREVE... <br><br><center> ONE PIXEL 2",
 			"<html>Zero: Você achou mesmo que essa era a missão verdadeira, tipo... serio? Você conseguia reviver cara. Isso foi muito facil, eu basicamente facilitei e até mesmo manipulei algumas escolhas suas para você chegar até aqui, tirando a parte que você roubou um pixel, mas irei relever, era apenas um teste para ver se era você mesmo o escolhido" }; // Texto
 																																																																																											// do
