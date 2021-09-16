@@ -4,22 +4,65 @@ import javax.swing.*;
 
 public class jogo extends JFrame {
 
-	private JLabel gifFundo, pngFundo, guriColoridoAndando, guriColoridoParado, guriAcendendoPixel, Op1NoSelected, Op1Selected,
-			Op2NoSelected, Op2Selected, YesNoSelected, YesSelected, NoNoSelected, NoSelected, balaoOpen, balaoFixo,
-			balaoClose, hotBar00, hotBar01, hotBar02, hotBar03, pixelRed, pixelGreen, pixelBlue, pixelApagado;
+	private JLabel gifFundoRed, pngFundoRed, pngFundoFloresta, pngFundoCidadeGrande, guriColoridoAndando,
+			guriColoridoParado, guriAcendendoPixel, guriColoridoCorrendo, guriColoridoMorrendo, Op1NoSelected,
+			Op1Selected, Op2NoSelected, Op2Selected, YesNoSelected, YesSelected, NoNoSelected, NoSelected, balaoOpen,
+			balaoFixo, balaoClose, hotBar00, hotBar01, hotBar02, hotBar03, pixelRed, pixelGreen, pixelBlue,
+			pixelApagado, imgFinal1, imgFinal2, imgFinal3, imgFinal4, imgFinal5, imgFinal, zeroGif;
 
 	private String[] TextoDoGuri = {
 			"<html>Guri: Estou caminhando bem devagar.<br> <br><center> Será que: 1° Devo Correr ou 2° Não correr",
 			// ESCOLHER NÃO CORRER
 			"<html>Guri: Caraca!, achei um pixel. Isso até que foi bem facil, mas qual pixel sera esse ?",
 			"<html>Guri: Coletei um pixel vermelho. Até o cenario mudou. Pelo visto estou levemente perto de encontrar as outras, mas melhor ir um passo de cada vez",
-			"<html>Guri:Agora devo escolher uma outra direção para ir, estou sentindo algo bom para o sul. <br> <br> <center> 1° Ir para o sul ou 2° Não ir para o sul",
+			"<html>Guri: Agora devo escolher uma outra direção para ir, estou sentindo algo bom para o sul. <br> <br> <center> 1° Ir para o sul ou 2° Não ir para o sul",
+			// ESCOLHER NAO IR PARA O SUL
 			"<html>Guri caminha ao norte e se depara com uma cidade abandonada.<br><br>Guri: Essa cidade dá medo.<br> <br> <center> 1° Ir embora ou 2° Não ir embora",
-			"<html>Guri entra na cidade. <br><br>Guri: Há uma casa com a porta aberta logo ali na frente.<br><br><center> 1° Ir até lá ou 2° Não ir até lá",
+			// ESCOLHER NAO IR EMBORA
+			"<html>Guri: Idependente de minha escolha, sinto que estou sendo forçado a entrar na cidade. <br><br>Guri: Há uma casa com a porta aberta logo ali na frente.<br><center> 1° Ir até lá ou 2° Não ir até lá",
+			// ESCOLHER NAO IR ATÉ A CASA
 			"<html>Guri: Caraca, que coincidencia, no final desta cidade está mais um pixel!",
 			"<html>Guri: Uau ele é verde! Estou um passo mais perto de conseguir recuperar todas as cores e de me encontrar com os meus pais!",
-			"<>"};// Texto do Guri
+			"<html>Guri: Esses pixels estão muito faceis de serem achados, isso esta meio estranho... Mas é melhor eu nao pensar nisso. Logo ali na frente tem uma floresta. <br><br><center> 1° Entrar na floresta ou 2° Não Entrar ",
+			// ESCOLHER NAO ENTRAR NA FLORESTA
+			"<html>Guri: Okay, mas eu nao posso ficar parado aqui. Logo ao lado tem uma Cidade Grande.<br><br><center> 1° Entrar na Cidade Grande ou 2° Não Entrar",
+			// ESCOLHER ENTRAR NA CIDADE GRANDE
+			"<html>Guri: Independente de minha escolha, estou sentindo uma força superio me forçando a entrar<br><br>Guri: Que cidade meio estranha, mas Okay. Opa, parece que tem um pixel azul no cassino.<br><br><center> 1° Entrar no Cassino ou 2° Não Entrar",
+			"<html>Guri: Independente da sua escolha eu vou para o cassino, só porque eu quero e porque tem um pixel lá! xD",
+			"<html>Guri: Parece que o Pixel esta preso em uma dessas maquinas de sorte.<br><br><center> 1° Tentar a Sorte ou 2° Roubar o Pixel",
+			// ESCOLHER TENTAR A SORTE E CONSEGUIR
+			"<html>Guri: Eba, consegui. Este é o ultimo pixel, agora poderei ver minha familia",
+			// ESCOLHER TENTAR A SORTE E ERRAR
+			"<html>Guri: Droga, perdi. Acho que vou ter que roubar, o bom é que nao tem ninguem olhando",
+			// ESCOLHER ROUBAR
+			"<html>Guri: Eu sei que é errado, mas parece ser mais efetivo roubar esse pixel, a minha sorte é que ninguem está olhando, então consigo fazer isso sem pensar que é algo errado",
+			// DIALOGO FINAL
+			"<html>Guri: Finalmente consegui completar essa missão, que foi bem estranha e facil por sinal. Agora poderei ver minha Familia",
+			"<html>Guri: Oshi, porque eu estou aqui, cade minha familia, cade tudo?" };// Texto do Guri
+
 	private JLabel dialogoDoGuri; // Diálogo do Guri
+
+	private String[] TextoDoZero = {
+			"<html>Zero: Você achou mesmo que essa era a missão verdadeira, tipo... serio? Você conseguia reviver cara, eu basicamente facilitei e até mesmo manipulei algumas escolhas suas para você chegar até aqui. Isso foi muito facil, era apenas um teste para ver se era você mesmo o escolhido",
+			"<html>Zero: Agora que ja você sabe tem duas escolhas: <br><br><center>1° Permanecer na matrix ou 2° Enfrentar a realidade",
+			"<html> EM BREVE... <br><br><center> ONE PIXEL 2",
+			"<html>Zero: Você achou mesmo que essa era a missão verdadeira, tipo... serio? Você conseguia reviver cara. Isso foi muito facil, eu basicamente facilitei e até mesmo manipulei algumas escolhas suas para você chegar até aqui, tirando a parte que você roubou um pixel, mas irei relever, era apenas um teste para ver se era você mesmo o escolhido" }; // Texto
+																																																																																											// do
+																																																																																											// Guri
+
+	private JLabel dialogoDoZero; // Diálogo do Guri
+
+	private String[] TextoDoConsole = {
+			"<html>Guri correu tão rapido que bateu no pixel com muita força. <br><br><center>Você MORREU! <br><br><center> 1° Recomeçar ou 2° Sair",
+			"<html>Guri ficou andando sem rumo por muito tempo.<br><br><center>VOCÊ MORREU DE CANSAÇO! <br><br><center> 1° Recomeçar ou 2° Sair",
+			"<html>Guri entrou na casa, porem, nao era uma casa e sim um poço artesiano em formato de casa.<br><br><center>VOCÊ MORREU DE QUEDA! <br><br><center> 1° Recomeçar ou 2° Sair ",
+			"<html>Guri entrou na floresta, mas não estava preparado para o ambiente.<br><br><center> VOCÊ MORREU DE MEDO ( LITERALMENTE ) <br><br><center> 1° Recomeçar ou 2° Sair" }; // Mensagens
+																																														// do
+																																														// jogo
+																																														// em
+																																														// si
+
+	private JLabel dialogoDoConsole;
 
 	private ImageIcon imgLogo = new ImageIcon("res/IconGame.png");
 	private int opcaoSimulada = 0, opcaoReal = 0;
@@ -46,6 +89,20 @@ public class jogo extends JFrame {
 		dialogoDoGuri.setBounds(40, 25, 580, 100);
 		dialogoDoGuri.setVisible(false);
 		add(dialogoDoGuri);
+
+		dialogoDoZero = new JLabel();
+		dialogoDoZero.setForeground(Color.WHITE);
+		dialogoDoZero.setFont(new Font("Pixel Operator 8", Font.PLAIN, 12));
+		dialogoDoZero.setBounds(40, 95, 500, 20000);
+		dialogoDoZero.setVisible(false);
+		add(dialogoDoZero);
+
+		dialogoDoConsole = new JLabel();
+		dialogoDoConsole.setForeground(Color.WHITE);
+		dialogoDoConsole.setFont(new Font("Pixel Operator 8", Font.PLAIN, 12));
+		dialogoDoConsole.setBounds(40, 50, 500, 100);
+		dialogoDoConsole.setVisible(false);
+		add(dialogoDoConsole);
 
 		// CRIANDO A BARRA DE SLOTS DE RGB
 		hotBar00 = new JLabel(new ImageIcon("res/imgHotBar/Slot00.png"));
@@ -97,6 +154,12 @@ public class jogo extends JFrame {
 		guriColoridoAndando.setVisible(false);
 		add(guriColoridoAndando);
 
+		// GURI COLORIDO CORRENDO
+		guriColoridoCorrendo = new JLabel(new ImageIcon("res/imgGuri/Guri03CorrendoColorido.gif"));
+		guriColoridoCorrendo.setBounds(120, 225, 65, 75);
+		guriColoridoCorrendo.setVisible(false);
+		add(guriColoridoCorrendo);
+
 		// GURI COLORIDO PARADO
 		guriColoridoParado = new JLabel(new ImageIcon("res/imgGuri/Guri01ParadoColorido.gif"));
 		guriColoridoParado.setBounds(120, 235, 64, 64);
@@ -108,6 +171,20 @@ public class jogo extends JFrame {
 		guriAcendendoPixel.setBounds(120, 225, 65, 75);
 		guriAcendendoPixel.setVisible(false);
 		add(guriAcendendoPixel);
+
+		// GURI COLORIDO MORRENDO
+		guriColoridoMorrendo = new JLabel(new ImageIcon("res/imgGuri/Guri05.gif"));
+		guriColoridoMorrendo.setBounds(120, 225, 65, 75);
+		guriColoridoMorrendo.setVisible(false);
+		add(guriColoridoMorrendo);
+
+		// CRIANDO LABEL DO ZERO
+
+		// ZERO GIF
+		zeroGif = new JLabel(new ImageIcon("res/imgZero/ZeroServer01.gif"));
+		zeroGif.setBounds(400, 220, 64, 64);
+		zeroGif.setVisible(false);
+		add(zeroGif);
 
 		// CRIANDO OS BOTÕES DE ESCOLHA
 		Op1NoSelected = new JLabel(new ImageIcon("res/imgLBSelect/Option1Button-NoSelected.png"));
@@ -160,22 +237,62 @@ public class jogo extends JFrame {
 		add(balaoClose);
 
 		// COLOCANDO A IMAGEM DE FUNDO
-		
+
 //		gifFundo = new JLabel(new ImageIcon("res/imgJogo/00-backgroundBlackV2.gif"));
 //		gifFundo.setBounds(0, 0, 600, 310);
 //		gifFundo.setVisible(true);
 //		add(gifFundo);
-	
-		gifFundo = new JLabel(new ImageIcon("res/imgJogo/02-backgroundRedGIF.gif"));
-		gifFundo.setBounds(0, 0, 600, 310);
-		gifFundo.setVisible(false);
-		add(gifFundo);
-		
 
-		pngFundo = new JLabel(new ImageIcon("res/imgJogo/02-backgroundRed.png"));
-		pngFundo.setBounds(0, 0, 600, 310);
-		pngFundo.setVisible(false);
-		add(pngFundo);
+		gifFundoRed = new JLabel(new ImageIcon("res/imgJogo/02-backgroundRedGIF.gif"));
+		gifFundoRed.setBounds(0, 0, 600, 310);
+		gifFundoRed.setVisible(false);
+		add(gifFundoRed);
+
+		pngFundoRed = new JLabel(new ImageIcon("res/imgJogo/02-backgroundRed.png"));
+		pngFundoRed.setBounds(0, 0, 600, 310);
+		pngFundoRed.setVisible(false);
+		add(pngFundoRed);
+
+		pngFundoFloresta = new JLabel(new ImageIcon("res/imgJogo/03-BackgroundFloresta.jpg"));
+		pngFundoFloresta.setBounds(0, 0, 600, 310);
+		pngFundoFloresta.setVisible(false);
+		add(pngFundoFloresta);
+
+		pngFundoCidadeGrande = new JLabel(new ImageIcon("res/imgJogo/04-BackgroundCidadeGrande.jpg"));
+		pngFundoCidadeGrande.setBounds(0, 0, 600, 310);
+		pngFundoCidadeGrande.setVisible(false);
+		add(pngFundoCidadeGrande);
+
+		// IMAGENS DE FINAL
+		imgFinal1 = new JLabel(new ImageIcon("res/imgFinal/End01.png"));
+		imgFinal1.setBounds(0, 0, 600, 310);
+		imgFinal1.setVisible(false);
+		add(imgFinal1);
+
+		imgFinal2 = new JLabel(new ImageIcon("res/imgFinal/End02.png"));
+		imgFinal2.setBounds(0, 0, 600, 310);
+		imgFinal2.setVisible(false);
+		add(imgFinal2);
+
+		imgFinal3 = new JLabel(new ImageIcon("res/imgFinal/End03.png"));
+		imgFinal3.setBounds(0, 0, 600, 310);
+		imgFinal3.setVisible(false);
+		add(imgFinal3);
+
+		imgFinal4 = new JLabel(new ImageIcon("res/imgFinal/End04.png"));
+		imgFinal4.setBounds(0, 0, 600, 310);
+		imgFinal4.setVisible(false);
+		add(imgFinal4);
+
+		imgFinal5 = new JLabel(new ImageIcon("res/imgFinal/End05.png"));
+		imgFinal5.setBounds(0, 0, 600, 310);
+		imgFinal5.setVisible(false);
+		add(imgFinal5);
+
+		imgFinal = new JLabel(new ImageIcon("res/imgFinal/EndBackground.png"));
+		imgFinal.setBounds(0, 0, 600, 310);
+		imgFinal.setVisible(false);
+		add(imgFinal);
 
 	}
 
@@ -251,7 +368,68 @@ public class jogo extends JFrame {
 				// CORRER
 				if (opcaoReal == 1) {
 
-					// VAZIO
+					guriColoridoAndando.setVisible(false);
+					guriColoridoCorrendo.setVisible(true);
+
+					for (int i = 600; i > 135; i--) {
+						pixelApagado.setBounds(i, 235, 64, 64);
+						Thread.sleep(1);
+					}
+					pixelApagado.setVisible(false);
+
+					guriColoridoCorrendo.setVisible(false);
+					guriColoridoMorrendo.setVisible(true);
+					dialogoDoGuri.setVisible(false);
+					dialogoDoConsole.setVisible(true);
+
+					palavra = "";
+					// DIALOGO DO CONSOLE 0
+					for (int z = 0; z < TextoDoConsole[0].length(); z++) {
+						if (!pularDialog) {
+							TextEffect(TextoDoConsole[0], dialogoDoConsole, z, 55);
+						} else {
+							dialogoDoConsole.setText(TextoDoConsole[0]);
+							pularDialog = false;
+							break;
+						}
+					}
+
+					// MOSTRA OS BOTÕES
+					Op1NoSelected.setBounds(150, 150, 100, 30);
+					Op1NoSelected.setVisible(true);
+					Op1Selected.setBounds(150, 150, 100, 30);
+					Op1Selected.setVisible(false);
+
+					Op2NoSelected.setBounds(350, 150, 100, 30);
+					Op2NoSelected.setVisible(true);
+					Op2Selected.setBounds(350, 150, 100, 30);
+					Op2Selected.setVisible(false);
+
+					// PERMITE O USUARIO FAZER AS ESCOLHAS NAS SETINHAS
+					opcaoReal = 0;
+					fazerEscolha = true;
+					op = "1";
+					// ESPERA O USUARIO ESCOLHER
+					while (opcaoReal == 0) {
+						System.out.print("Esperando Resposta");
+					}
+					fazerEscolha = false;
+
+					// DEIXA AS OPÇÕES INVISIVEIS
+					Op1NoSelected.setVisible(false);
+					Op1Selected.setVisible(false);
+					Op2NoSelected.setVisible(false);
+					Op2Selected.setVisible(false);
+
+					// RECOMEÇAR
+					if (opcaoReal == 1) {
+						setVisible(false);
+						new jogo();
+
+						// SAIR
+					} else if (opcaoReal == 2) {
+						System.exit(0);
+					}
 
 					// NÃO CORRER
 				} else if (opcaoReal == 2) {
@@ -291,7 +469,7 @@ public class jogo extends JFrame {
 							break;
 						}
 					}
-					
+
 					// GURI PEGANDO O PIXEL
 					pixelApagado.setVisible(false);
 					pixelRed.setBounds(220, 235, 64, 64);
@@ -308,10 +486,10 @@ public class jogo extends JFrame {
 					guriColoridoAndando.setVisible(false);
 					guriAcendendoPixel.setBounds(210, 225, 65, 75);
 					guriAcendendoPixel.setVisible(true);
-					pixelRed.setVisible(false);					
+					pixelRed.setVisible(false);
 
 					Thread.sleep(2000);
-					pngFundo.setVisible(true);
+					pngFundoRed.setVisible(true);
 					guriAcendendoPixel.setVisible(false);
 					guriColoridoAndando.setVisible(true);
 
@@ -322,7 +500,7 @@ public class jogo extends JFrame {
 
 					guriColoridoAndando.setVisible(false);
 					guriColoridoParado.setVisible(true);
-					
+
 					palavra = "";
 					// DIALOGO DO GURI 2
 					for (int z = 0; z < TextoDoGuri[2].length(); z++) {
@@ -334,7 +512,7 @@ public class jogo extends JFrame {
 							break;
 						}
 					}
-					
+
 					Thread.sleep(2500);
 					dialogoDoGuri.setBounds(40, 50, 500, 100);
 					palavra = "";
@@ -348,7 +526,7 @@ public class jogo extends JFrame {
 							break;
 						}
 					}
-					
+
 					// MOSTRA OS BOTÕES
 					YesNoSelected.setBounds(150, 145, 100, 30);
 					YesNoSelected.setVisible(true);
@@ -375,14 +553,9 @@ public class jogo extends JFrame {
 					YesSelected.setVisible(false);
 					NoNoSelected.setVisible(false);
 					NoSelected.setVisible(false);
-					
+
 					// IR PARA O SUL
-					if( opcaoReal == 1) {
-						
-						// VAZIO
-						
-					// NÃO IR PARA O SUL	
-					}else if ( opcaoReal == 2) {
+					if (opcaoReal == 1) {
 						// FECHANDO BALÃO DE DIALOGO
 						Thread.sleep(500);
 						balaoFixo.setVisible(false);
@@ -390,24 +563,100 @@ public class jogo extends JFrame {
 						balaoClose.setVisible(true);
 						Thread.sleep(1500);
 						balaoClose.setVisible(false);
-						
+
+						dialogoDoGuri.setVisible(false);
+						guriColoridoAndando.setVisible(true);
+						guriColoridoParado.setVisible(false);
+						pngFundoRed.setVisible(false);
+						gifFundoRed.setVisible(true);
+
+						Thread.sleep(10000);
+						guriColoridoAndando.setVisible(false);
+						guriColoridoMorrendo.setVisible(true);
+						pngFundoRed.setVisible(true);
+						gifFundoRed.setVisible(false);
+
+						balaoOpen.setVisible(true);
+						Thread.sleep(1800);
+						balaoOpen.setVisible(false);
+						balaoFixo.setVisible(true);
+
+						palavra = "";
+						// DIALOGO DO CONSOLE 1
+						for (int z = 0; z < TextoDoConsole[1].length(); z++) {
+							if (!pularDialog) {
+								TextEffect(TextoDoConsole[1], dialogoDoConsole, z, 55);
+							} else {
+								dialogoDoConsole.setText(TextoDoConsole[1]);
+								pularDialog = false;
+								break;
+							}
+						}
+
+						// MOSTRA OS BOTÕES
+						Op1NoSelected.setBounds(150, 150, 100, 30);
+						Op1NoSelected.setVisible(true);
+						Op1Selected.setBounds(150, 150, 100, 30);
+						Op1Selected.setVisible(false);
+
+						Op2NoSelected.setBounds(350, 150, 100, 30);
+						Op2NoSelected.setVisible(true);
+						Op2Selected.setBounds(350, 150, 100, 30);
+						Op2Selected.setVisible(false);
+
+						// PERMITE O USUARIO FAZER AS ESCOLHAS NAS SETINHAS
+						opcaoReal = 0;
+						fazerEscolha = true;
+						op = "1";
+						// ESPERA O USUARIO ESCOLHER
+						while (opcaoReal == 0) {
+							System.out.print("Esperando Resposta");
+						}
+						fazerEscolha = false;
+
+						// DEIXA AS OPÇÕES INVISIVEIS
+						Op1NoSelected.setVisible(false);
+						Op1Selected.setVisible(false);
+						Op2NoSelected.setVisible(false);
+						Op2Selected.setVisible(false);
+
+						// RECOMEÇAR
+						if (opcaoReal == 1) {
+							setVisible(false);
+							new jogo();
+
+							// SAIR
+						} else if (opcaoReal == 2) {
+							System.exit(0);
+						}
+
+						// NÃO IR PARA O SUL
+					} else if (opcaoReal == 2) {
+						// FECHANDO BALÃO DE DIALOGO
+						Thread.sleep(500);
+						balaoFixo.setVisible(false);
+						dialogoDoGuri.setVisible(false);
+						balaoClose.setVisible(true);
+						Thread.sleep(1500);
+						balaoClose.setVisible(false);
+
 						guriColoridoParado.setVisible(false);
 						guriColoridoAndando.setVisible(true);
-						pngFundo.setVisible(false);
-						gifFundo.setVisible(true);
-						
+						pngFundoRed.setVisible(false);
+						gifFundoRed.setVisible(true);
+
 						Thread.sleep(2800);
 						// ABRINDO BALÃO DE DIALOGO
 						balaoOpen.setVisible(true);
 						Thread.sleep(1800);
 						balaoOpen.setVisible(false);
 						balaoFixo.setVisible(true);
-						
+
 						guriColoridoParado.setVisible(true);
 						guriColoridoAndando.setVisible(false);
-						pngFundo.setVisible(true);
-						gifFundo.setVisible(false);
-						
+						pngFundoRed.setVisible(true);
+						gifFundoRed.setVisible(false);
+
 						dialogoDoGuri.setBounds(40, 50, 500, 100);
 						palavra = "";
 						// DIALOGO DO GURI 4
@@ -420,7 +669,7 @@ public class jogo extends JFrame {
 								break;
 							}
 						}
-						
+
 						// MOSTRA OS BOTÕES
 						YesNoSelected.setBounds(150, 155, 100, 30);
 						YesNoSelected.setVisible(true);
@@ -447,15 +696,13 @@ public class jogo extends JFrame {
 						YesSelected.setVisible(false);
 						NoNoSelected.setVisible(false);
 						NoSelected.setVisible(false);
-						
+
 						// IR EMBORA
-						if( opcaoReal == 1) {
-							
-							// VAZIO
-							
+
 						// NÃO IR EMBORA
-						}else if( opcaoReal == 2) {
+						if (opcaoReal == 1 || opcaoReal == 2) {
 							palavra = "";
+							dialogoDoGuri.setBounds(40, 70, 500, 100);
 							// DIALOGO DO GURI 5
 							for (int z = 0; z < TextoDoGuri[5].length(); z++) {
 								if (!pularDialog) {
@@ -467,14 +714,14 @@ public class jogo extends JFrame {
 								}
 							}
 							// MOSTRA OS BOTÕES
-							YesNoSelected.setBounds(150, 155, 100, 30);
+							YesNoSelected.setBounds(150, 165, 100, 30);
 							YesNoSelected.setVisible(true);
-							YesSelected.setBounds(150, 155, 100, 30);
+							YesSelected.setBounds(150, 165, 100, 30);
 							YesSelected.setVisible(false);
 
-							NoNoSelected.setBounds(350, 155, 100, 30);
+							NoNoSelected.setBounds(350, 165, 100, 30);
 							NoNoSelected.setVisible(true);
-							NoSelected.setBounds(350, 155, 100, 30);
+							NoSelected.setBounds(350, 165, 100, 30);
 							NoSelected.setVisible(false);
 
 							// PERMITE O USUARIO FAZER AS ESCOLHAS NAS SETINHAS
@@ -492,14 +739,70 @@ public class jogo extends JFrame {
 							YesSelected.setVisible(false);
 							NoNoSelected.setVisible(false);
 							NoSelected.setVisible(false);
-							
+
 							// IR ATÉ LÁ
-							if( opcaoReal == 1) {
-								
-								// VAZIO
-								
-							// NÃO IR ATÉ LÁ	
-							}else if( opcaoReal == 2) {
+							if (opcaoReal == 1) {
+								dialogoDoGuri.setVisible(false);
+								guriColoridoParado.setVisible(false);
+								guriColoridoAndando.setVisible(true);
+
+								Thread.sleep(3500);
+								guriColoridoAndando.setVisible(false);
+								guriColoridoMorrendo.setVisible(true);
+								dialogoDoGuri.setVisible(false);
+								dialogoDoConsole.setVisible(true);
+
+								palavra = "";
+								// DIALOGO DO CONSOLE 2
+								for (int z = 0; z < TextoDoConsole[2].length(); z++) {
+									if (!pularDialog) {
+										TextEffect(TextoDoConsole[2], dialogoDoConsole, z, 55);
+									} else {
+										dialogoDoConsole.setText(TextoDoConsole[2]);
+										pularDialog = false;
+										break;
+									}
+								}
+
+								// MOSTRA OS BOTÕES
+								Op1NoSelected.setBounds(150, 150, 100, 30);
+								Op1NoSelected.setVisible(true);
+								Op1Selected.setBounds(150, 150, 100, 30);
+								Op1Selected.setVisible(false);
+
+								Op2NoSelected.setBounds(350, 150, 100, 30);
+								Op2NoSelected.setVisible(true);
+								Op2Selected.setBounds(350, 150, 100, 30);
+								Op2Selected.setVisible(false);
+
+								// PERMITE O USUARIO FAZER AS ESCOLHAS NAS SETINHAS
+								opcaoReal = 0;
+								fazerEscolha = true;
+								op = "1";
+								// ESPERA O USUARIO ESCOLHER
+								while (opcaoReal == 0) {
+									System.out.print("Esperando Resposta");
+								}
+								fazerEscolha = false;
+
+								// DEIXA AS OPÇÕES INVISIVEIS
+								Op1NoSelected.setVisible(false);
+								Op1Selected.setVisible(false);
+								Op2NoSelected.setVisible(false);
+								Op2Selected.setVisible(false);
+
+								// RECOMEÇAR
+								if (opcaoReal == 1) {
+									setVisible(false);
+									new jogo();
+
+									// SAIR
+								} else if (opcaoReal == 2) {
+									System.exit(0);
+								}
+
+								// NÃO IR ATÉ LÁ
+							} else if (opcaoReal == 2) {
 								dialogoDoGuri.setBounds(40, 80, 500, 100);
 								palavra = "";
 								// DIALOGO DO GURI 6
@@ -512,7 +815,7 @@ public class jogo extends JFrame {
 										break;
 									}
 								}
-								
+
 								// FECHANDO BALÃO DE DIALOGO
 								Thread.sleep(500);
 								balaoFixo.setVisible(false);
@@ -520,12 +823,12 @@ public class jogo extends JFrame {
 								balaoClose.setVisible(true);
 								Thread.sleep(1500);
 								balaoClose.setVisible(false);
-								
+
 								guriColoridoParado.setVisible(false);
 								guriColoridoAndando.setVisible(true);
-								pngFundo.setVisible(false);
-								gifFundo.setVisible(true);
-								
+								pngFundoRed.setVisible(false);
+								gifFundoRed.setVisible(true);
+
 								pixelApagado.setBounds(600, 235, 64, 64);
 								pixelApagado.setVisible(true);
 								for (int i = 600; i > 220; i--) {
@@ -534,10 +837,10 @@ public class jogo extends JFrame {
 								}
 								guriColoridoAndando.setVisible(false);
 								guriColoridoParado.setVisible(true);
-								
-								pngFundo.setVisible(true);
-								gifFundo.setVisible(false);
-								
+
+								pngFundoRed.setVisible(true);
+								gifFundoRed.setVisible(false);
+
 								// GURI PEGANDO O PIXEL
 								pixelApagado.setVisible(false);
 								pixelGreen.setBounds(220, 235, 64, 64);
@@ -554,10 +857,9 @@ public class jogo extends JFrame {
 								guriColoridoAndando.setVisible(false);
 								guriAcendendoPixel.setBounds(210, 225, 65, 75);
 								guriAcendendoPixel.setVisible(true);
-								pixelGreen.setVisible(false);					
+								pixelGreen.setVisible(false);
 
 								Thread.sleep(2000);
-								pngFundo.setVisible(true);
 								guriAcendendoPixel.setVisible(false);
 								guriColoridoAndando.setVisible(true);
 
@@ -568,25 +870,921 @@ public class jogo extends JFrame {
 
 								guriColoridoAndando.setVisible(false);
 								guriColoridoParado.setVisible(true);
-								
+
 								// ABRINDO BALÃO DE DIALOGO
 								balaoOpen.setVisible(true);
 								Thread.sleep(1800);
 								balaoOpen.setVisible(false);
 								balaoFixo.setVisible(true);
-								
+
 								guriColoridoParado.setVisible(true);
 								guriColoridoAndando.setVisible(false);
-								pngFundo.setVisible(true);
-								gifFundo.setVisible(false);
-			
-								
+
+								dialogoDoGuri.setBounds(40, 80, 500, 100);
+								palavra = "";
+								// DIALOGO DO GURI 7
+								for (int z = 0; z < TextoDoGuri[7].length(); z++) {
+									if (!pularDialog) {
+										TextEffect(TextoDoGuri[7], dialogoDoGuri, z, 55);
+									} else {
+										dialogoDoGuri.setText(TextoDoGuri[7]);
+										pularDialog = false;
+										break;
+									}
+								}
+
+								dialogoDoGuri.setBounds(40, 50, 500, 100);
+								palavra = "";
+								// DIALOGO DO GURI 8
+								Thread.sleep(2500);
+								for (int z = 0; z < TextoDoGuri[8].length(); z++) {
+									if (!pularDialog) {
+										TextEffect(TextoDoGuri[8], dialogoDoGuri, z, 55);
+									} else {
+										dialogoDoGuri.setText(TextoDoGuri[8]);
+										pularDialog = false;
+										break;
+									}
+								}
+
+								// MOSTRA OS BOTÕES
+								YesNoSelected.setBounds(150, 155, 100, 30);
+								YesNoSelected.setVisible(true);
+								YesSelected.setBounds(150, 155, 100, 30);
+								YesSelected.setVisible(false);
+
+								NoNoSelected.setBounds(350, 155, 100, 30);
+								NoNoSelected.setVisible(true);
+								NoSelected.setBounds(350, 155, 100, 30);
+								NoSelected.setVisible(false);
+
+								// PERMITE O USUARIO FAZER AS ESCOLHAS NAS SETINHAS
+								opcaoReal = 0;
+								fazerEscolha = true;
+								op = "Yes";
+								// ESPERA O USUARIO ESCOLHER
+								while (opcaoReal == 0) {
+									System.out.print("Esperando Resposta");
+								}
+								fazerEscolha = false;
+
+								// DEIXA AS OPÇÕES INVISIVEIS
+								YesNoSelected.setVisible(false);
+								YesSelected.setVisible(false);
+								NoNoSelected.setVisible(false);
+								NoSelected.setVisible(false);
+
+								// ENTRAR NA FLORESTA
+								if (opcaoReal == 1) {
+									// FECHANDO BALÃO DE DIALOGO
+									Thread.sleep(500);
+									balaoFixo.setVisible(false);
+									dialogoDoGuri.setVisible(false);
+									balaoClose.setVisible(true);
+									Thread.sleep(1500);
+									balaoClose.setVisible(false);
+
+									guriColoridoParado.setVisible(false);
+									guriColoridoAndando.setVisible(true);
+
+									pngFundoFloresta.setBounds(600, 0, 600, 310);
+									pngFundoFloresta.setVisible(true);
+									pngFundoRed.setVisible(true);
+									for (int i = 0; i > -600; i--) {
+										pngFundoRed.setBounds(i, 0, 600, 310);
+										pngFundoFloresta.setBounds(i + 600, 0, 600, 310);
+										Thread.sleep(8);
+									}
+									pngFundoRed.setVisible(false);
+
+									// ABRINDO BALÃO DE DIALOGO
+									balaoOpen.setVisible(true);
+									Thread.sleep(1800);
+									balaoOpen.setVisible(false);
+									balaoFixo.setVisible(true);
+
+									Thread.sleep(2000);
+									guriColoridoAndando.setVisible(false);
+									guriColoridoMorrendo.setVisible(true);
+									dialogoDoGuri.setVisible(false);
+									dialogoDoConsole.setVisible(true);
+
+									palavra = "";
+									// DIALOGO DO CONSOLE 3
+									for (int z = 0; z < TextoDoConsole[3].length(); z++) {
+										if (!pularDialog) {
+											TextEffect(TextoDoConsole[3], dialogoDoConsole, z, 55);
+										} else {
+											dialogoDoConsole.setText(TextoDoConsole[3]);
+											pularDialog = false;
+											break;
+										}
+									}
+
+									// MOSTRA OS BOTÕES
+									Op1NoSelected.setBounds(150, 150, 100, 30);
+									Op1NoSelected.setVisible(true);
+									Op1Selected.setBounds(150, 150, 100, 30);
+									Op1Selected.setVisible(false);
+
+									Op2NoSelected.setBounds(350, 150, 100, 30);
+									Op2NoSelected.setVisible(true);
+									Op2Selected.setBounds(350, 150, 100, 30);
+									Op2Selected.setVisible(false);
+
+									// PERMITE O USUARIO FAZER AS ESCOLHAS NAS SETINHAS
+									opcaoReal = 0;
+									fazerEscolha = true;
+									op = "1";
+									// ESPERA O USUARIO ESCOLHER
+									while (opcaoReal == 0) {
+										System.out.print("Esperando Resposta");
+									}
+									fazerEscolha = false;
+
+									// DEIXA AS OPÇÕES INVISIVEIS
+									Op1NoSelected.setVisible(false);
+									Op1Selected.setVisible(false);
+									Op2NoSelected.setVisible(false);
+									Op2Selected.setVisible(false);
+
+									// RECOMEÇAR
+									if (opcaoReal == 1) {
+										setVisible(false);
+										new jogo();
+
+										// SAIR
+									} else if (opcaoReal == 2) {
+										System.exit(0);
+									}
+
+									// NÃO ENTRAR NA FLORESTA
+								} else if (opcaoReal == 2) {
+
+									palavra = "";
+									// DIALOGO DO GURI 9
+									for (int z = 0; z < TextoDoGuri[9].length(); z++) {
+										if (!pularDialog) {
+											TextEffect(TextoDoGuri[9], dialogoDoGuri, z, 55);
+										} else {
+											dialogoDoGuri.setText(TextoDoGuri[9]);
+											pularDialog = false;
+											break;
+										}
+									}
+
+									// MOSTRA OS BOTÕES
+									YesNoSelected.setBounds(150, 155, 100, 30);
+									YesNoSelected.setVisible(true);
+									YesSelected.setBounds(150, 155, 100, 30);
+									YesSelected.setVisible(false);
+
+									NoNoSelected.setBounds(350, 155, 100, 30);
+									NoNoSelected.setVisible(true);
+									NoSelected.setBounds(350, 155, 100, 30);
+									NoSelected.setVisible(false);
+
+									// PERMITE O USUARIO FAZER AS ESCOLHAS NAS SETINHAS
+									opcaoReal = 0;
+									fazerEscolha = true;
+									op = "Yes";
+									// ESPERA O USUARIO ESCOLHER
+									while (opcaoReal == 0) {
+										System.out.print("Esperando Resposta");
+									}
+									fazerEscolha = false;
+
+									// DEIXA AS OPÇÕES INVISIVEIS
+									YesNoSelected.setVisible(false);
+									YesSelected.setVisible(false);
+									NoNoSelected.setVisible(false);
+									NoSelected.setVisible(false);
+
+									// ENTRAR NA CIDADE GRANDE
+									if (opcaoReal == 1 || opcaoReal == 2) {
+										// FECHANDO BALÃO DE DIALOGO
+										Thread.sleep(500);
+										balaoFixo.setVisible(false);
+										dialogoDoGuri.setVisible(false);
+										balaoClose.setVisible(true);
+										Thread.sleep(1500);
+										balaoClose.setVisible(false);
+
+										guriColoridoParado.setVisible(false);
+										guriColoridoAndando.setVisible(true);
+
+										pngFundoCidadeGrande.setBounds(600, 0, 600, 310);
+										pngFundoCidadeGrande.setVisible(true);
+										pngFundoRed.setVisible(true);
+										for (int i = 0; i > -600; i--) {
+											pngFundoRed.setBounds(i, 0, 600, 310);
+											pngFundoCidadeGrande.setBounds(i + 600, 0, 600, 310);
+											Thread.sleep(8);
+										}
+										pngFundoRed.setVisible(false);
+
+										guriColoridoAndando.setVisible(false);
+										guriColoridoParado.setVisible(true);
+
+										// ABRINDO BALÃO DE DIALOGO
+										balaoOpen.setVisible(true);
+										Thread.sleep(1800);
+										balaoOpen.setVisible(false);
+										balaoFixo.setVisible(true);
+
+										dialogoDoGuri.setBounds(40, 55, 500, 100);
+										palavra = "";
+										// DIALOGO DO GURI 10
+										for (int z = 0; z < TextoDoGuri[10].length(); z++) {
+											if (!pularDialog) {
+												TextEffect(TextoDoGuri[10], dialogoDoGuri, z, 55);
+											} else {
+												dialogoDoGuri.setText(TextoDoGuri[10]);
+												pularDialog = false;
+												break;
+											}
+										}
+
+										// MOSTRA OS BOTÕES
+										YesNoSelected.setBounds(150, 165, 100, 30);
+										YesNoSelected.setVisible(true);
+										YesSelected.setBounds(150, 165, 100, 30);
+										YesSelected.setVisible(false);
+
+										NoNoSelected.setBounds(350, 165, 100, 30);
+										NoNoSelected.setVisible(true);
+										NoSelected.setBounds(350, 165, 100, 30);
+										NoSelected.setVisible(false);
+
+										// PERMITE O USUARIO FAZER AS ESCOLHAS NAS SETINHAS
+										opcaoReal = 0;
+										fazerEscolha = true;
+										op = "Yes";
+										// ESPERA O USUARIO ESCOLHER
+										while (opcaoReal == 0) {
+											System.out.print("Esperando Resposta");
+										}
+										fazerEscolha = false;
+
+										// DEIXA AS OPÇÕES INVISIVEIS
+										YesNoSelected.setVisible(false);
+										YesSelected.setVisible(false);
+										NoNoSelected.setVisible(false);
+										NoSelected.setVisible(false);
+
+										// ENTRAR NO CASSINO
+										if (opcaoReal == 1 || opcaoReal == 2) {
+											// DIALOGO DO GURI 11
+											palavra = "";
+											for (int z = 0; z < TextoDoGuri[11].length(); z++) {
+												if (!pularDialog) {
+													TextEffect(TextoDoGuri[11], dialogoDoGuri, z, 55);
+												} else {
+													dialogoDoGuri.setText(TextoDoGuri[11]);
+													pularDialog = false;
+													break;
+												}
+											}
+
+											Thread.sleep(2500);
+											// DIALOGO DO GURI 12
+											palavra = "";
+											for (int z = 0; z < TextoDoGuri[12].length(); z++) {
+												if (!pularDialog) {
+													TextEffect(TextoDoGuri[12], dialogoDoGuri, z, 55);
+												} else {
+													dialogoDoGuri.setText(TextoDoGuri[12]);
+													pularDialog = false;
+													break;
+												}
+											}
+
+											// MOSTRA OS BOTÕES
+											Op1NoSelected.setBounds(150, 155, 100, 30);
+											Op1NoSelected.setVisible(true);
+											Op1Selected.setBounds(150, 155, 100, 30);
+											Op1Selected.setVisible(false);
+
+											Op2NoSelected.setBounds(350, 155, 100, 30);
+											Op2NoSelected.setVisible(true);
+											Op2Selected.setBounds(350, 155, 100, 30);
+											Op2Selected.setVisible(false);
+
+											// PERMITE O USUARIO FAZER AS ESCOLHAS NAS SETINHAS
+											opcaoReal = 0;
+											fazerEscolha = true;
+											op = "1";
+											// ESPERA O USUARIO ESCOLHER
+											while (opcaoReal == 0) {
+												System.out.print("Esperando Resposta");
+											}
+											fazerEscolha = false;
+
+											// DEIXA AS OPÇÕES INVISIVEIS
+											Op1NoSelected.setVisible(false);
+											Op1Selected.setVisible(false);
+											Op2NoSelected.setVisible(false);
+											Op2Selected.setVisible(false);
+
+											// ESCOLHER SORTE
+											if (opcaoReal == 1) {
+												int random = (int) (Math.random() * 2);
+
+												if (random > 0) {
+
+													// DIALOGO DO GURI 13
+													palavra = "";
+													for (int z = 0; z < TextoDoGuri[13].length(); z++) {
+														if (!pularDialog) {
+															TextEffect(TextoDoGuri[13], dialogoDoGuri, z, 55);
+														} else {
+															dialogoDoGuri.setText(TextoDoGuri[13]);
+															pularDialog = false;
+															break;
+														}
+													}
+
+													// GURI PEGANDO O PIXEL
+													pixelApagado.setBounds(220, 235, 64, 64);
+													pixelApagado.setVisible(true);
+													Thread.sleep(1500);
+													pixelApagado.setVisible(false);
+													pixelBlue.setBounds(220, 235, 64, 64);
+													pixelBlue.setVisible(true);
+													Thread.sleep(2400);
+													guriColoridoParado.setVisible(false);
+													guriColoridoAndando.setVisible(true);
+													for (int i = 120; i < 210; i++) {
+														guriColoridoAndando.setBounds(i, 235, 64, 64);
+														Thread.sleep(10);
+													}
+													hotBar02.setVisible(false);
+													hotBar03.setVisible(true);
+													guriColoridoAndando.setVisible(false);
+													guriAcendendoPixel.setBounds(210, 225, 65, 75);
+													guriAcendendoPixel.setVisible(true);
+													pixelBlue.setVisible(false);
+
+													Thread.sleep(2000);
+													guriAcendendoPixel.setVisible(false);
+													guriColoridoAndando.setVisible(true);
+
+													for (int i = 210; i > 120; i--) {
+														guriColoridoAndando.setBounds(i, 235, 64, 64);
+														Thread.sleep(10);
+													}
+
+													guriColoridoAndando.setVisible(false);
+													guriColoridoParado.setVisible(true);
+
+													// DIALOGO DO GURI 16
+													palavra = "";
+													for (int z = 0; z < TextoDoGuri[16].length(); z++) {
+														if (!pularDialog) {
+															TextEffect(TextoDoGuri[16], dialogoDoGuri, z, 55);
+														} else {
+															dialogoDoGuri.setText(TextoDoGuri[16]);
+															pularDialog = false;
+															break;
+														}
+													}
+
+													Thread.sleep(1000);
+													balaoFixo.setVisible(false);
+													dialogoDoGuri.setVisible(false);
+													balaoClose.setVisible(true);
+
+													Thread.sleep(1500);
+													balaoClose.setVisible(false);
+													Thread.sleep(1000);
+													guriColoridoParado.setVisible(false);
+													pngFundoCidadeGrande.setVisible(false);
+													hotBar03.setVisible(false);
+
+													imgFinal1.setVisible(true);
+													Thread.sleep(2000);
+													imgFinal1.setVisible(false);
+													imgFinal2.setVisible(true);
+													Thread.sleep(2000);
+													imgFinal2.setVisible(false);
+													imgFinal3.setVisible(true);
+													Thread.sleep(2000);
+													imgFinal3.setVisible(false);
+													imgFinal4.setVisible(true);
+													Thread.sleep(2000);
+													imgFinal4.setVisible(false);
+													imgFinal5.setVisible(true);
+
+													Thread.sleep(2000);
+													imgFinal5.setVisible(false);
+													for (int i = 20; i < 255; i++) {
+														getContentPane().setBackground(new Color(i, i, i));
+														Thread.sleep(12);
+													}
+
+													balaoOpen.setVisible(true);
+													Thread.sleep(1800);
+													balaoOpen.setVisible(false);
+													balaoFixo.setVisible(true);
+
+													guriColoridoParado.setVisible(true);
+													zeroGif.setVisible(true);
+
+													// DIALOGO DO GURI 17
+													palavra = "";
+													for (int z = 0; z < TextoDoGuri[17].length(); z++) {
+														if (!pularDialog) {
+															TextEffect(TextoDoGuri[17], dialogoDoGuri, z, 55);
+														} else {
+															dialogoDoGuri.setText(TextoDoGuri[17]);
+															pularDialog = false;
+															break;
+														}
+													}
+
+													Thread.sleep(2000);
+													// DIALOGO DO ZERO 0
+													palavra = "";
+													for (int z = 0; z < TextoDoZero[0].length(); z++) {
+														if (!pularDialog) {
+															TextEffect(TextoDoZero[0], dialogoDoGuri, z, 55);
+														} else {
+															dialogoDoGuri.setText(TextoDoZero[0]);
+															pularDialog = false;
+															break;
+														}
+													}
+
+													Thread.sleep(2000);
+													// DIALOGO DO ZERO 1
+													palavra = "";
+													for (int z = 0; z < TextoDoZero[1].length(); z++) {
+														if (!pularDialog) {
+															TextEffect(TextoDoZero[1], dialogoDoGuri, z, 55);
+														} else {
+															dialogoDoGuri.setText(TextoDoZero[1]);
+															pularDialog = false;
+															break;
+														}
+													}
+
+													// MOSTRA OS BOTÕES
+													Op1NoSelected.setBounds(150, 155, 100, 30);
+													Op1NoSelected.setVisible(true);
+													Op1Selected.setBounds(150, 155, 100, 30);
+													Op1Selected.setVisible(false);
+
+													Op2NoSelected.setBounds(350, 155, 100, 30);
+													Op2NoSelected.setVisible(true);
+													Op2Selected.setBounds(350, 155, 100, 30);
+													Op2Selected.setVisible(false);
+
+													// PERMITE O USUARIO FAZER AS ESCOLHAS NAS SETINHAS
+													opcaoReal = 0;
+													fazerEscolha = true;
+													op = "1";
+													// ESPERA O USUARIO ESCOLHER
+													while (opcaoReal == 0) {
+														System.out.print("Esperando Resposta");
+													}
+													fazerEscolha = false;
+
+													// DEIXA AS OPÇÕES INVISIVEIS
+													Op1NoSelected.setVisible(false);
+													Op1Selected.setVisible(false);
+													Op2NoSelected.setVisible(false);
+													Op2Selected.setVisible(false);
+
+													if (opcaoReal == 1) {
+														Thread.sleep(1000);
+														balaoFixo.setVisible(false);
+														dialogoDoGuri.setVisible(false);
+														balaoClose.setVisible(true);
+
+														Thread.sleep(1500);
+														balaoClose.setVisible(false);
+														Thread.sleep(1000);
+														guriColoridoParado.setVisible(false);
+														zeroGif.setVisible(false);
+
+														imgFinal.setVisible(true);
+
+													} else if (opcaoReal == 2) {
+														dialogoDoZero
+																.setFont(new Font("Pixel Operator 8", Font.PLAIN, 20));
+														// DIALOGO DO ZERO 2
+														palavra = "";
+														for (int z = 0; z < TextoDoZero[2].length(); z++) {
+															if (!pularDialog) {
+																TextEffect(TextoDoZero[2], dialogoDoGuri, z, 55);
+															} else {
+																dialogoDoGuri.setText(TextoDoZero[2]);
+																pularDialog = false;
+																break;
+															}
+														}
+													}
+
+												} else {
+													// DIALOGO DO GURI 14
+													palavra = "";
+													for (int z = 0; z < TextoDoGuri[14].length(); z++) {
+														if (!pularDialog) {
+															TextEffect(TextoDoGuri[14], dialogoDoGuri, z, 55);
+														} else {
+															dialogoDoGuri.setText(TextoDoGuri[14]);
+															pularDialog = false;
+															break;
+														}
+													}
+
+													// GURI PEGANDO O PIXEL
+													pixelApagado.setBounds(220, 235, 64, 64);
+													pixelApagado.setVisible(true);
+													Thread.sleep(1500);
+													pixelApagado.setVisible(false);
+													pixelBlue.setBounds(220, 235, 64, 64);
+													pixelBlue.setVisible(true);
+													Thread.sleep(2400);
+													guriColoridoParado.setVisible(false);
+													guriColoridoAndando.setVisible(true);
+													for (int i = 120; i < 210; i++) {
+														guriColoridoAndando.setBounds(i, 235, 64, 64);
+														Thread.sleep(10);
+													}
+													hotBar02.setVisible(false);
+													hotBar03.setVisible(true);
+													guriColoridoAndando.setVisible(false);
+													guriAcendendoPixel.setBounds(210, 225, 65, 75);
+													guriAcendendoPixel.setVisible(true);
+													pixelBlue.setVisible(false);
+
+													Thread.sleep(2000);
+													guriAcendendoPixel.setVisible(false);
+													guriColoridoAndando.setVisible(true);
+
+													for (int i = 210; i > 120; i--) {
+														guriColoridoAndando.setBounds(i, 235, 64, 64);
+														Thread.sleep(10);
+													}
+
+													guriColoridoAndando.setVisible(false);
+													guriColoridoParado.setVisible(true);
+
+													// DIALOGO DO GURI 16
+													palavra = "";
+													for (int z = 0; z < TextoDoGuri[16].length(); z++) {
+														if (!pularDialog) {
+															TextEffect(TextoDoGuri[16], dialogoDoGuri, z, 55);
+														} else {
+															dialogoDoGuri.setText(TextoDoGuri[16]);
+															pularDialog = false;
+															break;
+														}
+													}
+
+													Thread.sleep(1000);
+													balaoFixo.setVisible(false);
+													dialogoDoGuri.setVisible(false);
+													balaoClose.setVisible(true);
+
+													Thread.sleep(1500);
+													balaoClose.setVisible(false);
+													Thread.sleep(1000);
+													guriColoridoParado.setVisible(false);
+													pngFundoCidadeGrande.setVisible(false);
+													hotBar03.setVisible(false);
+
+													imgFinal1.setVisible(true);
+													Thread.sleep(2000);
+													imgFinal1.setVisible(false);
+													imgFinal2.setVisible(true);
+													Thread.sleep(2000);
+													imgFinal2.setVisible(false);
+													imgFinal3.setVisible(true);
+													Thread.sleep(2000);
+													imgFinal3.setVisible(false);
+													imgFinal4.setVisible(true);
+													Thread.sleep(2000);
+													imgFinal4.setVisible(false);
+													imgFinal5.setVisible(true);
+
+													Thread.sleep(2000);
+													imgFinal5.setVisible(false);
+													for (int i = 20; i < 255; i++) {
+														getContentPane().setBackground(new Color(i, i, i));
+														Thread.sleep(12);
+													}
+
+													balaoOpen.setVisible(true);
+													Thread.sleep(1800);
+													balaoOpen.setVisible(false);
+													balaoFixo.setVisible(true);
+
+													guriColoridoParado.setVisible(true);
+													zeroGif.setVisible(true);
+
+													// DIALOGO DO GURI 17
+													palavra = "";
+													for (int z = 0; z < TextoDoGuri[17].length(); z++) {
+														if (!pularDialog) {
+															TextEffect(TextoDoGuri[17], dialogoDoGuri, z, 55);
+														} else {
+															dialogoDoGuri.setText(TextoDoGuri[17]);
+															pularDialog = false;
+															break;
+														}
+													}
+
+													Thread.sleep(2000);
+													// DIALOGO DO ZERO 3
+													palavra = "";
+													for (int z = 0; z < TextoDoZero[3].length(); z++) {
+														if (!pularDialog) {
+															TextEffect(TextoDoZero[3], dialogoDoGuri, z, 55);
+														} else {
+															dialogoDoGuri.setText(TextoDoZero[3]);
+															pularDialog = false;
+															break;
+														}
+													}
+
+													Thread.sleep(2000);
+													// DIALOGO DO ZERO 1
+													palavra = "";
+													for (int z = 0; z < TextoDoZero[1].length(); z++) {
+														if (!pularDialog) {
+															TextEffect(TextoDoZero[1], dialogoDoGuri, z, 55);
+														} else {
+															dialogoDoGuri.setText(TextoDoZero[1]);
+															pularDialog = false;
+															break;
+														}
+													}
+
+													// MOSTRA OS BOTÕES
+													Op1NoSelected.setBounds(150, 155, 100, 30);
+													Op1NoSelected.setVisible(true);
+													Op1Selected.setBounds(150, 155, 100, 30);
+													Op1Selected.setVisible(false);
+
+													Op2NoSelected.setBounds(350, 155, 100, 30);
+													Op2NoSelected.setVisible(true);
+													Op2Selected.setBounds(350, 155, 100, 30);
+													Op2Selected.setVisible(false);
+
+													// PERMITE O USUARIO FAZER AS ESCOLHAS NAS SETINHAS
+													opcaoReal = 0;
+													fazerEscolha = true;
+													op = "1";
+													// ESPERA O USUARIO ESCOLHER
+													while (opcaoReal == 0) {
+														System.out.print("Esperando Resposta");
+													}
+													fazerEscolha = false;
+
+													// DEIXA AS OPÇÕES INVISIVEIS
+													Op1NoSelected.setVisible(false);
+													Op1Selected.setVisible(false);
+													Op2NoSelected.setVisible(false);
+													Op2Selected.setVisible(false);
+
+													if (opcaoReal == 1) {
+														Thread.sleep(1000);
+														balaoFixo.setVisible(false);
+														dialogoDoGuri.setVisible(false);
+														balaoClose.setVisible(true);
+
+														Thread.sleep(1500);
+														balaoClose.setVisible(false);
+														Thread.sleep(1000);
+														guriColoridoParado.setVisible(false);
+														zeroGif.setVisible(false);
+
+														imgFinal.setVisible(true);
+
+													} else if (opcaoReal == 2) {
+														dialogoDoZero
+																.setFont(new Font("Pixel Operator 8", Font.PLAIN, 20));
+														// DIALOGO DO ZERO 2
+														palavra = "";
+														for (int z = 0; z < TextoDoZero[2].length(); z++) {
+															if (!pularDialog) {
+																TextEffect(TextoDoZero[2], dialogoDoGuri, z, 55);
+															} else {
+																dialogoDoGuri.setText(TextoDoZero[2]);
+																pularDialog = false;
+																break;
+															}
+														}
+													}
+												}
+
+												// ESCOLHER ROUBAR
+											} else if (opcaoReal == 2) {
+												// DIALOGO DO GURI 15
+												palavra = "";
+												for (int z = 0; z < TextoDoGuri[15].length(); z++) {
+													if (!pularDialog) {
+														TextEffect(TextoDoGuri[15], dialogoDoGuri, z, 55);
+													} else {
+														dialogoDoGuri.setText(TextoDoGuri[15]);
+														pularDialog = false;
+														break;
+													}
+												}
+
+												// GURI PEGANDO O PIXEL
+												pixelApagado.setBounds(220, 235, 64, 64);
+												pixelApagado.setVisible(true);
+												Thread.sleep(1500);
+												pixelApagado.setVisible(false);
+												pixelBlue.setBounds(220, 235, 64, 64);
+												pixelBlue.setVisible(true);
+												Thread.sleep(2400);
+												guriColoridoParado.setVisible(false);
+												guriColoridoAndando.setVisible(true);
+												for (int i = 120; i < 210; i++) {
+													guriColoridoAndando.setBounds(i, 235, 64, 64);
+													Thread.sleep(10);
+												}
+												hotBar02.setVisible(false);
+												hotBar03.setVisible(true);
+												guriColoridoAndando.setVisible(false);
+												guriAcendendoPixel.setBounds(210, 225, 65, 75);
+												guriAcendendoPixel.setVisible(true);
+												pixelBlue.setVisible(false);
+
+												Thread.sleep(2000);
+												guriAcendendoPixel.setVisible(false);
+												guriColoridoAndando.setVisible(true);
+
+												for (int i = 210; i > 120; i--) {
+													guriColoridoAndando.setBounds(i, 235, 64, 64);
+													Thread.sleep(10);
+												}
+
+												guriColoridoAndando.setVisible(false);
+												guriColoridoParado.setVisible(true);
+
+												// DIALOGO DO GURI 16
+												palavra = "";
+												for (int z = 0; z < TextoDoGuri[16].length(); z++) {
+													if (!pularDialog) {
+														TextEffect(TextoDoGuri[16], dialogoDoGuri, z, 55);
+													} else {
+														dialogoDoGuri.setText(TextoDoGuri[16]);
+														pularDialog = false;
+														break;
+													}
+												}
+
+												Thread.sleep(1000);
+												balaoFixo.setVisible(false);
+												dialogoDoGuri.setVisible(false);
+												balaoClose.setVisible(true);
+
+												Thread.sleep(1500);
+												balaoClose.setVisible(false);
+												Thread.sleep(1000);
+												guriColoridoParado.setVisible(false);
+												pngFundoCidadeGrande.setVisible(false);
+												hotBar03.setVisible(false);
+
+												imgFinal1.setVisible(true);
+												Thread.sleep(2000);
+												imgFinal1.setVisible(false);
+												imgFinal2.setVisible(true);
+												Thread.sleep(2000);
+												imgFinal2.setVisible(false);
+												imgFinal3.setVisible(true);
+												Thread.sleep(2000);
+												imgFinal3.setVisible(false);
+												imgFinal4.setVisible(true);
+												Thread.sleep(2000);
+												imgFinal4.setVisible(false);
+												imgFinal5.setVisible(true);
+
+												Thread.sleep(2000);
+												imgFinal5.setVisible(false);
+												for (int i = 20; i < 255; i++) {
+													getContentPane().setBackground(new Color(i, i, i));
+													Thread.sleep(12);
+												}
+
+												balaoOpen.setVisible(true);
+												Thread.sleep(1800);
+												balaoOpen.setVisible(false);
+												balaoFixo.setVisible(true);
+
+												guriColoridoParado.setVisible(true);
+												zeroGif.setVisible(true);
+
+												// DIALOGO DO GURI 17
+												palavra = "";
+												for (int z = 0; z < TextoDoGuri[17].length(); z++) {
+													if (!pularDialog) {
+														TextEffect(TextoDoGuri[17], dialogoDoGuri, z, 55);
+													} else {
+														dialogoDoGuri.setText(TextoDoGuri[17]);
+														pularDialog = false;
+														break;
+													}
+												}
+
+												Thread.sleep(2000);
+												// DIALOGO DO ZERO 3
+												palavra = "";
+												for (int z = 0; z < TextoDoZero[3].length(); z++) {
+													if (!pularDialog) {
+														TextEffect(TextoDoZero[3], dialogoDoGuri, z, 55);
+													} else {
+														dialogoDoGuri.setText(TextoDoZero[3]);
+														pularDialog = false;
+														break;
+													}
+												}
+
+												Thread.sleep(2000);
+												// DIALOGO DO ZERO 1
+												palavra = "";
+												for (int z = 0; z < TextoDoZero[1].length(); z++) {
+													if (!pularDialog) {
+														TextEffect(TextoDoZero[1], dialogoDoGuri, z, 55);
+													} else {
+														dialogoDoGuri.setText(TextoDoZero[1]);
+														pularDialog = false;
+														break;
+													}
+												}
+
+												// MOSTRA OS BOTÕES
+												Op1NoSelected.setBounds(150, 155, 100, 30);
+												Op1NoSelected.setVisible(true);
+												Op1Selected.setBounds(150, 155, 100, 30);
+												Op1Selected.setVisible(false);
+
+												Op2NoSelected.setBounds(350, 155, 100, 30);
+												Op2NoSelected.setVisible(true);
+												Op2Selected.setBounds(350, 155, 100, 30);
+												Op2Selected.setVisible(false);
+
+												// PERMITE O USUARIO FAZER AS ESCOLHAS NAS SETINHAS
+												opcaoReal = 0;
+												fazerEscolha = true;
+												op = "1";
+												// ESPERA O USUARIO ESCOLHER
+												while (opcaoReal == 0) {
+													System.out.print("Esperando Resposta");
+												}
+												fazerEscolha = false;
+
+												// DEIXA AS OPÇÕES INVISIVEIS
+												Op1NoSelected.setVisible(false);
+												Op1Selected.setVisible(false);
+												Op2NoSelected.setVisible(false);
+												Op2Selected.setVisible(false);
+
+												if (opcaoReal == 1) {
+													Thread.sleep(1000);
+													balaoFixo.setVisible(false);
+													dialogoDoGuri.setVisible(false);
+													balaoClose.setVisible(true);
+
+													Thread.sleep(1500);
+													balaoClose.setVisible(false);
+													Thread.sleep(1000);
+													guriColoridoParado.setVisible(false);
+													zeroGif.setVisible(false);
+
+													imgFinal.setVisible(true);
+
+												} else if (opcaoReal == 2) {
+													dialogoDoZero.setFont(new Font("Pixel Operator 8", Font.PLAIN, 20));
+													// DIALOGO DO ZERO 2
+													palavra = "";
+													for (int z = 0; z < TextoDoZero[2].length(); z++) {
+														if (!pularDialog) {
+															TextEffect(TextoDoZero[2], dialogoDoGuri, z, 55);
+														} else {
+															dialogoDoGuri.setText(TextoDoZero[2]);
+															pularDialog = false;
+															break;
+														}
+													}
+												}
+
+											}
+										}
+
+									}
+								}
+
 							}
 						}
-						
+
 					}
-					
-					
+
 				}
 
 			} catch (InterruptedException ex) {
