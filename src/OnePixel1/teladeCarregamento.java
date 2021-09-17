@@ -1,3 +1,4 @@
+package OnePixel1;
 
 
 import javax.sound.sampled.LineUnavailableException;
