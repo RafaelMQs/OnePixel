@@ -601,7 +601,7 @@ public class introdução extends JFrame {
 	public void audio(String nome, float volume, int loop, int action)
 			throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 
-		File file = new File(nome + ".wav");
+		File file = new File("./"+ nome + ".wav");
 		AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
 		Clip clip = AudioSystem.getClip();
 		clip.open(audioStream);
