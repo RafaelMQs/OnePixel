@@ -1,7 +1,15 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
 import java.security.Key;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 
 public class introdução extends JFrame {
@@ -243,6 +251,12 @@ public class introdução extends JFrame {
 				}
 				guriPretoBranParado.setVisible(false);
 				GuriComTochaColorido.setVisible(true);
+				try {
+					audio("guriPegandoTochaAudio", 18, 0, 0);
+				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				Thread.sleep(4500);
 				GuriComTochaColorido.setVisible(false);
 				GuriParadoColorido.setVisible(true);
@@ -486,6 +500,15 @@ public class introdução extends JFrame {
 //				opcaoN.setVisible(true);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
+			} catch (UnsupportedAudioFileException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (LineUnavailableException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 
 		}
@@ -548,7 +571,7 @@ public class introdução extends JFrame {
 		}
 	}
 
-	public void TextEffect(String DialogoBox, JLabel lbDialogo, int z, int milesimos) {
+	public void TextEffect(String DialogoBox, JLabel lbDialogo, int z, int milesimos) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 		try {
 			char letra = DialogoBox.charAt(z);
 			palavra = palavra + letra;
@@ -559,8 +582,39 @@ public class introdução extends JFrame {
 			}
 			lbDialogo.setText(palavra);
 			Thread.sleep(milesimos);
+			TextEffectAudio();
 		} catch (InterruptedException ex) {
 			System.out.println(ex);
 		}
 	}
+	
+	public void TextEffectAudio() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+		int random = (int) (Math.random() *3);
+		switch (random) {
+		case 0: audio("guriFalando", 25, 0, 0);
+		case 1: audio("guriFalando1", 25, 0, 0);
+		case 2:  audio("guriFalando2", 25, 0, 0);
+		}
+	}
+	
+	public void audio(String nome, float volume, int loop, int action)
+			throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+
+		File file = new File(nome + ".wav");
+		AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+		Clip clip = AudioSystem.getClip();
+		clip.open(audioStream);
+
+		FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+		gainControl.setValue(-volume); // Reduce volume by 10 decibels.
+		clip.loop(loop);
+		if (action == 0) {
+			clip.start();
+		} else {
+			clip.stop();
+		}
+		
+	}
+
+
 }

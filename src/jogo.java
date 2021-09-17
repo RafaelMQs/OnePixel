@@ -1,5 +1,14 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 
 public class jogo extends JFrame {
@@ -19,7 +28,7 @@ public class jogo extends JFrame {
 			// ESCOLHER NAO IR PARA O SUL
 			"<html>Guri caminha ao norte e se depara com uma cidade abandonada.<br><br>Guri: Essa cidade é de dar medo.<br> <br> <center> 1° Ir embora ou 2° Não ir embora",
 			// ESCOLHER NAO IR EMBORA
-			"<html>Guri: Independente de minha escolha... É melhor entrar na cidade, sinto que estou sendo forçado a entrar nela. <br><br>Guri: Há uma casa com a porta aberta logo ali em frente.<br><center> 1° Ir até lá ou 2° Não ir até lá",
+			"<html>Guri: Independente de minha escolha... É melhor entrar, sinto que estou sendo forçado a entrar.<br><br>Guri: Há uma casa com a porta aberta logo ali em frente.<br><center> 1° Ir até lá ou 2° Não ir até lá",
 			// ESCOLHER NAO IR ATÉ A CASA
 			"<html>Guri: Caraca, que coincidência, no final desta cidade está mais um pixel!",
 			"<html>Guri: Uau, ele é verde! Estou um passo mais perto de recuperar todas as cores e de me encontrar com os meus pais!",
@@ -27,7 +36,7 @@ public class jogo extends JFrame {
 			// ESCOLHER NAO ENTRAR NA FLORESTA
 			"<html>Guri: Okay, eu não posso ficar parado aqui. Logo ao lado há uma Cidade Grande.<br><br><center> 1° Entrar na Cidade Grande ou 2° Não Entrar",
 			// ESCOLHER ENTRAR NA CIDADE GRANDE
-			"<html>Guri: Independente de minha escolha... É melhor entrar na Cidade Grande, sinto que estou sendo forçado a entrar nela.<br><br>Guri: Que cidade meio estranha, mas Okay. Opa, parece que tem um pixel azul no cassino.<br><br><center> 1° Entrar no Cassino ou 2° Não Entrar",
+			"<html>Guri: Independente de minha escolha... É melhor entrar, sinto que estou sendo forçado a entrar.<br><br>Guri: Que cidade meio estranha, mas Okay. Opa, parece que tem um pixel azul no cassino.<br><br><center> 1° Entrar ou 2° Não Entrar",
 			"<html>Guri: Independente de minha escolha... É bom eu ir para o cassino, tem um pixel lá! xD",
 			"<html>Guri: Pixel aparenta estar preso em uma dessas maquinas da sorte.<br><br><center> 1° Tentar a Sorte ou 2° Roubar o Pixel",
 			// ESCOLHER TENTAR A SORTE E CONSEGUIR
@@ -43,7 +52,7 @@ public class jogo extends JFrame {
 	private JLabel dialogoDoGuri; // Diálogo do Guri
 
 	private String[] TextoDoZero = {
-			"<html>Zero: Você achou mesmo que essa era a missão verdadeira, tipo... sério? Você conseguia reviver cara, eu basicamente facilitei e até mesmo manipulei algumas escolhas suas para você chegar até aqui. Isso foi muito fácil, era apenas um teste para ver se era você mesmo o escolhido.",
+			"<html>Zero: Você achou mesmo que essa era a missão verdadeira, tipo... sério? Você conseguia reviver cara, eu basicamente facilitei e até mesmo manipulei algumas escolhas suas para você chegar até aqui. Isso foi muito fácil, era apenas um teste",
 			"<html>Zero: Agora que você já sabe tem duas escolhas: <br><br><center>1° Permanecer na matrix ou 2° Enfrentar a realidade",
 			"<html> EM BREVE... <br><br><center> ONE PIXEL 2",
 			"<html>Zero: Você achou mesmo que essa era a missão verdadeira, tipo... serio? Você conseguia reviver cara. Isso foi muito facil, eu basicamente facilitei e até mesmo manipulei algumas escolhas suas para você chegar até aqui, tirando a parte que você roubou um pixel, mas irei relever, era apenas um teste para ver se era você mesmo o escolhido" }; // Texto
@@ -86,7 +95,7 @@ public class jogo extends JFrame {
 		dialogoDoGuri = new JLabel();
 		dialogoDoGuri.setForeground(Color.WHITE);
 		dialogoDoGuri.setFont(new Font("Pixel Operator 8", Font.PLAIN, 12));
-		dialogoDoGuri.setBounds(40, 25, 580, 100);
+		dialogoDoGuri.setBounds(40, 25, 580, 200);
 		dialogoDoGuri.setVisible(false);
 		add(dialogoDoGuri);
 
@@ -370,6 +379,7 @@ public class jogo extends JFrame {
 
 					guriColoridoAndando.setVisible(false);
 					guriColoridoCorrendo.setVisible(true);
+					audio("guriCorrendoAudio", 10, 0, 0);
 
 					for (int i = 600; i > 135; i--) {
 						pixelApagado.setBounds(i, 235, 64, 64);
@@ -379,6 +389,7 @@ public class jogo extends JFrame {
 
 					guriColoridoCorrendo.setVisible(false);
 					guriColoridoMorrendo.setVisible(true);
+					audio("guriMorrendoAudio", 18, 0, 0);
 					dialogoDoGuri.setVisible(false);
 					dialogoDoConsole.setVisible(true);
 
@@ -486,6 +497,7 @@ public class jogo extends JFrame {
 					guriColoridoAndando.setVisible(false);
 					guriAcendendoPixel.setBounds(210, 225, 65, 75);
 					guriAcendendoPixel.setVisible(true);
+					audio("guriPegandoPixelAudio", 18, 0, 0);
 					pixelRed.setVisible(false);
 
 					Thread.sleep(2000);
@@ -573,6 +585,7 @@ public class jogo extends JFrame {
 						Thread.sleep(10000);
 						guriColoridoAndando.setVisible(false);
 						guriColoridoMorrendo.setVisible(true);
+						audio("guriMorrendoAudio", 18, 0, 0);
 						pngFundoRed.setVisible(true);
 						gifFundoRed.setVisible(false);
 
@@ -749,6 +762,7 @@ public class jogo extends JFrame {
 								Thread.sleep(3500);
 								guriColoridoAndando.setVisible(false);
 								guriColoridoMorrendo.setVisible(true);
+								audio("guriMorrendoAudio", 18, 0, 0);
 								dialogoDoGuri.setVisible(false);
 								dialogoDoConsole.setVisible(true);
 
@@ -857,6 +871,7 @@ public class jogo extends JFrame {
 								guriColoridoAndando.setVisible(false);
 								guriAcendendoPixel.setBounds(210, 225, 65, 75);
 								guriAcendendoPixel.setVisible(true);
+								audio("guriPegandoPixelAudio", 18, 0, 0);
 								pixelGreen.setVisible(false);
 
 								Thread.sleep(2000);
@@ -966,6 +981,7 @@ public class jogo extends JFrame {
 									Thread.sleep(2000);
 									guriColoridoAndando.setVisible(false);
 									guriColoridoMorrendo.setVisible(true);
+									audio("guriMorrendoAudio", 18, 0, 0);
 									dialogoDoGuri.setVisible(false);
 									dialogoDoConsole.setVisible(true);
 
@@ -1223,6 +1239,7 @@ public class jogo extends JFrame {
 													guriColoridoAndando.setVisible(false);
 													guriAcendendoPixel.setBounds(210, 225, 65, 75);
 													guriAcendendoPixel.setVisible(true);
+													audio("guriPegandoPixelAudio", 18, 0, 0);
 													pixelBlue.setVisible(false);
 
 													Thread.sleep(2000);
@@ -1417,6 +1434,7 @@ public class jogo extends JFrame {
 													guriColoridoAndando.setVisible(false);
 													guriAcendendoPixel.setBounds(210, 225, 65, 75);
 													guriAcendendoPixel.setVisible(true);
+													audio("guriPegandoPixelAudio", 18, 0, 0);
 													pixelBlue.setVisible(false);
 
 													Thread.sleep(2000);
@@ -1613,6 +1631,7 @@ public class jogo extends JFrame {
 												guriColoridoAndando.setVisible(false);
 												guriAcendendoPixel.setBounds(210, 225, 65, 75);
 												guriAcendendoPixel.setVisible(true);
+												audio("guriPegandoPixelAudio", 18, 0, 0);
 												pixelBlue.setVisible(false);
 
 												Thread.sleep(2000);
@@ -1788,6 +1807,12 @@ public class jogo extends JFrame {
 				}
 
 			} catch (InterruptedException ex) {
+			} catch (UnsupportedAudioFileException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (LineUnavailableException e) {
+				e.printStackTrace();
 			}
 		}
 
@@ -1863,7 +1888,7 @@ public class jogo extends JFrame {
 
 	}
 
-	public void TextEffect(String DialogoBox, JLabel lbDialogo, int z, int milesimos) {
+	public void TextEffect(String DialogoBox, JLabel lbDialogo, int z, int milesimos) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 		try {
 			char letra = DialogoBox.charAt(z);
 			palavra = palavra + letra;
@@ -1874,9 +1899,38 @@ public class jogo extends JFrame {
 			}
 			lbDialogo.setText(palavra);
 			Thread.sleep(milesimos);
+			TextEffectAudio();
 		} catch (InterruptedException ex) {
 			System.out.println(ex);
 		}
+	}
+
+	public void TextEffectAudio() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+		int random = (int) (Math.random() *3);
+		switch (random) {
+		case 0: audio("guriFalando", 25, 0, 0);
+		case 1: audio("guriFalando1", 25, 0, 0);
+		case 2:  audio("guriFalando2", 25, 0, 0);
+		}
+	}
+	
+	public void audio(String nome, float volume, int loop, int action)
+			throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+
+		File file = new File(nome + ".wav");
+		AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+		Clip clip = AudioSystem.getClip();
+		clip.open(audioStream);
+
+		FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+		gainControl.setValue(-volume); // Reduce volume by 10 decibels.
+		clip.loop(loop);
+		if (action == 0) {
+			clip.start();
+		} else {
+			clip.stop();
+		}
+		
 	}
 
 }
