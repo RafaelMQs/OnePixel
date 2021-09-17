@@ -1905,6 +1905,7 @@ public class jogo extends JFrame {
 		}
 	}
 
+	// SOM
 	public void TextEffectAudio() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 		int random = (int) (Math.random() *3);
 		switch (random) {
