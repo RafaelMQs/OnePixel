@@ -379,7 +379,7 @@ public class jogo extends JFrame {
 
 					guriColoridoAndando.setVisible(false);
 					guriColoridoCorrendo.setVisible(true);
-					audio("guriCorrendoAudio", 10, 0, 0);
+					audio("guriCorrendoAudio", 5, 0, 0);
 
 					for (int i = 600; i > 135; i--) {
 						pixelApagado.setBounds(i, 235, 64, 64);
@@ -389,7 +389,7 @@ public class jogo extends JFrame {
 
 					guriColoridoCorrendo.setVisible(false);
 					guriColoridoMorrendo.setVisible(true);
-					audio("guriMorrendoAudio", 18, 0, 0);
+					audio("guriMorrendoAudio", 12, 0, 0);
 					dialogoDoGuri.setVisible(false);
 					dialogoDoConsole.setVisible(true);
 
@@ -497,7 +497,7 @@ public class jogo extends JFrame {
 					guriColoridoAndando.setVisible(false);
 					guriAcendendoPixel.setBounds(210, 225, 65, 75);
 					guriAcendendoPixel.setVisible(true);
-					audio("guriPegandoPixelAudio", 18, 0, 0);
+					audio("guriPegandoPixelAudio", 12, 0, 0);
 					pixelRed.setVisible(false);
 
 					Thread.sleep(2000);
@@ -585,7 +585,7 @@ public class jogo extends JFrame {
 						Thread.sleep(10000);
 						guriColoridoAndando.setVisible(false);
 						guriColoridoMorrendo.setVisible(true);
-						audio("guriMorrendoAudio", 18, 0, 0);
+						audio("guriMorrendoAudio", 12, 0, 0);
 						pngFundoRed.setVisible(true);
 						gifFundoRed.setVisible(false);
 
@@ -762,7 +762,7 @@ public class jogo extends JFrame {
 								Thread.sleep(3500);
 								guriColoridoAndando.setVisible(false);
 								guriColoridoMorrendo.setVisible(true);
-								audio("guriMorrendoAudio", 18, 0, 0);
+								audio("guriMorrendoAudio", 12, 0, 0);
 								dialogoDoGuri.setVisible(false);
 								dialogoDoConsole.setVisible(true);
 
@@ -871,7 +871,7 @@ public class jogo extends JFrame {
 								guriColoridoAndando.setVisible(false);
 								guriAcendendoPixel.setBounds(210, 225, 65, 75);
 								guriAcendendoPixel.setVisible(true);
-								audio("guriPegandoPixelAudio", 18, 0, 0);
+								audio("guriPegandoPixelAudio", 12, 0, 0);
 								pixelGreen.setVisible(false);
 
 								Thread.sleep(2000);
@@ -981,7 +981,7 @@ public class jogo extends JFrame {
 									Thread.sleep(2000);
 									guriColoridoAndando.setVisible(false);
 									guriColoridoMorrendo.setVisible(true);
-									audio("guriMorrendoAudio", 18, 0, 0);
+									audio("guriMorrendoAudio", 12, 0, 0);
 									dialogoDoGuri.setVisible(false);
 									dialogoDoConsole.setVisible(true);
 
@@ -1239,7 +1239,7 @@ public class jogo extends JFrame {
 													guriColoridoAndando.setVisible(false);
 													guriAcendendoPixel.setBounds(210, 225, 65, 75);
 													guriAcendendoPixel.setVisible(true);
-													audio("guriPegandoPixelAudio", 18, 0, 0);
+													audio("guriPegandoPixelAudio", 12, 0, 0);
 													pixelBlue.setVisible(false);
 
 													Thread.sleep(2000);
@@ -1434,7 +1434,7 @@ public class jogo extends JFrame {
 													guriColoridoAndando.setVisible(false);
 													guriAcendendoPixel.setBounds(210, 225, 65, 75);
 													guriAcendendoPixel.setVisible(true);
-													audio("guriPegandoPixelAudio", 18, 0, 0);
+													audio("guriPegandoPixelAudio", 12, 0, 0);
 													pixelBlue.setVisible(false);
 
 													Thread.sleep(2000);
@@ -1631,7 +1631,7 @@ public class jogo extends JFrame {
 												guriColoridoAndando.setVisible(false);
 												guriAcendendoPixel.setBounds(210, 225, 65, 75);
 												guriAcendendoPixel.setVisible(true);
-												audio("guriPegandoPixelAudio", 18, 0, 0);
+												audio("guriPegandoPixelAudio", 12, 0, 0);
 												pixelBlue.setVisible(false);
 
 												Thread.sleep(2000);
