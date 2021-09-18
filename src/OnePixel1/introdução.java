@@ -204,6 +204,7 @@ public class introdução extends JFrame {
 						TextEffect(TextoDoGuri[0], dialogoDoGuri, z, 60);
 					} else {
 						// CASO ELE APERTE ESPAÇO ELE ACABA O FOR E COMPLETA A FRASE
+						dialogoDoGuri.setVisible(true);
 						dialogoDoGuri.setText(TextoDoGuri[0]);
 						pularDialog = false;
 						break;
@@ -217,6 +218,7 @@ public class introdução extends JFrame {
 					if (!pularDialog) {
 						TextEffect(TextoDoZero[0], dialogoDoZero, z, 40);
 					} else {
+						dialogoDoZero.setVisible(true);
 						dialogoDoZero.setText(TextoDoZero[0]);
 						pularDialog = false;
 						break;
@@ -232,6 +234,7 @@ public class introdução extends JFrame {
 					if (!pularDialog) {
 						TextEffect(TextoDoGuri[1], dialogoDoGuri, z, 60);
 					} else {
+						dialogoDoGuri.setVisible(true);
 						dialogoDoGuri.setText(TextoDoGuri[1]);
 						pularDialog = false;
 						break;
@@ -245,6 +248,7 @@ public class introdução extends JFrame {
 					if (!pularDialog) {
 						TextEffect(TextoDoZero[1], dialogoDoZero, z, 40);
 					} else {
+						dialogoDoZero.setVisible(true);
 						dialogoDoZero.setText(TextoDoZero[1]);
 						pularDialog = false;
 						break;
@@ -272,6 +276,7 @@ public class introdução extends JFrame {
 					if (!pularDialog) {
 						TextEffect(TextoDoZero[2], dialogoDoZero, z, 40);
 					} else {
+						dialogoDoZero.setVisible(true);
 						dialogoDoZero.setText(TextoDoZero[2]);
 						pularDialog = false;
 						break;
@@ -315,6 +320,7 @@ public class introdução extends JFrame {
 						if (!pularDialog) {
 							TextEffect(TextoDoGuri[2], dialogoDoGuri, z, 60);
 						} else {
+							dialogoDoGuri.setVisible(true);
 							dialogoDoGuri.setText(TextoDoGuri[2]);
 							pularDialog = false;
 							break;
@@ -329,6 +335,7 @@ public class introdução extends JFrame {
 						if (!pularDialog) {
 							TextEffect(TextoDoZero[3], dialogoDoZero, z, 55);
 						} else {
+							dialogoDoZero.setVisible(true);
 							dialogoDoZero.setText(TextoDoZero[3]);
 							pularDialog = false;
 							break;
@@ -344,6 +351,7 @@ public class introdução extends JFrame {
 						if (!pularDialog) {
 							TextEffect(TextoDoGuri[3], dialogoDoGuri, z, 40);
 						} else {
+							dialogoDoGuri.setVisible(true);
 							dialogoDoGuri.setText(TextoDoGuri[3]);
 							pularDialog = false;
 							break;
@@ -358,6 +366,7 @@ public class introdução extends JFrame {
 						if (!pularDialog) {
 							TextEffect(TextoDoZero[4], dialogoDoZero, z, 55);
 						} else {
+							dialogoDoZero.setVisible(true);
 							dialogoDoZero.setText(TextoDoZero[4]);
 							pularDialog = false;
 							break;
@@ -373,6 +382,7 @@ public class introdução extends JFrame {
 						if (!pularDialog) {
 							TextEffect(TextoDoGuri[4], dialogoDoGuri, z, 40);
 						} else {
+							dialogoDoGuri.setVisible(true);
 							dialogoDoGuri.setText(TextoDoGuri[4]);
 							pularDialog = false;
 							break;
@@ -387,6 +397,7 @@ public class introdução extends JFrame {
 						if (!pularDialog) {
 							TextEffect(TextoDoZero[5], dialogoDoZero, z, 55);
 						} else {
+							dialogoDoZero.setVisible(true);
 							dialogoDoZero.setText(TextoDoZero[5]);
 							pularDialog = false;
 							break;
@@ -402,6 +413,7 @@ public class introdução extends JFrame {
 						if (!pularDialog) {
 							TextEffect(TextoDoGuri[5], dialogoDoGuri, z, 40);
 						} else {
+							dialogoDoGuri.setVisible(true);
 							dialogoDoGuri.setText(TextoDoGuri[5]);
 							pularDialog = false;
 							break;
@@ -416,6 +428,7 @@ public class introdução extends JFrame {
 						if (!pularDialog) {
 							TextEffect(TextoDoZero[6], dialogoDoZero, z, 55);
 						} else {
+							dialogoDoZero.setVisible(true);
 							dialogoDoZero.setText(TextoDoZero[6]);
 							pularDialog = false;
 							break;
@@ -431,6 +444,7 @@ public class introdução extends JFrame {
 						if (!pularDialog) {
 							TextEffect(TextoDoGuri[6], dialogoDoGuri, z, 40);
 						} else {
+							dialogoDoGuri.setVisible(true);
 							dialogoDoGuri.setText(TextoDoGuri[6]);
 							pularDialog = false;
 							break;
@@ -445,6 +459,7 @@ public class introdução extends JFrame {
 						if (!pularDialog) {
 							TextEffect(TextoDoZero[7], dialogoDoZero, z, 55);
 						} else {
+							dialogoDoZero.setVisible(true);
 							dialogoDoZero.setText(TextoDoZero[7]);
 							pularDialog = false;
 							break;
