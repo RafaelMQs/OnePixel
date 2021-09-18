@@ -45,7 +45,7 @@ public class jogo extends JFrame {
 			// ESCOLHER TENTAR A SORTE E ERRAR
 			"<html>Guri: Droga, perdi. Acho que vou ter que roubar, ainda bem que não tem ninguém olhando.",
 			// ESCOLHER ROUBAR
-			"<html>Guri: Droga, perdi. Acho que vou ter que roubar, ainda bem que não tem ninguém olhando, então consigo fazer isso sem pensar que é algo errado.",
+			"<html>Guri: Acho que vou ter que roubar, ainda bem que não tem ninguém olhando, então consigo fazer isso sem pensar que é algo errado.",
 			// DIALOGO FINAL
 			"<html>Guri: Finalmente consegui completar essa missão, que foi bem estranha e fácil por sinal. Agora poderei ver minha família.",
 			"<html>Guri: Oshi, porque eu estou aqui, cadê minha familia, cadê tudo?" };// Texto do Guri
@@ -77,7 +77,7 @@ public class jogo extends JFrame {
 	private ImageIcon imgLogo = new ImageIcon("res/IconGame.png");
 	private int opcaoSimulada = 0, opcaoReal = 0;
 	private String palavra = "", op = "";
-	private boolean pularDialog = false, fazerEscolha = false;
+	private boolean pularDialog = false, fazerEscolha = false, podePular = false;
 
 	public jogo() {
 		Componentes();
@@ -96,14 +96,14 @@ public class jogo extends JFrame {
 		dialogoDoGuri = new JLabel();
 		dialogoDoGuri.setForeground(Color.WHITE);
 		dialogoDoGuri.setFont(new Font("Pixel Operator 8", Font.PLAIN, 12));
-		dialogoDoGuri.setBounds(40, 25, 580, 200);
+		dialogoDoGuri.setBounds(40, 25, 580, 250);
 		dialogoDoGuri.setVisible(false);
 		add(dialogoDoGuri);
 
 		dialogoDoZero = new JLabel();
 		dialogoDoZero.setForeground(Color.WHITE);
 		dialogoDoZero.setFont(new Font("Pixel Operator 8", Font.PLAIN, 12));
-		dialogoDoZero.setBounds(40, 95, 500, 20000);
+		dialogoDoZero.setBounds(40, -55, 500, 350);
 		dialogoDoZero.setVisible(false);
 		add(dialogoDoZero);
 
@@ -332,23 +332,23 @@ public class jogo extends JFrame {
 				}
 
 				// ABRINDO BALÃO DE DIALOGO
-				balaoOpen.setVisible(true);
-				Thread.sleep(1800);
-				balaoOpen.setVisible(false);
-				balaoFixo.setVisible(true);
+				openDialogBox();
 				addKeyListener(this);
 
 				dialogoDoGuri.setBounds(40, 50, 500, 100);
 				// DIALOGO DO GURI 0
+				podePular = true;
 				for (int z = 0; z < TextoDoGuri[0].length(); z++) {
 					if (!pularDialog) {
 						TextEffect(TextoDoGuri[0], dialogoDoGuri, z, 55);
 					} else {
+						dialogoDoGuri.setVisible(true);
 						dialogoDoGuri.setText(TextoDoGuri[0]);
 						pularDialog = false;
 						break;
 					}
 				}
+				podePular = false;
 				// MOSTRA OS BOTÕES
 				YesNoSelected.setBounds(150, 135, 100, 30);
 				YesNoSelected.setVisible(true);
@@ -396,15 +396,18 @@ public class jogo extends JFrame {
 
 					palavra = "";
 					// DIALOGO DO CONSOLE 0
+					podePular = true;
 					for (int z = 0; z < TextoDoConsole[0].length(); z++) {
 						if (!pularDialog) {
 							TextEffect(TextoDoConsole[0], dialogoDoConsole, z, 55);
 						} else {
+							dialogoDoConsole.setVisible(true);
 							dialogoDoConsole.setText(TextoDoConsole[0]);
 							pularDialog = false;
 							break;
 						}
 					}
+					podePular = false;
 
 					// MOSTRA OS BOTÕES
 					Op1NoSelected.setBounds(150, 150, 100, 30);
@@ -446,12 +449,7 @@ public class jogo extends JFrame {
 					// NÃO CORRER
 				} else if (opcaoReal == 2) {
 					// FECHANDO BALÃO DE DIALOGO
-					Thread.sleep(500);
-					balaoFixo.setVisible(false);
-					dialogoDoGuri.setVisible(false);
-					balaoClose.setVisible(true);
-					Thread.sleep(1500);
-					balaoClose.setVisible(false);
+					closeDialogBox();
 
 					for (int i = 600; i > 220; i--) {
 						pixelApagado.setBounds(i, 235, 64, 64);
@@ -462,26 +460,26 @@ public class jogo extends JFrame {
 					guriColoridoParado.setVisible(true);
 
 					// ABRINDO BALÃO DE DIALOGO
-					balaoOpen.setVisible(true);
-					Thread.sleep(1800);
-					balaoOpen.setVisible(false);
-					balaoFixo.setVisible(true);
+					openDialogBox();
 
 					palavra = "";
 					dialogoDoGuri.setBounds(40, 80, 500, 100);
 					dialogoDoGuri.setVisible(true);
 
 					// DIALOGO DO GURI 1
+					podePular = true;
 					for (int z = 0; z < TextoDoGuri[1].length(); z++) {
 						if (!pularDialog) {
 							TextEffect(TextoDoGuri[1], dialogoDoGuri, z, 55);
 						} else {
+							dialogoDoGuri.setVisible(true);
 							dialogoDoGuri.setText(TextoDoGuri[1]);
 							pularDialog = false;
 							break;
 						}
 					}
-
+					podePular = false;
+					
 					// GURI PEGANDO O PIXEL
 					pixelApagado.setVisible(false);
 					pixelRed.setBounds(220, 235, 64, 64);
@@ -516,29 +514,35 @@ public class jogo extends JFrame {
 
 					palavra = "";
 					// DIALOGO DO GURI 2
+					podePular = true;
 					for (int z = 0; z < TextoDoGuri[2].length(); z++) {
 						if (!pularDialog) {
 							TextEffect(TextoDoGuri[2], dialogoDoGuri, z, 55);
 						} else {
+							dialogoDoGuri.setVisible(true);
 							dialogoDoGuri.setText(TextoDoGuri[2]);
 							pularDialog = false;
 							break;
 						}
 					}
+					podePular = false;
 
 					Thread.sleep(2500);
 					dialogoDoGuri.setBounds(40, 50, 500, 100);
 					palavra = "";
 					// DIALOGO DO GURI 3
+					podePular = true;
 					for (int z = 0; z < TextoDoGuri[3].length(); z++) {
 						if (!pularDialog) {
 							TextEffect(TextoDoGuri[3], dialogoDoGuri, z, 55);
 						} else {
+							dialogoDoGuri.setVisible(true);
 							dialogoDoGuri.setText(TextoDoGuri[3]);
 							pularDialog = false;
 							break;
 						}
 					}
+					podePular = false;
 
 					// MOSTRA OS BOTÕES
 					YesNoSelected.setBounds(150, 145, 100, 30);
@@ -570,12 +574,7 @@ public class jogo extends JFrame {
 					// IR PARA O SUL
 					if (opcaoReal == 1) {
 						// FECHANDO BALÃO DE DIALOGO
-						Thread.sleep(500);
-						balaoFixo.setVisible(false);
-						dialogoDoGuri.setVisible(false);
-						balaoClose.setVisible(true);
-						Thread.sleep(1500);
-						balaoClose.setVisible(false);
+						closeDialogBox();
 
 						dialogoDoGuri.setVisible(false);
 						guriColoridoAndando.setVisible(true);
@@ -597,15 +596,18 @@ public class jogo extends JFrame {
 
 						palavra = "";
 						// DIALOGO DO CONSOLE 1
+						podePular = true;
 						for (int z = 0; z < TextoDoConsole[1].length(); z++) {
 							if (!pularDialog) {
 								TextEffect(TextoDoConsole[1], dialogoDoConsole, z, 55);
 							} else {
+								dialogoDoConsole.setVisible(true);
 								dialogoDoConsole.setText(TextoDoConsole[1]);
 								pularDialog = false;
 								break;
 							}
 						}
+						podePular = false;
 
 						// MOSTRA OS BOTÕES
 						Op1NoSelected.setBounds(150, 150, 100, 30);
@@ -647,12 +649,7 @@ public class jogo extends JFrame {
 						// NÃO IR PARA O SUL
 					} else if (opcaoReal == 2) {
 						// FECHANDO BALÃO DE DIALOGO
-						Thread.sleep(500);
-						balaoFixo.setVisible(false);
-						dialogoDoGuri.setVisible(false);
-						balaoClose.setVisible(true);
-						Thread.sleep(1500);
-						balaoClose.setVisible(false);
+						closeDialogBox();
 
 						guriColoridoParado.setVisible(false);
 						guriColoridoAndando.setVisible(true);
@@ -661,10 +658,7 @@ public class jogo extends JFrame {
 
 						Thread.sleep(2800);
 						// ABRINDO BALÃO DE DIALOGO
-						balaoOpen.setVisible(true);
-						Thread.sleep(1800);
-						balaoOpen.setVisible(false);
-						balaoFixo.setVisible(true);
+						openDialogBox();
 
 						guriColoridoParado.setVisible(true);
 						guriColoridoAndando.setVisible(false);
@@ -674,15 +668,18 @@ public class jogo extends JFrame {
 						dialogoDoGuri.setBounds(40, 50, 500, 100);
 						palavra = "";
 						// DIALOGO DO GURI 4
+						podePular = true;
 						for (int z = 0; z < TextoDoGuri[4].length(); z++) {
 							if (!pularDialog) {
 								TextEffect(TextoDoGuri[4], dialogoDoGuri, z, 55);
 							} else {
+								dialogoDoGuri.setVisible(true);
 								dialogoDoGuri.setText(TextoDoGuri[4]);
 								pularDialog = false;
 								break;
 							}
 						}
+						podePular = false;
 
 						// MOSTRA OS BOTÕES
 						YesNoSelected.setBounds(150, 155, 100, 30);
@@ -718,15 +715,19 @@ public class jogo extends JFrame {
 							palavra = "";
 							dialogoDoGuri.setBounds(40, 70, 500, 100);
 							// DIALOGO DO GURI 5
+							podePular = true;
 							for (int z = 0; z < TextoDoGuri[5].length(); z++) {
 								if (!pularDialog) {
 									TextEffect(TextoDoGuri[5], dialogoDoGuri, z, 55);
 								} else {
+									dialogoDoGuri.setVisible(true);
 									dialogoDoGuri.setText(TextoDoGuri[5]);
 									pularDialog = false;
 									break;
 								}
 							}
+							podePular = false;
+							
 							// MOSTRA OS BOTÕES
 							YesNoSelected.setBounds(150, 165, 100, 30);
 							YesNoSelected.setVisible(true);
@@ -769,15 +770,18 @@ public class jogo extends JFrame {
 
 								palavra = "";
 								// DIALOGO DO CONSOLE 2
+								podePular = true;
 								for (int z = 0; z < TextoDoConsole[2].length(); z++) {
 									if (!pularDialog) {
 										TextEffect(TextoDoConsole[2], dialogoDoConsole, z, 55);
 									} else {
+										dialogoDoConsole.setVisible(true);
 										dialogoDoConsole.setText(TextoDoConsole[2]);
 										pularDialog = false;
 										break;
 									}
 								}
+								podePular = false;
 
 								// MOSTRA OS BOTÕES
 								Op1NoSelected.setBounds(150, 150, 100, 30);
@@ -821,23 +825,21 @@ public class jogo extends JFrame {
 								dialogoDoGuri.setBounds(40, 80, 500, 100);
 								palavra = "";
 								// DIALOGO DO GURI 6
+								podePular = true;
 								for (int z = 0; z < TextoDoGuri[6].length(); z++) {
 									if (!pularDialog) {
 										TextEffect(TextoDoGuri[6], dialogoDoGuri, z, 55);
 									} else {
+										dialogoDoGuri.setVisible(true);
 										dialogoDoGuri.setText(TextoDoGuri[6]);
 										pularDialog = false;
 										break;
 									}
 								}
+								podePular = false;
 
 								// FECHANDO BALÃO DE DIALOGO
-								Thread.sleep(500);
-								balaoFixo.setVisible(false);
-								dialogoDoGuri.setVisible(false);
-								balaoClose.setVisible(true);
-								Thread.sleep(1500);
-								balaoClose.setVisible(false);
+								closeDialogBox();
 
 								guriColoridoParado.setVisible(false);
 								guriColoridoAndando.setVisible(true);
@@ -888,10 +890,7 @@ public class jogo extends JFrame {
 								guriColoridoParado.setVisible(true);
 
 								// ABRINDO BALÃO DE DIALOGO
-								balaoOpen.setVisible(true);
-								Thread.sleep(1800);
-								balaoOpen.setVisible(false);
-								balaoFixo.setVisible(true);
+								openDialogBox();
 
 								guriColoridoParado.setVisible(true);
 								guriColoridoAndando.setVisible(false);
@@ -899,29 +898,35 @@ public class jogo extends JFrame {
 								dialogoDoGuri.setBounds(40, 80, 500, 100);
 								palavra = "";
 								// DIALOGO DO GURI 7
+								podePular = true;
 								for (int z = 0; z < TextoDoGuri[7].length(); z++) {
 									if (!pularDialog) {
 										TextEffect(TextoDoGuri[7], dialogoDoGuri, z, 55);
 									} else {
+										dialogoDoGuri.setVisible(true);
 										dialogoDoGuri.setText(TextoDoGuri[7]);
 										pularDialog = false;
 										break;
 									}
 								}
+								podePular = false;
 
 								dialogoDoGuri.setBounds(40, 50, 500, 100);
 								palavra = "";
 								// DIALOGO DO GURI 8
 								Thread.sleep(2500);
+								podePular = true;
 								for (int z = 0; z < TextoDoGuri[8].length(); z++) {
 									if (!pularDialog) {
 										TextEffect(TextoDoGuri[8], dialogoDoGuri, z, 55);
 									} else {
+										dialogoDoGuri.setVisible(true);
 										dialogoDoGuri.setText(TextoDoGuri[8]);
 										pularDialog = false;
 										break;
 									}
 								}
+								podePular = false;
 
 								// MOSTRA OS BOTÕES
 								YesNoSelected.setBounds(150, 155, 100, 30);
@@ -953,12 +958,7 @@ public class jogo extends JFrame {
 								// ENTRAR NA FLORESTA
 								if (opcaoReal == 1) {
 									// FECHANDO BALÃO DE DIALOGO
-									Thread.sleep(500);
-									balaoFixo.setVisible(false);
-									dialogoDoGuri.setVisible(false);
-									balaoClose.setVisible(true);
-									Thread.sleep(1500);
-									balaoClose.setVisible(false);
+									closeDialogBox();
 
 									guriColoridoParado.setVisible(false);
 									guriColoridoAndando.setVisible(true);
@@ -974,10 +974,7 @@ public class jogo extends JFrame {
 									pngFundoRed.setVisible(false);
 
 									// ABRINDO BALÃO DE DIALOGO
-									balaoOpen.setVisible(true);
-									Thread.sleep(1800);
-									balaoOpen.setVisible(false);
-									balaoFixo.setVisible(true);
+									openDialogBox();
 
 									Thread.sleep(2000);
 									guriColoridoAndando.setVisible(false);
@@ -988,15 +985,18 @@ public class jogo extends JFrame {
 
 									palavra = "";
 									// DIALOGO DO CONSOLE 3
+									podePular = true;
 									for (int z = 0; z < TextoDoConsole[3].length(); z++) {
 										if (!pularDialog) {
 											TextEffect(TextoDoConsole[3], dialogoDoConsole, z, 55);
 										} else {
+											dialogoDoConsole.setVisible(true);
 											dialogoDoConsole.setText(TextoDoConsole[3]);
 											pularDialog = false;
 											break;
 										}
 									}
+									podePular = false;
 
 									// MOSTRA OS BOTÕES
 									Op1NoSelected.setBounds(150, 150, 100, 30);
@@ -1040,15 +1040,18 @@ public class jogo extends JFrame {
 
 									palavra = "";
 									// DIALOGO DO GURI 9
+									podePular = true;
 									for (int z = 0; z < TextoDoGuri[9].length(); z++) {
 										if (!pularDialog) {
 											TextEffect(TextoDoGuri[9], dialogoDoGuri, z, 55);
 										} else {
+											dialogoDoGuri.setVisible(true);
 											dialogoDoGuri.setText(TextoDoGuri[9]);
 											pularDialog = false;
 											break;
 										}
 									}
+									podePular = false;
 
 									// MOSTRA OS BOTÕES
 									YesNoSelected.setBounds(150, 155, 100, 30);
@@ -1080,12 +1083,7 @@ public class jogo extends JFrame {
 									// ENTRAR NA CIDADE GRANDE
 									if (opcaoReal == 1 || opcaoReal == 2) {
 										// FECHANDO BALÃO DE DIALOGO
-										Thread.sleep(500);
-										balaoFixo.setVisible(false);
-										dialogoDoGuri.setVisible(false);
-										balaoClose.setVisible(true);
-										Thread.sleep(1500);
-										balaoClose.setVisible(false);
+										closeDialogBox();
 
 										guriColoridoParado.setVisible(false);
 										guriColoridoAndando.setVisible(true);
@@ -1104,23 +1102,23 @@ public class jogo extends JFrame {
 										guriColoridoParado.setVisible(true);
 
 										// ABRINDO BALÃO DE DIALOGO
-										balaoOpen.setVisible(true);
-										Thread.sleep(1800);
-										balaoOpen.setVisible(false);
-										balaoFixo.setVisible(true);
+										openDialogBox();
 
 										dialogoDoGuri.setBounds(40, 55, 500, 100);
 										palavra = "";
 										// DIALOGO DO GURI 10
+										podePular = true;
 										for (int z = 0; z < TextoDoGuri[10].length(); z++) {
 											if (!pularDialog) {
 												TextEffect(TextoDoGuri[10], dialogoDoGuri, z, 55);
 											} else {
+												dialogoDoGuri.setVisible(true);
 												dialogoDoGuri.setText(TextoDoGuri[10]);
 												pularDialog = false;
 												break;
 											}
 										}
+										podePular = false;
 
 										// MOSTRA OS BOTÕES
 										YesNoSelected.setBounds(150, 165, 100, 30);
@@ -1152,29 +1150,35 @@ public class jogo extends JFrame {
 										// ENTRAR NO CASSINO
 										if (opcaoReal == 1 || opcaoReal == 2) {
 											// DIALOGO DO GURI 11
+											podePular = true;
 											palavra = "";
 											for (int z = 0; z < TextoDoGuri[11].length(); z++) {
 												if (!pularDialog) {
 													TextEffect(TextoDoGuri[11], dialogoDoGuri, z, 55);
 												} else {
+													dialogoDoGuri.setVisible(true);
 													dialogoDoGuri.setText(TextoDoGuri[11]);
 													pularDialog = false;
 													break;
 												}
 											}
+											podePular = false;
 
 											Thread.sleep(2500);
 											// DIALOGO DO GURI 12
+											podePular = true;
 											palavra = "";
 											for (int z = 0; z < TextoDoGuri[12].length(); z++) {
 												if (!pularDialog) {
 													TextEffect(TextoDoGuri[12], dialogoDoGuri, z, 55);
 												} else {
+													dialogoDoGuri.setVisible(true);
 													dialogoDoGuri.setText(TextoDoGuri[12]);
 													pularDialog = false;
 													break;
 												}
 											}
+											podePular = false;
 
 											// MOSTRA OS BOTÕES
 											Op1NoSelected.setBounds(150, 155, 100, 30);
@@ -1210,16 +1214,19 @@ public class jogo extends JFrame {
 												if (random > 0) {
 
 													// DIALOGO DO GURI 13
+													podePular = true;
 													palavra = "";
 													for (int z = 0; z < TextoDoGuri[13].length(); z++) {
 														if (!pularDialog) {
 															TextEffect(TextoDoGuri[13], dialogoDoGuri, z, 55);
 														} else {
+															dialogoDoGuri.setVisible(true);
 															dialogoDoGuri.setText(TextoDoGuri[13]);
 															pularDialog = false;
 															break;
 														}
 													}
+													podePular = false;
 
 													// GURI PEGANDO O PIXEL
 													pixelApagado.setBounds(220, 235, 64, 64);
@@ -1256,16 +1263,19 @@ public class jogo extends JFrame {
 													guriColoridoParado.setVisible(true);
 
 													// DIALOGO DO GURI 16
+													podePular = true;
 													palavra = "";
 													for (int z = 0; z < TextoDoGuri[16].length(); z++) {
 														if (!pularDialog) {
 															TextEffect(TextoDoGuri[16], dialogoDoGuri, z, 55);
 														} else {
+															dialogoDoGuri.setVisible(true);
 															dialogoDoGuri.setText(TextoDoGuri[16]);
 															pularDialog = false;
 															break;
 														}
 													}
+													podePular = false;
 
 													Thread.sleep(1000);
 													balaoFixo.setVisible(false);
@@ -1309,42 +1319,53 @@ public class jogo extends JFrame {
 													zeroGif.setVisible(true);
 
 													// DIALOGO DO GURI 17
+													podePular = true;
 													palavra = "";
 													for (int z = 0; z < TextoDoGuri[17].length(); z++) {
 														if (!pularDialog) {
 															TextEffect(TextoDoGuri[17], dialogoDoGuri, z, 55);
 														} else {
+															dialogoDoGuri.setVisible(true);
 															dialogoDoGuri.setText(TextoDoGuri[17]);
 															pularDialog = false;
 															break;
 														}
 													}
+													podePular = false;
 
 													Thread.sleep(2000);
 													// DIALOGO DO ZERO 0
+													dialogoDoGuri.setVisible(false);
+													dialogoDoZero.setVisible(true);
+													podePular = true;
 													palavra = "";
 													for (int z = 0; z < TextoDoZero[0].length(); z++) {
 														if (!pularDialog) {
-															TextEffect(TextoDoZero[0], dialogoDoGuri, z, 55);
+															TextEffect(TextoDoZero[0], dialogoDoZero, z, 55);
 														} else {
-															dialogoDoGuri.setText(TextoDoZero[0]);
+															dialogoDoZero.setVisible(true);
+															dialogoDoZero.setText(TextoDoZero[0]);
 															pularDialog = false;
 															break;
 														}
 													}
+													podePular = false;
 
 													Thread.sleep(2000);
 													// DIALOGO DO ZERO 1
+													podePular = true;
 													palavra = "";
 													for (int z = 0; z < TextoDoZero[1].length(); z++) {
 														if (!pularDialog) {
-															TextEffect(TextoDoZero[1], dialogoDoGuri, z, 55);
+															TextEffect(TextoDoZero[1], dialogoDoZero, z, 55);
 														} else {
-															dialogoDoGuri.setText(TextoDoZero[1]);
+															dialogoDoZero.setVisible(true);
+															dialogoDoZero.setText(TextoDoZero[1]);
 															pularDialog = false;
 															break;
 														}
 													}
+													podePular = false;
 
 													// MOSTRA OS BOTÕES
 													Op1NoSelected.setBounds(150, 155, 100, 30);
@@ -1391,30 +1412,38 @@ public class jogo extends JFrame {
 														dialogoDoZero
 																.setFont(new Font("Pixel Operator 8", Font.PLAIN, 20));
 														// DIALOGO DO ZERO 2
+														dialogoDoGuri.setVisible(false);
+														dialogoDoZero.setVisible(true);
+														podePular = true;
 														palavra = "";
 														for (int z = 0; z < TextoDoZero[2].length(); z++) {
 															if (!pularDialog) {
-																TextEffect(TextoDoZero[2], dialogoDoGuri, z, 55);
+																TextEffect(TextoDoZero[2], dialogoDoZero, z, 55);
 															} else {
-																dialogoDoGuri.setText(TextoDoZero[2]);
+																dialogoDoZero.setVisible(true);
+																dialogoDoZero.setText(TextoDoZero[2]);
 																pularDialog = false;
 																break;
 															}
 														}
+														podePular = false;
 													}
 
 												} else {
 													// DIALOGO DO GURI 14
+													podePular = true;
 													palavra = "";
 													for (int z = 0; z < TextoDoGuri[14].length(); z++) {
 														if (!pularDialog) {
 															TextEffect(TextoDoGuri[14], dialogoDoGuri, z, 55);
 														} else {
+															dialogoDoGuri.setVisible(true);
 															dialogoDoGuri.setText(TextoDoGuri[14]);
 															pularDialog = false;
 															break;
 														}
 													}
+													podePular = false;
 
 													// GURI PEGANDO O PIXEL
 													pixelApagado.setBounds(220, 235, 64, 64);
@@ -1451,16 +1480,19 @@ public class jogo extends JFrame {
 													guriColoridoParado.setVisible(true);
 
 													// DIALOGO DO GURI 16
+													podePular = true;
 													palavra = "";
 													for (int z = 0; z < TextoDoGuri[16].length(); z++) {
 														if (!pularDialog) {
 															TextEffect(TextoDoGuri[16], dialogoDoGuri, z, 55);
 														} else {
+															dialogoDoGuri.setVisible(true);
 															dialogoDoGuri.setText(TextoDoGuri[16]);
 															pularDialog = false;
 															break;
 														}
 													}
+													podePular = false;
 
 													Thread.sleep(1000);
 													balaoFixo.setVisible(false);
@@ -1504,42 +1536,53 @@ public class jogo extends JFrame {
 													zeroGif.setVisible(true);
 
 													// DIALOGO DO GURI 17
+													podePular = true;
 													palavra = "";
 													for (int z = 0; z < TextoDoGuri[17].length(); z++) {
 														if (!pularDialog) {
 															TextEffect(TextoDoGuri[17], dialogoDoGuri, z, 55);
 														} else {
+															dialogoDoGuri.setVisible(true);
 															dialogoDoGuri.setText(TextoDoGuri[17]);
 															pularDialog = false;
 															break;
 														}
 													}
+													podePular = false;
 
 													Thread.sleep(2000);
 													// DIALOGO DO ZERO 3
+													dialogoDoGuri.setVisible(false);
+													dialogoDoZero.setVisible(true);
+													podePular = true;
 													palavra = "";
 													for (int z = 0; z < TextoDoZero[3].length(); z++) {
 														if (!pularDialog) {
-															TextEffect(TextoDoZero[3], dialogoDoGuri, z, 55);
+															TextEffect(TextoDoZero[3], dialogoDoZero, z, 55);
 														} else {
-															dialogoDoGuri.setText(TextoDoZero[3]);
+															dialogoDoZero.setVisible(true);
+															dialogoDoZero.setText(TextoDoZero[3]);
 															pularDialog = false;
 															break;
 														}
 													}
+													podePular = false;
 
 													Thread.sleep(2000);
 													// DIALOGO DO ZERO 1
+													podePular = true;
 													palavra = "";
 													for (int z = 0; z < TextoDoZero[1].length(); z++) {
 														if (!pularDialog) {
-															TextEffect(TextoDoZero[1], dialogoDoGuri, z, 55);
+															TextEffect(TextoDoZero[1], dialogoDoZero, z, 55);
 														} else {
-															dialogoDoGuri.setText(TextoDoZero[1]);
+															dialogoDoZero.setVisible(true);
+															dialogoDoZero.setText(TextoDoZero[1]);
 															pularDialog = false;
 															break;
 														}
 													}
+													podePular = false;
 
 													// MOSTRA OS BOTÕES
 													Op1NoSelected.setBounds(150, 155, 100, 30);
@@ -1586,32 +1629,40 @@ public class jogo extends JFrame {
 														dialogoDoZero
 																.setFont(new Font("Pixel Operator 8", Font.PLAIN, 20));
 														// DIALOGO DO ZERO 2
+														dialogoDoGuri.setVisible(false);
+														dialogoDoZero.setVisible(true);
+														podePular = true;
 														palavra = "";
 														for (int z = 0; z < TextoDoZero[2].length(); z++) {
 															if (!pularDialog) {
-																TextEffect(TextoDoZero[2], dialogoDoGuri, z, 55);
+																TextEffect(TextoDoZero[2], dialogoDoZero, z, 55);
 															} else {
-																dialogoDoGuri.setText(TextoDoZero[2]);
+																dialogoDoZero.setVisible(true);
+																dialogoDoZero.setText(TextoDoZero[2]);
 																pularDialog = false;
 																break;
 															}
 														}
+														podePular = false;
 													}
 												}
 
 												// ESCOLHER ROUBAR
 											} else if (opcaoReal == 2) {
 												// DIALOGO DO GURI 15
+												podePular = true;
 												palavra = "";
 												for (int z = 0; z < TextoDoGuri[15].length(); z++) {
 													if (!pularDialog) {
 														TextEffect(TextoDoGuri[15], dialogoDoGuri, z, 55);
 													} else {
+														dialogoDoGuri.setVisible(true);
 														dialogoDoGuri.setText(TextoDoGuri[15]);
 														pularDialog = false;
 														break;
 													}
 												}
+												podePular = false;
 
 												// GURI PEGANDO O PIXEL
 												pixelApagado.setBounds(220, 235, 64, 64);
@@ -1648,16 +1699,19 @@ public class jogo extends JFrame {
 												guriColoridoParado.setVisible(true);
 
 												// DIALOGO DO GURI 16
+												podePular = true;
 												palavra = "";
 												for (int z = 0; z < TextoDoGuri[16].length(); z++) {
 													if (!pularDialog) {
 														TextEffect(TextoDoGuri[16], dialogoDoGuri, z, 55);
 													} else {
+														dialogoDoGuri.setVisible(true);
 														dialogoDoGuri.setText(TextoDoGuri[16]);
 														pularDialog = false;
 														break;
 													}
 												}
+												podePular = false;
 
 												Thread.sleep(1000);
 												balaoFixo.setVisible(false);
@@ -1701,42 +1755,53 @@ public class jogo extends JFrame {
 												zeroGif.setVisible(true);
 
 												// DIALOGO DO GURI 17
+												podePular = true;
 												palavra = "";
 												for (int z = 0; z < TextoDoGuri[17].length(); z++) {
 													if (!pularDialog) {
 														TextEffect(TextoDoGuri[17], dialogoDoGuri, z, 55);
 													} else {
+														dialogoDoGuri.setVisible(true);
 														dialogoDoGuri.setText(TextoDoGuri[17]);
 														pularDialog = false;
 														break;
 													}
 												}
+												podePular = false;
 
 												Thread.sleep(2000);
 												// DIALOGO DO ZERO 3
+												dialogoDoGuri.setVisible(false);
+												dialogoDoZero.setVisible(true);
+												podePular = true;
 												palavra = "";
 												for (int z = 0; z < TextoDoZero[3].length(); z++) {
 													if (!pularDialog) {
-														TextEffect(TextoDoZero[3], dialogoDoGuri, z, 55);
+														TextEffect(TextoDoZero[3], dialogoDoZero, z, 55);
 													} else {
-														dialogoDoGuri.setText(TextoDoZero[3]);
+														dialogoDoZero.setVisible(true);
+														dialogoDoZero.setText(TextoDoZero[3]);
 														pularDialog = false;
 														break;
 													}
 												}
+												podePular = false;
 
 												Thread.sleep(2000);
 												// DIALOGO DO ZERO 1
+												podePular = true;
 												palavra = "";
 												for (int z = 0; z < TextoDoZero[1].length(); z++) {
 													if (!pularDialog) {
-														TextEffect(TextoDoZero[1], dialogoDoGuri, z, 55);
+														TextEffect(TextoDoZero[1], dialogoDoZero, z, 55);
 													} else {
-														dialogoDoGuri.setText(TextoDoZero[1]);
+														dialogoDoZero.setVisible(true);
+														dialogoDoZero.setText(TextoDoZero[1]);
 														pularDialog = false;
 														break;
 													}
 												}
+												podePular = false;
 
 												// MOSTRA OS BOTÕES
 												Op1NoSelected.setBounds(150, 155, 100, 30);
@@ -1782,16 +1847,21 @@ public class jogo extends JFrame {
 												} else if (opcaoReal == 2) {
 													dialogoDoZero.setFont(new Font("Pixel Operator 8", Font.PLAIN, 20));
 													// DIALOGO DO ZERO 2
+													dialogoDoGuri.setVisible(false);
+													dialogoDoZero.setVisible(true);
+													podePular = true;
 													palavra = "";
 													for (int z = 0; z < TextoDoZero[2].length(); z++) {
 														if (!pularDialog) {
-															TextEffect(TextoDoZero[2], dialogoDoGuri, z, 55);
+															TextEffect(TextoDoZero[2], dialogoDoZero, z, 55);
 														} else {
-															dialogoDoGuri.setText(TextoDoZero[2]);
+															dialogoDoZero.setVisible(true);
+															dialogoDoZero.setText(TextoDoZero[2]);
 															pularDialog = false;
 															break;
 														}
 													}
+													podePular = false;
 												}
 
 											}
@@ -1872,10 +1942,14 @@ public class jogo extends JFrame {
 			}
 
 			if (e.getKeyChar() == KeyEvent.VK_SPACE) {
-				pularDialog = true;
+				if (podePular) {
+					pularDialog = true;					
+				}else {
+					pularDialog = false;
+				}
 			}
 
-			// Fecha o jogo com o ESC
+ 			// Fecha o jogo com o ESC
 			if (e.getKeyChar() == KeyEvent.VK_ESCAPE) {
 				System.exit(0);
 			}
@@ -1933,6 +2007,32 @@ public class jogo extends JFrame {
 			clip.stop();
 		}
 		
+	}
+	
+	public void openDialogBox() {
+		try {
+			balaoOpen.setVisible(true);
+			Thread.sleep(1800);
+			balaoOpen.setVisible(false);
+			balaoFixo.setVisible(true);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void closeDialogBox() {
+		try {
+			Thread.sleep(500);
+			balaoFixo.setVisible(false);
+			dialogoDoGuri.setVisible(false);
+			balaoClose.setVisible(true);
+			Thread.sleep(1500);
+			balaoClose.setVisible(false);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
