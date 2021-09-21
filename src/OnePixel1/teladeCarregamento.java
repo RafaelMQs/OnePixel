@@ -4,8 +4,6 @@ package OnePixel1;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
 import java.io.IOException;
 
 
@@ -48,7 +46,7 @@ public class teladeCarregamento extends JFrame {
                 	sleep(50);
                     load +=1;
                     System.out.println(load);
-                    // Quando chegar 100%, esta função chamarar outra tela.	
+                    // Quando chegar 100%, esta funï¿½ï¿½o chamarar outra tela.	
         			if(load >= 100) {
         				setVisible(false);
         				new telaInicial().setVisible(true);

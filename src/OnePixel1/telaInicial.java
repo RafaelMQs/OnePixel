@@ -10,11 +10,10 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 
-
 public class telaInicial extends JFrame implements MouseListener, KeyListener {
 	private JLabel fundoLogo;
 	private JButton iniciarNoSelected, fecharNoSelected, iniciarSelected, fecharSelected;
-	private boolean Iniciou = false;
+
 	private Clip SoundTrack1;
 	private ImageIcon imgLogo = new ImageIcon("res/IconGame.png");
 	private prologo prol;

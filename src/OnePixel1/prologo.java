@@ -1,14 +1,8 @@
 package OnePixel1;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.IOException;
-
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
-import javax.swing.event.*;
 
 /* Warning!!! Cada imagem estar em um JPanel
  * add(NomeDoJPanel) */
@@ -30,8 +24,6 @@ public class prologo extends JFrame implements KeyListener {
 	private JLabel[] texto = new JLabel[Dialogo.length];
 	private String palavra = "";
 	private boolean pulouTudo = false;
-	private int contTela = 1;
-	
 	private ImageIcon imgLogo = new ImageIcon("res/IconGame.png");
 
 	public prologo() {
