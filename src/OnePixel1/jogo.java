@@ -21,52 +21,52 @@ public class jogo extends JFrame {
 			pixelApagado, imgFinal1, imgFinal2, imgFinal3, imgFinal4, imgFinal5, imgFinal, zeroGif;
 
 	private String[] TextoDoGuri = {
-			"<html>Guri: Estou caminhando bem devagar.<br> <br><center> Será que: 1° Devo Correr ou 2° Não correr",
-			// ESCOLHER NÃO CORRER
-			"<html>Guri: Caraca!, achei um pixel. Isso até que foi bem fácil, mas qual pixel será esse?",
-			"<html>Guri: Coletei um pixel vermelho. Até o cenário mudou. Pelo visto estou bem perto de encontrar os outros, melhor continuar caminhando com um passo de cada vez.",
-			"<html>Guri: Agora devo escolher uma outra direção para ir, estou sentindo algo bom para o sul. <br> <br> <center> 1° Ir para o sul ou 2° Não ir para o sul",
+			"<html>Guri: Estou caminhando bem devagar.<br> <br><center> Serï¿½ que: 1ï¿½ Devo Correr ou 2ï¿½ NAO correr",
+			// ESCOLHER NAO CORRER
+			"<html>Guri: Caraca!, achei um pixel. Isso atï¿½ que foi bem fï¿½cil, mas qual pixel serï¿½ esse?",
+			"<html>Guri: Coletei um pixel vermelho. Atï¿½ o cenï¿½rio mudou. Pelo visto estou bem perto de encontrar os outros, melhor continuar caminhando com um passo de cada vez.",
+			"<html>Guri: Agora devo escolher uma outra direï¿½ï¿½o para ir, estou sentindo algo bom para o sul. <br> <br> <center> 1ï¿½ Ir para o sul ou 2ï¿½ NAO ir para o sul",
 			// ESCOLHER NAO IR PARA O SUL
-			"<html>Guri caminha ao norte e se depara com uma cidade abandonada.<br><br>Guri: Essa cidade é de dar medo.<br> <br> <center> 1° Ir embora ou 2° Não ir embora",
+			"<html>Guri caminha ao norte e se depara com uma cidade abandonada.<br><br>Guri: Essa cidade ï¿½ de dar medo.<br> <br> <center> 1ï¿½ Ir embora ou 2ï¿½ NAO ir embora",
 			// ESCOLHER NAO IR EMBORA
-			"<html>Guri: Independente de minha escolha... É melhor entrar, sinto que estou sendo forçado a entrar.<br><br>Guri: Há uma casa com a porta aberta logo ali em frente.<br><center> 1° Ir até lá ou 2° Não ir até lá",
-			// ESCOLHER NAO IR ATÉ A CASA
-			"<html>Guri: Caraca, que coincidência, no final desta cidade está mais um pixel!",
-			"<html>Guri: Uau, ele é verde! Estou um passo mais perto de recuperar todas as cores e de me encontrar com os meus pais!",
-			"<html>Guri: Esses pixels estão muito fáceis de serem encontrados, isso está meio estranho... É melhor eu não pensar nisso. Logo ali na frente há uma floresta. <br><br><center> 1° Entrar na floresta ou 2° Não Entrar ",
+			"<html>Guri: Independente de minha escolha... ï¿½ melhor entrar, sinto que estou sendo forï¿½ado a entrar.<br><br>Guri: Hï¿½ uma casa com a porta aberta logo ali em frente.<br><center> 1ï¿½ Ir atï¿½ lï¿½ ou 2ï¿½ NAO ir atï¿½ lï¿½",
+			// ESCOLHER NAO IR ATï¿½ A CASA
+			"<html>Guri: Caraca, que coincidï¿½ncia, no final desta cidade estï¿½ mais um pixel!",
+			"<html>Guri: Uau, ele ï¿½ verde! Estou um passo mais perto de recuperar todas as cores e de me encontrar com os meus pais!",
+			"<html>Guri: Esses pixels estï¿½o muito fï¿½ceis de serem encontrados, isso estï¿½ meio estranho... ï¿½ melhor eu NAO pensar nisso. Logo ali na frente hï¿½ uma floresta. <br><br><center> 1ï¿½ Entrar na floresta ou 2ï¿½ NAO Entrar ",
 			// ESCOLHER NAO ENTRAR NA FLORESTA
-			"<html>Guri: Okay, eu não posso ficar parado aqui. Logo ao lado há uma Cidade Grande.<br><br><center> 1° Entrar na Cidade Grande ou 2° Não Entrar",
+			"<html>Guri: Okay, eu NAO posso ficar parado aqui. Logo ao lado hï¿½ uma Cidade Grande.<br><br><center> 1ï¿½ Entrar na Cidade Grande ou 2ï¿½ NAO Entrar",
 			// ESCOLHER ENTRAR NA CIDADE GRANDE
-			"<html>Guri: Independente de minha escolha... É melhor entrar, sinto que estou sendo forçado a entrar.<br><br>Guri: Que cidade meio estranha, mas Okay. Opa, parece que tem um pixel azul no cassino.<br><br><center> 1° Entrar ou 2° Não Entrar",
-			"<html>Guri: Independente de minha escolha... É bom eu ir para o cassino, tem um pixel lá! xD",
-			"<html>Guri: Pixel aparenta estar preso em uma dessas maquinas da sorte.<br><br><center> 1° Tentar a Sorte ou 2° Roubar o Pixel",
+			"<html>Guri: Independente de minha escolha... ï¿½ melhor entrar, sinto que estou sendo forï¿½ado a entrar.<br><br>Guri: Que cidade meio estranha, mas Okay. Opa, parece que tem um pixel azul no cassino.<br><br><center> 1ï¿½ Entrar ou 2ï¿½ NAO Entrar",
+			"<html>Guri: Independente de minha escolha... ï¿½ bom eu ir para o cassino, tem um pixel lï¿½! xD",
+			"<html>Guri: Pixel aparenta estar preso em uma dessas maquinas da sorte.<br><br><center> 1ï¿½ Tentar a Sorte ou 2ï¿½ Roubar o Pixel",
 			// ESCOLHER TENTAR A SORTE E CONSEGUIR
-			"<html>Guri: Eba, consegui. Este é o ultimo pixel, agora poderei ver minha família.",
+			"<html>Guri: Eba, consegui. Este ï¿½ o ultimo pixel, agora poderei ver minha famï¿½lia.",
 			// ESCOLHER TENTAR A SORTE E ERRAR
-			"<html>Guri: Droga, perdi. Acho que vou ter que roubar, ainda bem que não tem ninguém olhando.",
+			"<html>Guri: Droga, perdi. Acho que vou ter que roubar, ainda bem que NAO tem ninguï¿½m olhando.",
 			// ESCOLHER ROUBAR
-			"<html>Guri: Acho que vou ter que roubar, ainda bem que não tem ninguém olhando, então consigo fazer isso sem pensar que é algo errado.",
+			"<html>Guri: Acho que vou ter que roubar, ainda bem que NAO tem ninguï¿½m olhando, entï¿½o consigo fazer isso sem pensar que ï¿½ algo errado.",
 			// DIALOGO FINAL
-			"<html>Guri: Finalmente consegui completar essa missão, que foi bem estranha e fácil por sinal. Agora poderei ver minha família.",
-			"<html>Guri: Oshi, porque eu estou aqui, cadê minha familia, cadê tudo?" };// Texto do Guri
+			"<html>Guri: Finalmente consegui completar essa missï¿½o, que foi bem estranha e fï¿½cil por sinal. Agora poderei ver minha famï¿½lia.",
+			"<html>Guri: Oshi, porque eu estou aqui, cadï¿½ minha familia, cadï¿½ tudo?" };// Texto do Guri
 
-	private JLabel dialogoDoGuri; // Diálogo do Guri
+	private JLabel dialogoDoGuri; // Diï¿½logo do Guri
 
 	private String[] TextoDoZero = {
-			"<html>Zero: Você achou mesmo que essa era a missão verdadeira, tipo... sério? Você conseguia reviver cara, eu basicamente facilitei e até mesmo manipulei algumas escolhas suas para você chegar até aqui. Isso foi muito fácil, era apenas um teste",
-			"<html>Zero: Agora que você já sabe tem duas escolhas: <br><br><center>1° Permanecer na matrix ou 2° Enfrentar a realidade",
+			"<html>Zero: Vocï¿½ achou mesmo que essa era a missï¿½o verdadeira, tipo... sï¿½rio? Vocï¿½ conseguia reviver cara, eu basicamente facilitei e atï¿½ mesmo manipulei algumas escolhas suas para vocï¿½ chegar atï¿½ aqui. Isso foi muito fï¿½cil, era apenas um teste",
+			"<html>Zero: Agora que vocï¿½ jï¿½ sabe tem duas escolhas: <br><br><center>1ï¿½ Permanecer na matrix ou 2ï¿½ Enfrentar a realidade",
 			"<html> EM BREVE... <br><br><center> ONE PIXEL 2",
-			"<html>Zero: Você achou mesmo que essa era a missão verdadeira, tipo... serio? Você conseguia reviver cara. Isso foi muito facil, eu basicamente facilitei e até mesmo manipulei algumas escolhas suas para você chegar até aqui, tirando a parte que você roubou um pixel, mas irei relever, era apenas um teste para ver se era você mesmo o escolhido" }; // Texto
+			"<html>Zero: Vocï¿½ achou mesmo que essa era a missï¿½o verdadeira, tipo... serio? Vocï¿½ conseguia reviver cara. Isso foi muito facil, eu basicamente facilitei e atï¿½ mesmo manipulei algumas escolhas suas para vocï¿½ chegar atï¿½ aqui, tirando a parte que vocï¿½ roubou um pixel, mas irei relever, era apenas um teste para ver se era vocï¿½ mesmo o escolhido" }; // Texto
 																																																																																											// do
 																																																																																											// Guri
 
-	private JLabel dialogoDoZero; // Diálogo do Guri
+	private JLabel dialogoDoZero; // Diï¿½logo do Guri
 
 	private String[] TextoDoConsole = {
-			"<html>Guri correu tão rapido que bateu no pixel com muita força. <br><br><center>Você MORREU! <br><br><center> 1° Recomeçar ou 2° Sair",
-			"<html>Guri ficou andando sem rumo por muito tempo.<br><br><center>VOCÊ MORREU DE CANSAÇO! <br><br><center> 1° Recomeçar ou 2° Sair",
-			"<html>Guri entrou na casa, porem, nao era uma casa e sim um poço artesiano em formato de casa.<br><br><center>VOCÊ MORREU DE QUEDA! <br><br><center> 1° Recomeçar ou 2° Sair ",
-			"<html>Guri entrou na floresta, mas não estava preparado para o ambiente.<br><br><center> VOCÊ MORREU DE MEDO ( LITERALMENTE ) <br><br><center> 1° Recomeçar ou 2° Sair" }; // Mensagens
+			"<html>Guri correu tï¿½o rapido que bateu no pixel com muita forï¿½a. <br><br><center>Vocï¿½ MORREU! <br><br><center> 1ï¿½ Recomeï¿½ar ou 2ï¿½ Sair",
+			"<html>Guri ficou andando sem rumo por muito tempo.<br><br><center>VOCï¿½ MORREU DE CANSAï¿½O! <br><br><center> 1ï¿½ Recomeï¿½ar ou 2ï¿½ Sair",
+			"<html>Guri entrou na casa, porem, nao era uma casa e sim um poï¿½o artesiano em formato de casa.<br><br><center>VOCï¿½ MORREU DE QUEDA! <br><br><center> 1ï¿½ Recomeï¿½ar ou 2ï¿½ Sair ",
+			"<html>Guri entrou na floresta, mas NAO estava preparado para o ambiente.<br><br><center> VOCï¿½ MORREU DE MEDO ( LITERALMENTE ) <br><br><center> 1ï¿½ Recomeï¿½ar ou 2ï¿½ Sair" }; // Mensagens
 																																														// do
 																																														// jogo
 																																														// em
@@ -196,7 +196,7 @@ public class jogo extends JFrame {
 		zeroGif.setVisible(false);
 		add(zeroGif);
 
-		// CRIANDO OS BOTÕES DE ESCOLHA
+		// CRIANDO OS Botoes DE ESCOLHA
 		Op1NoSelected = new JLabel(new ImageIcon("res/imgLBSelect/Option1Button-NoSelected.png"));
 		Op1NoSelected.setVisible(false);
 		add(Op1NoSelected);
@@ -213,7 +213,7 @@ public class jogo extends JFrame {
 		Op2Selected.setVisible(false);
 		add(Op2Selected);
 
-		// CRIANDO OS BOTÕES DE ESCOLHA
+		// CRIANDO OS Botoes DE ESCOLHA
 		YesNoSelected = new JLabel(new ImageIcon("res/imgLBSelect/YesButton-NoSelected.png"));
 		YesNoSelected.setVisible(false);
 		add(YesNoSelected);
@@ -230,8 +230,8 @@ public class jogo extends JFrame {
 		NoSelected.setVisible(false);
 		add(NoSelected);
 
-		// BALÂO DE FALA
-		balaoOpen = new JLabel(new ImageIcon("res/imgBalao/BalãoOpen.gif"));
+		// BALï¿½O DE FALA
+		balaoOpen = new JLabel(new ImageIcon("res/imgBalao/Balï¿½oOpen.gif"));
 		balaoOpen.setBounds(0, 5, 600, 310);
 		balaoOpen.setVisible(false);
 		add(balaoOpen);
@@ -311,7 +311,7 @@ public class jogo extends JFrame {
 		getContentPane().setBackground(new Color(0, 0, 0));
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setSize(600, 310); // Tamanho do JFrame
-		setUndecorated(true); // Desativa a Decoração
+		setUndecorated(true); // Desativa a Decoracao
 		setLocationRelativeTo(null); // Tela Centralizada
 		setVisible(true);
 	}
@@ -331,7 +331,7 @@ public class jogo extends JFrame {
 					Thread.sleep(10);
 				}
 
-				// ABRINDO BALÃO DE DIALOGO
+				// ABRINDO BALï¿½O DE DIALOGO
 				openDialogBox();
 				addKeyListener(this);
 
@@ -349,7 +349,7 @@ public class jogo extends JFrame {
 					}
 				}
 				podePular = false;
-				// MOSTRA OS BOTÕES
+				// MOSTRA OS Botoes
 				YesNoSelected.setBounds(150, 135, 100, 30);
 				YesNoSelected.setVisible(true);
 				YesSelected.setBounds(150, 135, 100, 30);
@@ -369,7 +369,7 @@ public class jogo extends JFrame {
 				}
 				fazerEscolha = false;
 
-				// DEIXA AS OPÇÕES INVISIVEIS
+				// DEIXA AS OPï¿½ï¿½ES INVISIVEIS
 				YesNoSelected.setVisible(false);
 				YesSelected.setVisible(false);
 				NoNoSelected.setVisible(false);
@@ -409,7 +409,7 @@ public class jogo extends JFrame {
 					}
 					podePular = false;
 
-					// MOSTRA OS BOTÕES
+					// MOSTRA OS Botoes
 					Op1NoSelected.setBounds(150, 150, 100, 30);
 					Op1NoSelected.setVisible(true);
 					Op1Selected.setBounds(150, 150, 100, 30);
@@ -430,13 +430,13 @@ public class jogo extends JFrame {
 					}
 					fazerEscolha = false;
 
-					// DEIXA AS OPÇÕES INVISIVEIS
+					// DEIXA AS OPï¿½ï¿½ES INVISIVEIS
 					Op1NoSelected.setVisible(false);
 					Op1Selected.setVisible(false);
 					Op2NoSelected.setVisible(false);
 					Op2Selected.setVisible(false);
 
-					// RECOMEÇAR
+					// RECOMEï¿½AR
 					if (opcaoReal == 1) {
 						setVisible(false);
 						new jogo();
@@ -446,9 +446,9 @@ public class jogo extends JFrame {
 						System.exit(0);
 					}
 
-					// NÃO CORRER
+					// NAO CORRER
 				} else if (opcaoReal == 2) {
-					// FECHANDO BALÃO DE DIALOGO
+					// FECHANDO BALï¿½O DE DIALOGO
 					closeDialogBox();
 
 					for (int i = 600; i > 220; i--) {
@@ -459,7 +459,7 @@ public class jogo extends JFrame {
 					guriColoridoAndando.setVisible(false);
 					guriColoridoParado.setVisible(true);
 
-					// ABRINDO BALÃO DE DIALOGO
+					// ABRINDO BALï¿½O DE DIALOGO
 					openDialogBox();
 
 					palavra = "";
@@ -544,7 +544,7 @@ public class jogo extends JFrame {
 					}
 					podePular = false;
 
-					// MOSTRA OS BOTÕES
+					// MOSTRA OS Botoes
 					YesNoSelected.setBounds(150, 145, 100, 30);
 					YesNoSelected.setVisible(true);
 					YesSelected.setBounds(150, 145, 100, 30);
@@ -565,7 +565,7 @@ public class jogo extends JFrame {
 					}
 					fazerEscolha = false;
 
-					// DEIXA AS OPÇÕES INVISIVEIS
+					// DEIXA AS OPï¿½ï¿½ES INVISIVEIS
 					YesNoSelected.setVisible(false);
 					YesSelected.setVisible(false);
 					NoNoSelected.setVisible(false);
@@ -573,7 +573,7 @@ public class jogo extends JFrame {
 
 					// IR PARA O SUL
 					if (opcaoReal == 1) {
-						// FECHANDO BALÃO DE DIALOGO
+						// FECHANDO BALï¿½O DE DIALOGO
 						closeDialogBox();
 
 						dialogoDoGuri.setVisible(false);
@@ -609,7 +609,7 @@ public class jogo extends JFrame {
 						}
 						podePular = false;
 
-						// MOSTRA OS BOTÕES
+						// MOSTRA OS Botoes
 						Op1NoSelected.setBounds(150, 150, 100, 30);
 						Op1NoSelected.setVisible(true);
 						Op1Selected.setBounds(150, 150, 100, 30);
@@ -630,13 +630,13 @@ public class jogo extends JFrame {
 						}
 						fazerEscolha = false;
 
-						// DEIXA AS OPÇÕES INVISIVEIS
+						// DEIXA AS OPï¿½ï¿½ES INVISIVEIS
 						Op1NoSelected.setVisible(false);
 						Op1Selected.setVisible(false);
 						Op2NoSelected.setVisible(false);
 						Op2Selected.setVisible(false);
 
-						// RECOMEÇAR
+						// RECOMEï¿½AR
 						if (opcaoReal == 1) {
 							setVisible(false);
 							new jogo();
@@ -646,9 +646,9 @@ public class jogo extends JFrame {
 							System.exit(0);
 						}
 
-						// NÃO IR PARA O SUL
+						// NAO IR PARA O SUL
 					} else if (opcaoReal == 2) {
-						// FECHANDO BALÃO DE DIALOGO
+						// FECHANDO BALï¿½O DE DIALOGO
 						closeDialogBox();
 
 						guriColoridoParado.setVisible(false);
@@ -657,7 +657,7 @@ public class jogo extends JFrame {
 						gifFundoRed.setVisible(true);
 
 						Thread.sleep(2800);
-						// ABRINDO BALÃO DE DIALOGO
+						// ABRINDO BALï¿½O DE DIALOGO
 						openDialogBox();
 
 						guriColoridoParado.setVisible(true);
@@ -681,7 +681,7 @@ public class jogo extends JFrame {
 						}
 						podePular = false;
 
-						// MOSTRA OS BOTÕES
+						// MOSTRA OS Botoes
 						YesNoSelected.setBounds(150, 155, 100, 30);
 						YesNoSelected.setVisible(true);
 						YesSelected.setBounds(150, 155, 100, 30);
@@ -702,7 +702,7 @@ public class jogo extends JFrame {
 						}
 						fazerEscolha = false;
 
-						// DEIXA AS OPÇÕES INVISIVEIS
+						// DEIXA AS OPï¿½ï¿½ES INVISIVEIS
 						YesNoSelected.setVisible(false);
 						YesSelected.setVisible(false);
 						NoNoSelected.setVisible(false);
@@ -710,7 +710,7 @@ public class jogo extends JFrame {
 
 						// IR EMBORA
 
-						// NÃO IR EMBORA
+						// NAO IR EMBORA
 						if (opcaoReal == 1 || opcaoReal == 2) {
 							palavra = "";
 							dialogoDoGuri.setBounds(40, 70, 500, 100);
@@ -728,7 +728,7 @@ public class jogo extends JFrame {
 							}
 							podePular = false;
 							
-							// MOSTRA OS BOTÕES
+							// MOSTRA OS Botoes
 							YesNoSelected.setBounds(150, 165, 100, 30);
 							YesNoSelected.setVisible(true);
 							YesSelected.setBounds(150, 165, 100, 30);
@@ -749,13 +749,13 @@ public class jogo extends JFrame {
 							}
 							fazerEscolha = false;
 
-							// DEIXA AS OPÇÕES INVISIVEIS
+							// DEIXA AS OPï¿½ï¿½ES INVISIVEIS
 							YesNoSelected.setVisible(false);
 							YesSelected.setVisible(false);
 							NoNoSelected.setVisible(false);
 							NoSelected.setVisible(false);
 
-							// IR ATÉ LÁ
+							// IR ATï¿½ Lï¿½
 							if (opcaoReal == 1) {
 								dialogoDoGuri.setVisible(false);
 								guriColoridoParado.setVisible(false);
@@ -783,7 +783,7 @@ public class jogo extends JFrame {
 								}
 								podePular = false;
 
-								// MOSTRA OS BOTÕES
+								// MOSTRA OS Botoes
 								Op1NoSelected.setBounds(150, 150, 100, 30);
 								Op1NoSelected.setVisible(true);
 								Op1Selected.setBounds(150, 150, 100, 30);
@@ -804,13 +804,13 @@ public class jogo extends JFrame {
 								}
 								fazerEscolha = false;
 
-								// DEIXA AS OPÇÕES INVISIVEIS
+								// DEIXA AS OPï¿½ï¿½ES INVISIVEIS
 								Op1NoSelected.setVisible(false);
 								Op1Selected.setVisible(false);
 								Op2NoSelected.setVisible(false);
 								Op2Selected.setVisible(false);
 
-								// RECOMEÇAR
+								// RECOMEï¿½AR
 								if (opcaoReal == 1) {
 									setVisible(false);
 									new jogo();
@@ -820,7 +820,7 @@ public class jogo extends JFrame {
 									System.exit(0);
 								}
 
-								// NÃO IR ATÉ LÁ
+								// NAO IR ATï¿½ Lï¿½
 							} else if (opcaoReal == 2) {
 								dialogoDoGuri.setBounds(40, 80, 500, 100);
 								palavra = "";
@@ -838,7 +838,7 @@ public class jogo extends JFrame {
 								}
 								podePular = false;
 
-								// FECHANDO BALÃO DE DIALOGO
+								// FECHANDO BALï¿½O DE DIALOGO
 								closeDialogBox();
 
 								guriColoridoParado.setVisible(false);
@@ -889,7 +889,7 @@ public class jogo extends JFrame {
 								guriColoridoAndando.setVisible(false);
 								guriColoridoParado.setVisible(true);
 
-								// ABRINDO BALÃO DE DIALOGO
+								// ABRINDO BALï¿½O DE DIALOGO
 								openDialogBox();
 
 								guriColoridoParado.setVisible(true);
@@ -928,7 +928,7 @@ public class jogo extends JFrame {
 								}
 								podePular = false;
 
-								// MOSTRA OS BOTÕES
+								// MOSTRA OS Botoes
 								YesNoSelected.setBounds(150, 155, 100, 30);
 								YesNoSelected.setVisible(true);
 								YesSelected.setBounds(150, 155, 100, 30);
@@ -949,7 +949,7 @@ public class jogo extends JFrame {
 								}
 								fazerEscolha = false;
 
-								// DEIXA AS OPÇÕES INVISIVEIS
+								// DEIXA AS OPï¿½ï¿½ES INVISIVEIS
 								YesNoSelected.setVisible(false);
 								YesSelected.setVisible(false);
 								NoNoSelected.setVisible(false);
@@ -957,7 +957,7 @@ public class jogo extends JFrame {
 
 								// ENTRAR NA FLORESTA
 								if (opcaoReal == 1) {
-									// FECHANDO BALÃO DE DIALOGO
+									// FECHANDO BALï¿½O DE DIALOGO
 									closeDialogBox();
 
 									guriColoridoParado.setVisible(false);
@@ -973,7 +973,7 @@ public class jogo extends JFrame {
 									}
 									pngFundoRed.setVisible(false);
 
-									// ABRINDO BALÃO DE DIALOGO
+									// ABRINDO BALï¿½O DE DIALOGO
 									openDialogBox();
 
 									Thread.sleep(2000);
@@ -998,7 +998,7 @@ public class jogo extends JFrame {
 									}
 									podePular = false;
 
-									// MOSTRA OS BOTÕES
+									// MOSTRA OS Botoes
 									Op1NoSelected.setBounds(150, 150, 100, 30);
 									Op1NoSelected.setVisible(true);
 									Op1Selected.setBounds(150, 150, 100, 30);
@@ -1019,13 +1019,13 @@ public class jogo extends JFrame {
 									}
 									fazerEscolha = false;
 
-									// DEIXA AS OPÇÕES INVISIVEIS
+									// DEIXA AS OPï¿½ï¿½ES INVISIVEIS
 									Op1NoSelected.setVisible(false);
 									Op1Selected.setVisible(false);
 									Op2NoSelected.setVisible(false);
 									Op2Selected.setVisible(false);
 
-									// RECOMEÇAR
+									// RECOMEï¿½AR
 									if (opcaoReal == 1) {
 										setVisible(false);
 										new jogo();
@@ -1035,7 +1035,7 @@ public class jogo extends JFrame {
 										System.exit(0);
 									}
 
-									// NÃO ENTRAR NA FLORESTA
+									// NAO ENTRAR NA FLORESTA
 								} else if (opcaoReal == 2) {
 
 									palavra = "";
@@ -1053,7 +1053,7 @@ public class jogo extends JFrame {
 									}
 									podePular = false;
 
-									// MOSTRA OS BOTÕES
+									// MOSTRA OS Botoes
 									YesNoSelected.setBounds(150, 155, 100, 30);
 									YesNoSelected.setVisible(true);
 									YesSelected.setBounds(150, 155, 100, 30);
@@ -1074,7 +1074,7 @@ public class jogo extends JFrame {
 									}
 									fazerEscolha = false;
 
-									// DEIXA AS OPÇÕES INVISIVEIS
+									// DEIXA AS OPï¿½ï¿½ES INVISIVEIS
 									YesNoSelected.setVisible(false);
 									YesSelected.setVisible(false);
 									NoNoSelected.setVisible(false);
@@ -1082,7 +1082,7 @@ public class jogo extends JFrame {
 
 									// ENTRAR NA CIDADE GRANDE
 									if (opcaoReal == 1 || opcaoReal == 2) {
-										// FECHANDO BALÃO DE DIALOGO
+										// FECHANDO BALï¿½O DE DIALOGO
 										closeDialogBox();
 
 										guriColoridoParado.setVisible(false);
@@ -1101,7 +1101,7 @@ public class jogo extends JFrame {
 										guriColoridoAndando.setVisible(false);
 										guriColoridoParado.setVisible(true);
 
-										// ABRINDO BALÃO DE DIALOGO
+										// ABRINDO BALï¿½O DE DIALOGO
 										openDialogBox();
 
 										dialogoDoGuri.setBounds(40, 55, 500, 100);
@@ -1120,7 +1120,7 @@ public class jogo extends JFrame {
 										}
 										podePular = false;
 
-										// MOSTRA OS BOTÕES
+										// MOSTRA OS Botoes
 										YesNoSelected.setBounds(150, 165, 100, 30);
 										YesNoSelected.setVisible(true);
 										YesSelected.setBounds(150, 165, 100, 30);
@@ -1141,7 +1141,7 @@ public class jogo extends JFrame {
 										}
 										fazerEscolha = false;
 
-										// DEIXA AS OPÇÕES INVISIVEIS
+										// DEIXA AS OPï¿½ï¿½ES INVISIVEIS
 										YesNoSelected.setVisible(false);
 										YesSelected.setVisible(false);
 										NoNoSelected.setVisible(false);
@@ -1180,7 +1180,7 @@ public class jogo extends JFrame {
 											}
 											podePular = false;
 
-											// MOSTRA OS BOTÕES
+											// MOSTRA OS Botoes
 											Op1NoSelected.setBounds(150, 155, 100, 30);
 											Op1NoSelected.setVisible(true);
 											Op1Selected.setBounds(150, 155, 100, 30);
@@ -1201,7 +1201,7 @@ public class jogo extends JFrame {
 											}
 											fazerEscolha = false;
 
-											// DEIXA AS OPÇÕES INVISIVEIS
+											// DEIXA AS OPï¿½ï¿½ES INVISIVEIS
 											Op1NoSelected.setVisible(false);
 											Op1Selected.setVisible(false);
 											Op2NoSelected.setVisible(false);
@@ -1367,7 +1367,7 @@ public class jogo extends JFrame {
 													}
 													podePular = false;
 
-													// MOSTRA OS BOTÕES
+													// MOSTRA OS Botoes
 													Op1NoSelected.setBounds(150, 155, 100, 30);
 													Op1NoSelected.setVisible(true);
 													Op1Selected.setBounds(150, 155, 100, 30);
@@ -1388,7 +1388,7 @@ public class jogo extends JFrame {
 													}
 													fazerEscolha = false;
 
-													// DEIXA AS OPÇÕES INVISIVEIS
+													// DEIXA AS OPï¿½ï¿½ES INVISIVEIS
 													Op1NoSelected.setVisible(false);
 													Op1Selected.setVisible(false);
 													Op2NoSelected.setVisible(false);
@@ -1584,7 +1584,7 @@ public class jogo extends JFrame {
 													}
 													podePular = false;
 
-													// MOSTRA OS BOTÕES
+													// MOSTRA OS Botoes
 													Op1NoSelected.setBounds(150, 155, 100, 30);
 													Op1NoSelected.setVisible(true);
 													Op1Selected.setBounds(150, 155, 100, 30);
@@ -1605,7 +1605,7 @@ public class jogo extends JFrame {
 													}
 													fazerEscolha = false;
 
-													// DEIXA AS OPÇÕES INVISIVEIS
+													// DEIXA AS OPï¿½ï¿½ES INVISIVEIS
 													Op1NoSelected.setVisible(false);
 													Op1Selected.setVisible(false);
 													Op2NoSelected.setVisible(false);
@@ -1803,7 +1803,7 @@ public class jogo extends JFrame {
 												}
 												podePular = false;
 
-												// MOSTRA OS BOTÕES
+												// MOSTRA OS Botoes
 												Op1NoSelected.setBounds(150, 155, 100, 30);
 												Op1NoSelected.setVisible(true);
 												Op1Selected.setBounds(150, 155, 100, 30);
@@ -1824,7 +1824,7 @@ public class jogo extends JFrame {
 												}
 												fazerEscolha = false;
 
-												// DEIXA AS OPÇÕES INVISIVEIS
+												// DEIXA AS OPï¿½ï¿½ES INVISIVEIS
 												Op1NoSelected.setVisible(false);
 												Op1Selected.setVisible(false);
 												Op2NoSelected.setVisible(false);
@@ -1918,7 +1918,7 @@ public class jogo extends JFrame {
 						NoSelected.setVisible(true);
 					}
 				} else if (op == "1") {
-					// MUDA O TEXTO CONFORME A OPÇÃO SELECIONADA
+					// MUDA O TEXTO CONFORME A OPï¿½ï¿½O SELECIONADA
 					if (opcaoSimulada == 1) {
 						Op1NoSelected.setVisible(false);
 						Op1Selected.setVisible(true);

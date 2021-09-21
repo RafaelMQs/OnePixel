@@ -1,12 +1,7 @@
 package OnePixel1;
-import java.applet.Applet;
-import java.applet.AudioClip;
-import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -15,12 +10,14 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 
+
 public class telaInicial extends JFrame implements MouseListener, KeyListener {
 	private JLabel fundoLogo;
 	private JButton iniciarNoSelected, fecharNoSelected, iniciarSelected, fecharSelected;
 	private boolean Iniciou = false;
 	private Clip SoundTrack1;
 	private ImageIcon imgLogo = new ImageIcon("res/IconGame.png");
+	private prologo prol;
 	
 	public telaInicial() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 		Componentes();
@@ -32,7 +29,7 @@ public class telaInicial extends JFrame implements MouseListener, KeyListener {
 		setIconImage(imgLogo.getImage());
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setSize(600, 310); // Tamanho do JFrame
-		setUndecorated(true); // Desativa a Decoração
+		setUndecorated(true); // Desativa a Decoracao
 		setLocationRelativeTo(null); // Tela Centralizada
 		setVisible(true);
 		getContentPane().add(fundoLogo);
@@ -47,9 +44,9 @@ public class telaInicial extends JFrame implements MouseListener, KeyListener {
 		fundoLogo.setBounds(0, 0, 600, 310);
 		// FIM - Definir Fundo
 
-		// INICIO - Definir Botões
+		// INICIO - Definir Botoes
 
-		// BOTÃO INICIAR NÃO SELECIONADO
+		// BOTï¿½O INICIAR NAO SELECIONADO
 		iniciarNoSelected = new JButton(new ImageIcon("res/TelaInicial/iniciar01-noSelect.png"));
 		iniciarNoSelected.setBounds(200, 180, 200, 30);
 		iniciarNoSelected.addMouseListener(this); // Adicionando um evento de mouse ( para algum hover talvez )
@@ -58,7 +55,7 @@ public class telaInicial extends JFrame implements MouseListener, KeyListener {
 		iniciarNoSelected.setBorderPainted(false);
 		add(iniciarNoSelected);
 
-		// BOTÃO INICIAR SELECIONADO
+		// BOTï¿½O INICIAR SELECIONADO
 		iniciarSelected = new JButton(new ImageIcon("res/TelaInicial/iniciar01-Select.png"));
 		iniciarSelected.setBounds(200, 180, 200, 30);
 		iniciarSelected.addMouseListener(this); // Adicionando um evento de mouse ( para algum hover talvez )
@@ -68,7 +65,7 @@ public class telaInicial extends JFrame implements MouseListener, KeyListener {
 		iniciarSelected.setVisible(false);
 		add(iniciarSelected);
 
-		// BOTÃO FECHAR NÃO SELECIONADO
+		// BOTï¿½O FECHAR NAO SELECIONADO
 		fecharNoSelected = new JButton(new ImageIcon("res/TelaInicial/fechar01-noSelect.png"));
 		fecharNoSelected.setBounds(200, 230, 200, 30);
 		fecharNoSelected.addMouseListener(this); // Adicionando um evento de mouse ( para algum hover talvez )
@@ -77,7 +74,7 @@ public class telaInicial extends JFrame implements MouseListener, KeyListener {
 		fecharNoSelected.setBorderPainted(false);
 		add(fecharNoSelected);
 
-		// BOTÃO FECHAR SELECIONADO
+		// BOTï¿½O FECHAR SELECIONADO
 		fecharSelected = new JButton(new ImageIcon("res/TelaInicial/fechar01-Select.png"));
 		fecharSelected.setBounds(200, 230, 200, 30);
 		fecharSelected.addMouseListener(this); // Adicionando um evento de mouse ( para algum hover talvez )
@@ -86,7 +83,7 @@ public class telaInicial extends JFrame implements MouseListener, KeyListener {
 		fecharSelected.setBorderPainted(false);
 		fecharSelected.setVisible(false);
 		add(fecharSelected);
-		// FIM - Definir Botões
+		// FIM - Definir Botoes
 
 		File file = new File("SoundTrack1.wav");
 		AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
@@ -98,11 +95,11 @@ public class telaInicial extends JFrame implements MouseListener, KeyListener {
 	}
 
 	public void Eventos() {
-		// Botão de Fechar o Jogo
+		// Botï¿½o de Fechar o Jogo
 		fecharSelected.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Objeto para trocaro Yes e o No do JOptionPane
-				Object[] options = { "Sim", "Não" };
+				Object[] options = { "Sim", "NAO" };
 				// Pergunta se ele tem certeza de que deseja fechar o jogo
 				int resposta = JOptionPane.showOptionDialog(null, "Tem Certeza ?", "Deseja Sair?",
 						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
@@ -120,8 +117,8 @@ public class telaInicial extends JFrame implements MouseListener, KeyListener {
 				try {
 					audio("Selected Sound1", 25, 0, 0);
 					SoundTrack1.stop();
-					prologo prologo = new prologo();
-					prologo.setVisible(true);
+					prol = new prologo();
+					prol.setVisible(true);
 					setVisible(false);
 				} catch (UnsupportedAudioFileException e1) {
 					// TODO Auto-generated catch block
@@ -160,7 +157,7 @@ public class telaInicial extends JFrame implements MouseListener, KeyListener {
 		
 	}
 
-	// Criando evento no mouse ( Caso queira adicionar um Hover no botão por
+	// Criando evento no mouse ( Caso queira adicionar um Hover no botï¿½o por
 	// exemplo)
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -180,7 +177,7 @@ public class telaInicial extends JFrame implements MouseListener, KeyListener {
 
 	}
 
-	// Aumenta os botões quando o mouse estiver em cima
+	// Aumenta os Botoes quando o mouse estiver em cima
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		try {
@@ -198,7 +195,7 @@ public class telaInicial extends JFrame implements MouseListener, KeyListener {
 		}
 	}
 
-	// Diminui os botões quando o mouse sair
+	// Diminui os Botoes quando o mouse sair
 	@Override
 	public void mouseExited(MouseEvent e) {
 		if (e.getSource() == iniciarSelected) {

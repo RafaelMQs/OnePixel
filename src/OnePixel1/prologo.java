@@ -20,13 +20,13 @@ public class prologo extends JFrame implements KeyListener {
 	private String[] Dialogo = { "<html>Era mais um dia normal no Mundo Virtual.",
 			"<html>Pelo menos, era o que Guri achava...",
 			"<html>Ele estava discutindo com os seus pais, eles queriam que ele fizesse a faxina da casa.",
-			"<html>Guri odiava faxina, Então sem pensar duas vezes ele disse:",
-			"<html>“Se eu fosse a única pessoa nesse mundo tudo seria diferente”",
-			"<html>Após o último som de sua voz, tudo começou a tremer e o que estava ao seu redor foi consumido pela...",
-			"<html>ESCURIDÃO",
-			"<html>Guri, ficou 15 horas naquele breu. Ainda afobado na escuridão ele descobriu algo que o fez chorar. Ele percebeu que ele não aproveitou nada em sua vida, pois era apenas um egoísta.",
+			"<html>Guri odiava faxina, Entï¿½o sem pensar duas vezes ele disse:",
+			"<html>ï¿½Se eu fosse a ï¿½nica pessoa nesse mundo tudo seria diferenteï¿½",
+			"<html>Apï¿½s o ï¿½ltimo som de sua voz, tudo comeï¿½ou a tremer e o que estava ao seu redor foi consumido pela...",
+			"<html>ESCURIDï¿½O",
+			"<html>Guri, ficou 15 horas naquele breu. Ainda afobado na escuridï¿½o ele descobriu algo que o fez chorar. Ele percebeu que ele NAO aproveitou nada em sua vida, pois era apenas um egoï¿½sta.",
 			"<html>Enquanto Guri estava em total desespero... Ele ouve a seguinte frase:",
-			"<html>Você sabe quantas cores há no mundo virtual? Você consegue acendê-las?" };
+			"<html>Vocï¿½ sabe quantas cores hï¿½ no mundo virtual? Vocï¿½ consegue acendï¿½-las?" };
 	private JLabel[] texto = new JLabel[Dialogo.length];
 	private String palavra = "";
 	private boolean pulouTudo = false;
@@ -46,7 +46,7 @@ public class prologo extends JFrame implements KeyListener {
 		setIconImage(imgLogo.getImage());
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setSize(600, 310); // Tamanho do JFrame
-		setUndecorated(true); // Desativa a Decoração
+		setUndecorated(true); // Desativa a Decoracao
 		setLocationRelativeTo(null); // Tela Centralizada
 		addKeyListener(this);
 
@@ -67,68 +67,68 @@ public class prologo extends JFrame implements KeyListener {
 			tela[i].setBounds(0, 0, 600, 310);
 		}
 
-		/* Panel 0 | TELA 0 | GIF | Duração de 3 segundos */
+		/* Panel 0 | TELA 0 | GIF | Duraï¿½ï¿½o de 3 segundos */
 
 		imagem(tela[0], "000", "gif");
 		panel[0].add(tela[0]);
 		panel[0].setVisible(true);
 		add(panel[0]);
 
-		/* Panel 1 | TELA 1 | PNG | Duração ?????? */
+		/* Panel 1 | TELA 1 | PNG | Duraï¿½ï¿½o ?????? */
 
 		imagem(tela[1], "001", "png");
 		panel[1].add(texto[0]);
 		panel[1].add(tela[1]);
 
-		/* Panel 2 | TELA 2 | PNG | Duração ?????? */
+		/* Panel 2 | TELA 2 | PNG | Duraï¿½ï¿½o ?????? */
 
 		imagem(tela[2], "002", "png");
 		panel[2].add(texto[1]);
 		panel[2].add(tela[2]);
 
-		/* Panel 3 | TELA 3 | PNG | Duração ?????? */
+		/* Panel 3 | TELA 3 | PNG | Duraï¿½ï¿½o ?????? */
 
 		imagem(tela[3], "003", "png");
 		panel[3].add(texto[2]);
 		panel[3].add(tela[3]);
 
-		/* Panel 4 | TELA 4 | PNG | Duração ?????? */
+		/* Panel 4 | TELA 4 | PNG | Duraï¿½ï¿½o ?????? */
 
 		imagem(tela[4], "004", "png");
 		panel[4].add(texto[3]);
 		panel[4].add(tela[4]);
 
-		/* Panel 5 | TELA 5 | PNG | Duração ?????? */
+		/* Panel 5 | TELA 5 | PNG | Duraï¿½ï¿½o ?????? */
 
 		imagem(tela[5], "005", "png");
 		panel[5].add(texto[4]);
 		panel[5].add(tela[5]);
 
-		/* Panel 6 | TELA 6 | PNG | Duração ?????? */
+		/* Panel 6 | TELA 6 | PNG | Duraï¿½ï¿½o ?????? */
 
 		imagem(tela[6], "006", "png");
 		panel[6].add(texto[5]);
 		panel[6].add(tela[6]);
 
-		/* Panel 7 | TELA 7 | PNG | Duração ?????? */
+		/* Panel 7 | TELA 7 | PNG | Duraï¿½ï¿½o ?????? */
 
 		imagem(tela[7], "007", "png");
 		panel[7].add(texto[6]);
 		panel[7].add(tela[7]);
 
-		/* Panel 8 | TELA 8 | PNG | Duração ?????? */
+		/* Panel 8 | TELA 8 | PNG | Duraï¿½ï¿½o ?????? */
 
 		imagem(tela[8], "008", "png");
 		panel[8].add(texto[7]);
 		panel[8].add(tela[8]);
 
-		/* Panel 9 | TELA 9 | PNG | Duração ?????? */
+		/* Panel 9 | TELA 9 | PNG | Duraï¿½ï¿½o ?????? */
 
 		imagem(tela[9], "009", "png");
 		panel[9].add(texto[8]);
 		panel[9].add(tela[9]);
 
-		/* Panel 9 | TELA 9 | PNG | Duração ?????? */
+		/* Panel 9 | TELA 9 | PNG | Duraï¿½ï¿½o ?????? */
 
 		imagem(tela[10], "010", "png");
 		panel[10].add(texto[9]);
@@ -228,7 +228,7 @@ public class prologo extends JFrame implements KeyListener {
 				Thread.sleep(2000);
 				if (!pulouTudo) {
 					setVisible(false);
-					new introdução().setVisible(true);
+					new introducao().setVisible(true);
 					System.out.println("CHAMANDO A CORNA");
 				}
 			} catch (InterruptedException e) {
@@ -315,7 +315,7 @@ public class prologo extends JFrame implements KeyListener {
 		if (e.getKeyChar() == KeyEvent.VK_SPACE) {
 			pulouTudo = true;
 			setVisible(false);
-			new introdução().setVisible(true);
+			new introducao().setVisible(true);
 		} else if (e.getKeyChar() == KeyEvent.VK_ESCAPE) {
 			System.exit(0);
 		}
