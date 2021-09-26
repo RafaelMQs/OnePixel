@@ -2,7 +2,7 @@ package BancoDeDados;
 
 public class pixelGetSet {
 
-	static String id, name, genero, checkpoint;
+	static String id, name, genero, checkpoint, updateCheck;
 	static int aliado1 = 0, aliado2 = 0, pixelR = 0, pixelG = 0 , pixelB = 0;
 
 	public String getId() {
@@ -35,6 +35,14 @@ public class pixelGetSet {
 
 	public void setCheckpoint(String checkpoint) {
 		this.checkpoint = checkpoint;
+	}
+
+	public static String getUpdateCheck() {
+		return updateCheck;
+	}
+
+	public static void setUpdateCheck(String updateCheck) {
+		pixelGetSet.updateCheck = updateCheck;
 	}
 
 	public int getAliado1() {

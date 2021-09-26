@@ -179,6 +179,8 @@ public class Jogador {
 		}
 	}
 
+	
+	
 	public int getX() {
 		return x;
 	}
@@ -253,6 +255,22 @@ public class Jogador {
 	
 	public boolean isCorrendo() {
 		return correndo;
+	}
+
+	public void setCima(boolean cima) {
+		this.cima = cima;
+	}
+
+	public void setBaixo(boolean baixo) {
+		this.baixo = baixo;
+	}
+
+	public void setDireita(boolean direita) {
+		this.direita = direita;
+	}
+
+	public void setEsquerda(boolean esquerda) {
+		this.esquerda = esquerda;
 	}
 
 }

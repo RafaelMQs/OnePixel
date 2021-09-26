@@ -98,15 +98,13 @@ public class onePixelDAO {
 				System.out.println("Inclusão user" + statement);
 
 			} else if (operacao == ALTERACAO) {
-				sql = "UPDATE user set user_name = ?, user_genero = ?, checkpoint = ? WHERE user_id = ? "; // , aliado1
+				sql = "UPDATE user set checkpoint = ? WHERE user_id = ? "; // , aliado1
 																											// = ? ,
 																											// aliado2 =
 																											// ?
 				statement = bd.c.prepareStatement(sql);
-				statement.setString(1, pixel.getName());
-				statement.setString(2, pixel.getGenero());
-				statement.setString(3, pixel.getCheckpoint());
-				statement.setString(4, pixel.getId());
+				statement.setString(1, pixel.getUpdateCheck());
+				statement.setString(2, pixel.getId());
 				System.out.println("Alteração user" + statement);
 			} else if (operacao == EXCLUSAO) {
 				sql = "DELETE from user WHERE user_id  = ?";

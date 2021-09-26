@@ -13,9 +13,12 @@ import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
+import BancoDeDados.*;
 
 public class jogo extends JFrame {
 
+	private onePixelDAO dao;
+	
 	private JLabel gifFundoRed, pngFundoRed, pngFundoFloresta, pngFundoCidadeGrande, guriColoridoAndando,
 			guriColoridoParado, guriAcendendoPixel, guriColoridoCorrendo, guriColoridoMorrendo, Op1NoSelected,
 			Op1Selected, Op2NoSelected, Op2Selected, YesNoSelected, YesSelected, NoNoSelected, NoSelected, balaoOpen,
@@ -305,6 +308,13 @@ public class jogo extends JFrame {
 		imgFinal.setBounds(0, 0, 600, 310);
 		imgFinal.setVisible(false);
 		add(imgFinal);
+		
+
+		dao = new onePixelDAO();
+		if (!dao.bd.connection()) { // verificação da conexão com o bd.
+			JOptionPane.showMessageDialog(null, "Falha na conexão!");
+			System.exit(0);
+		}
 
 	}
 
@@ -1412,8 +1422,11 @@ public class jogo extends JFrame {
 
 													} else if (opcaoReal == 2) {
 														// DIALOGO DO ZERO 2
-														new telaMain().salaPrinc.setVisible(true);
 														setVisible(false);
+														pixelGetSet.setUpdateCheck("1");
+														dao.atualizar(2);
+														dao.buscar();
+														new controleFase();
 													}
 
 												} else {
@@ -1614,8 +1627,11 @@ public class jogo extends JFrame {
 
 													} else if (opcaoReal == 2) {
 														// DIALOGO DO ZERO 2
-														new telaMain().salaPrinc.setVisible(true);
 														setVisible(false);
+														pixelGetSet.setUpdateCheck("1");
+														dao.atualizar(2);
+														dao.buscar();
+														new controleFase();
 													}
 												}
 
@@ -1818,8 +1834,11 @@ public class jogo extends JFrame {
 
 												} else if (opcaoReal == 2) {
 													// DIALOGO DO ZERO 2
-													new telaMain().salaPrinc.setVisible(true);
 													setVisible(false);
+													pixelGetSet.setUpdateCheck("1");
+													dao.atualizar(2);
+													dao.buscar();
+													new controleFase();
 												}
 
 											}

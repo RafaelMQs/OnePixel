@@ -183,6 +183,8 @@ public class telaInicial extends JFrame {
 							dao.pixel.setGenero("M");
 							dao.pixel.setCheckpoint("0");
 							dao.atualizar(1);
+							dao.buscarIdPlayer();
+							dao.buscar();
 							setVisible(false);
 							new prologo().setVisible(true);
 						}
@@ -237,7 +239,7 @@ public class telaInicial extends JFrame {
 						dao.pixel.setName(nomeUsu);
 						System.out.println(dao.pixel.getName());
 						dao.buscar();
-						new telaMain().salaPrinc.setVisible(true);
+						new controleFase();
 						setVisible(false);
 					}
 				});

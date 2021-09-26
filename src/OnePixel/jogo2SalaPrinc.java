@@ -11,12 +11,15 @@ import BancoDeDados.*;
 public class jogo2SalaPrinc extends JPanel implements ActionListener {
 	private Jogador jogador;
 	private onePixelDAO dao;
-	private int xPorao1 = 270, yPorao1 = 170, larguraPorao1 = 60, alturaPorao1 = 60;
+    int originalX = getLocation().x;
+    int originalY = getLocation().y;
+    
+	private int xPorao1 = 270, yPorao1 = 170, larguraPorao1 = 60, alturaPorao1 = 60, xPortaComum1 = 85,
+			yPortaComum1 = 25, larguraPortasComuns = 60, alturaPortasComuns = 78, xPortaComum2 = 270, yPortaComum2 = 25,
+			xPortaComum3 = 455, yPortaComum3 = 25, xPortaColorida = 270, yPortaColorida = 25, larguraPortaColorida = 60,
+			alturaPortaColoria = 78;
 	private Timer timer;
-	private ImageIcon imgPorao;
-	
-	 // BOOLEAN DE COLISAO E DE PET
-//	private boolean colidiu = false, mudarPet = true;
+	private ImageIcon imgPorao, imgChaoFundo;
 
 	// LOGO
 	static ImageIcon imgLogo = new ImageIcon("res/IconGame.png");
@@ -25,38 +28,78 @@ public class jogo2SalaPrinc extends JPanel implements ActionListener {
 	static int larguraFrame = 600;
 	static int alturaFrame = 310;
 
-//	IMAGENs DE FUNDO
-	// FUNDO
-	Image fundo;
-	// CHAO
-	Image chaoSala;
-	
-// 	IMAGENs DAS PORTAS
-	// PORAO
-	Image porao;
+	// JLABELs DAS IMGs FUNDO
+	JLabel lbFundo, lbChaoFundo;
+
+	// JLABELs DAS IMGs PORTAS
+	JLabel portaComum1, portaComum2, portaComum3, porao, portaVermelha, portaVerde, portaAzul;
+
+	// BOOLEAN PRA VEFICAR SE ELE ESTA NA SALA PRIC OU NAS OUTRAS SALAS
+	boolean salaPrinc = true, salaPorta1 = false, salaPorta2 = false, salaPorta3 = false;
 
 	public jogo2SalaPrinc() {
 		componentes();
-		eventos();
 	}
 
 	public void componentes() {
+		setLayout(null);
 		setFocusable(true);
 		setDoubleBuffered(true);
-		
-// IMAGENs DE FUNDO
-		// CHAO
-		ImageIcon imgChaoFundo = new ImageIcon("res2/imgSalaPrincipal/chaoSalaPrincipal.png");
-		chaoSala = imgChaoFundo.getImage();
-		// FUNDO
-		ImageIcon gifFundo = new ImageIcon("res2/imgSalaPrincipal/background.png");
-		fundo = gifFundo.getImage();
 
-//	IMAGENs DAS PORTAS
+// IMAGENs DAS PORTAS
+		// PORTA COMUM
+		ImageIcon imgPortaComum = new ImageIcon("res2/imgPortas/000PortaComum.png");
+		portaComum1 = new JLabel(imgPortaComum);
+		portaComum1.setBounds(xPortaComum1, yPortaComum1, larguraPortasComuns, alturaPortasComuns);
+		add(portaComum1);
+
+		portaComum2 = new JLabel(imgPortaComum);
+		portaComum2.setBounds(xPortaComum2, yPortaComum2, larguraPortasComuns, alturaPortasComuns);
+		add(portaComum2);
+
+		portaComum3 = new JLabel(imgPortaComum);
+		portaComum3.setBounds(xPortaComum3, yPortaComum3, larguraPortasComuns, alturaPortasComuns);
+		add(portaComum3);
+
+		// PORTA VERMELHA
+		ImageIcon imgPortaVermelha = new ImageIcon("res2/imgPortas/000Vermelho.png");
+		portaVermelha = new JLabel(imgPortaVermelha);
+		portaVermelha.setBounds(xPortaColorida, yPortaColorida, larguraPortaColorida, alturaPortaColoria);
+		portaVermelha.setVisible(false);
+		add(portaVermelha);
+
+		// PORTA VERDE
+		ImageIcon imgPortaVerde = new ImageIcon("res2/imgPortas/000Verde.png");
+		portaVerde = new JLabel(imgPortaVerde);
+		portaVerde.setBounds(xPortaColorida, yPortaColorida, larguraPortaColorida, alturaPortaColoria);
+		portaVerde.setVisible(false);
+		add(portaVerde);
+
+		// PORTA AZUL
+		ImageIcon imgPortaAzul = new ImageIcon("res2/imgPortas/000Azul.png");
+		portaAzul = new JLabel(imgPortaAzul);
+		portaAzul.setBounds(xPortaColorida, yPortaColorida, larguraPortaColorida, alturaPortaColoria);
+		portaAzul.setVisible(false);
+		add(portaAzul);
+
 		// PORAO
 		imgPorao = new ImageIcon("res2/imgPortas/porao00.png");
-		porao = imgPorao.getImage();
-		
+		porao = new JLabel(imgPorao);
+		porao.setBounds(xPorao1, yPorao1, larguraPorao1, alturaPorao1);
+		add(porao);
+
+// IMAGENs DE FUNDO
+		// CHAO
+		imgChaoFundo = new ImageIcon("res2/imgSalaPrincipal/chaoSalaPrincipal.png");
+		lbChaoFundo = new JLabel(imgChaoFundo);
+		lbChaoFundo.setBounds(0, 0, 600, 310);
+		add(lbChaoFundo);
+		// FUNDO
+		ImageIcon imgFundo = new ImageIcon("res2/imgSalaPrincipal/background.png");
+		lbFundo = new JLabel(imgFundo);
+		lbFundo.setBounds(0, 0, 600, 310);
+		add(lbFundo);
+
 // CARREGAR OS KEYLISTENERS DA CLASS JOGADOR
 		addKeyListener(new Teclado());
 // CARREGAR CLASS JOGADOR
@@ -65,24 +108,19 @@ public class jogo2SalaPrinc extends JPanel implements ActionListener {
 // TIMER
 		timer = new Timer(5, this);
 		timer.start();
-		
+
 // INICIANDO BANCO DE DADOS
 		dao = new onePixelDAO();
-		if(!dao.bd.connection()){ //verificação da conexão com o bd.
-			JOptionPane.showMessageDialog(null,"Falha na conexão!");
+		if (!dao.bd.connection()) { // verificação da conexão com o bd.
+			JOptionPane.showMessageDialog(null, "Falha na conexão!");
 			System.exit(0);
-		}	
-	}
-
-	public void eventos() {
+		}
 
 	}
 
 	public void paint(Graphics g) {
+		super.paint(g);
 		Graphics2D grafico = (Graphics2D) g;
-		grafico.drawImage(fundo, 0, 0, 600, 310, null);
-		grafico.drawImage(chaoSala, 0, 0, 600, 310, null);
-		grafico.drawImage(porao, xPorao1, yPorao1, larguraPorao1, alturaPorao1, null);
 		grafico.drawImage(jogador.getImgPlayer(), jogador.getX(), jogador.getY(), jogador.getLargura(),
 				jogador.getAltura(), this);
 		grafico.drawImage(jogador.getImgPet(), jogador.getXB(), jogador.getYB(), 32, 32, this);
@@ -91,31 +129,156 @@ public class jogo2SalaPrinc extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		checkColisaoBorda(larguraFrame - 30, 30, alturaFrame - 75, 60);
+		if (salaPrinc) {
+			portaAzul.setVisible(false);
+			portaVermelha.setVisible(false);
+			portaVerde.setVisible(false);
 
-		String retorno = checkColisao(xPorao1, yPorao1, larguraPorao1, alturaPorao1);
-		if (retorno == "dentro" && jogador.getTecla() == 10) {
-			System.out.println("entrando");
-			jogador.setTecla(0);
-			System.out.println("ID: "+dao.pixel.getId());
-    		System.out.println("NOME: "+dao.pixel.getName());
-    		System.out.println("GENERO: "+dao.pixel.getGenero());
-    		System.out.println("FASE:"+dao.pixel.getCheckpoint());
-    		System.out.println("PIXEL RED: "+dao.pixel.getPixelR());
-    		System.out.println("PIXEL GREEN: "+dao.pixel.getPixelG());
-    		System.out.println("PIXEL BLUE: "+dao.pixel.getPixelB());
-    		System.out.println("ALIADO 1: "+dao.pixel.getAliado1());
-     		System.out.println("ALIADO 2: "+dao.pixel.getAliado2());
-     		if(dao.pixel.getPixelR() == 1 && dao.pixel.getPixelG() == 1 && dao.pixel.getPixelB() == 1) {
-     			imgPorao = new ImageIcon("res2/imgPortas/porao01.png");
-     			porao = imgPorao.getImage();
-     		}else{
-     			JOptionPane.showMessageDialog(this, "Colete os outros PIXELS!");
-     		}
+			portaComum1.setVisible(true);
+			portaComum2.setVisible(true);
+			portaComum3.setVisible(true);
+			porao.setVisible(true);
+
+			imgChaoFundo = new ImageIcon("res2/imgSalaPrincipal/chaoSalaPrincipal.png");
+			lbChaoFundo.setIcon(imgChaoFundo);
+
+			// COLISÃO COM A BORDA
+			checkColisaoBorda(larguraFrame - 30, 30, alturaFrame - 75, 60);
+
+			// COLISÃO COM O PORAO
+			String retorno = checkColisao(xPorao1, yPorao1, larguraPorao1, alturaPorao1);
+			if (retorno == "dentro" && jogador.getTecla() == 10) {
+				jogador.setTecla(0);
+				if (dao.pixel.getPixelR() == 1 && dao.pixel.getPixelG() == 1 && dao.pixel.getPixelB() == 1) {
+					System.out.println("Entrando");
+					imgPorao = new ImageIcon("res2/imgPortas/porao01.png");
+					porao.setIcon(imgPorao);
+				} else {
+					Tremer tremer = new Tremer();
+					tremer.start();
+					JOptionPane.showMessageDialog(this, "Colete os outros PIXELs!", "Busque pixels", 0);
+				}
+			}
+
+			// COLISAO PORTA 1
+			retorno = checkColisao(xPortaComum1, yPortaComum1, larguraPortasComuns, alturaPortasComuns);
+			if (retorno != null) {
+				System.out.println("Porta 1");
+				salaPrinc = false;
+				salaPorta1 = true;
+				jogador.setX(278);
+				jogador.setY(180);
+				jogador.setYB(jogador.getY() + 25);
+				jogador.setXB(jogador.getX());
+			}
+			// COLISAO PORTA 2
+			retorno = checkColisao(xPortaComum2, yPortaComum2, larguraPortasComuns, alturaPortasComuns);
+			if (retorno != null) {
+				System.out.println("Porta 2");
+				salaPrinc = false;
+				salaPorta2 = true;
+				jogador.setX(278);
+				jogador.setY(180);
+				jogador.setYB(jogador.getY() + 25);
+				jogador.setXB(jogador.getX());
+			}
+			// COLISAO PORTA 3
+			retorno = checkColisao(xPortaComum3, yPortaComum3, larguraPortasComuns, alturaPortasComuns);
+			if (retorno != null) {
+				System.out.println("Porta 3");
+				salaPrinc = false;
+				salaPorta3 = true;
+				jogador.setX(278);
+				jogador.setY(180);
+				jogador.setYB(jogador.getY() + 25);
+				jogador.setXB(jogador.getX());
+			}
+
+			// ENTROU NA PRIMEIRA PORTA
+		} else if (salaPorta1) {
+			portaComum1.setVisible(false);
+			portaComum2.setVisible(false);
+			portaComum3.setVisible(false);
+			porao.setVisible(false);
+			portaVerde.setVisible(false);
+			portaAzul.setVisible(false);
+
+			portaVermelha.setVisible(true);
+
+			checkColisaoBorda(larguraFrame - 150, 150, alturaFrame - 75, 60);
+
+			imgChaoFundo = new ImageIcon("res2/imgSalaPrincipal/chaoCheckpoint.png");
+			lbChaoFundo.setIcon(imgChaoFundo);
+
+			if (jogador.getY() >= 185 && jogador.getX() >= 260 && jogador.getX() <= 295) {
+				salaPorta1 = false;
+				salaPrinc = true;
+				jogador.setX(95);
+				jogador.setY(80);
+				jogador.setYB(jogador.getY() + 25);
+				jogador.setXB(jogador.getX());
+			}
+
+			// ENTROU NA SEGUNDA PORTA
+		} else if (salaPorta2) {
+			portaComum1.setVisible(false);
+			portaComum2.setVisible(false);
+			portaComum3.setVisible(false);
+			porao.setVisible(false);
+
+			portaVerde.setVisible(true);
+
+			checkColisaoBorda(larguraFrame - 150, 150, alturaFrame - 75, 60);
+
+			imgChaoFundo = new ImageIcon("res2/imgSalaPrincipal/chaoCheckpoint.png");
+			lbChaoFundo.setIcon(imgChaoFundo);
+
+			if (jogador.getY() >= 185 && jogador.getX() >= 260 && jogador.getX() <= 295) {
+				salaPorta2 = false;
+				salaPrinc = true;
+				jogador.setX(278);
+				jogador.setY(80);
+				jogador.setYB(jogador.getY() + 25);
+				jogador.setXB(jogador.getX());
+			}
+
+			// ENTROU NA TERCEIRA PORTA
+		} else if (salaPorta3) {
+			portaComum1.setVisible(false);
+			portaComum2.setVisible(false);
+			portaComum3.setVisible(false);
+			porao.setVisible(false);
+
+			portaAzul.setVisible(true);
+
+			checkColisaoBorda(larguraFrame - 150, 150, alturaFrame - 75, 60);
+
+			imgChaoFundo = new ImageIcon("res2/imgSalaPrincipal/chaoCheckpoint.png");
+			lbChaoFundo.setIcon(imgChaoFundo);
+
+			if (jogador.getY() >= 185 && jogador.getX() >= 260 && jogador.getX() <= 295) {
+				salaPorta3 = false;
+				salaPrinc = true;
+				jogador.setX(464);
+				jogador.setY(80);
+				jogador.setYB(jogador.getY() + 25);
+				jogador.setXB(jogador.getX());
+			}
 		}
-		
 		jogador.atualizar();
 		repaint();
+	}
+
+	public void print() {
+		System.out.println("ID: " + dao.pixel.getId());
+		System.out.println("NOME: " + dao.pixel.getName());
+		System.out.println("GENERO: " + dao.pixel.getGenero());
+		System.out.println("FASE:" + dao.pixel.getCheckpoint());
+		System.out.println("PIXEL RED: " + dao.pixel.getPixelR());
+		System.out.println("PIXEL GREEN: " + dao.pixel.getPixelG());
+		System.out.println("PIXEL BLUE: " + dao.pixel.getPixelB());
+		System.out.println("ALIADO 1: " + dao.pixel.getAliado1());
+		System.out.println("ALIADO 2: " + dao.pixel.getAliado2());
 	}
 
 	public void checkColisaoBorda(int xLarguraFrameP, int xLarguraFrameN, int yAlturaFrameP, int yAlturaFrameN) {
@@ -176,7 +339,7 @@ public class jogo2SalaPrinc extends JPanel implements ActionListener {
 		} else if (ladoEsquerdoA >= ladoDireitoB - 2 && ladoEsquerdoA <= ladoDireitoB && ladoBaixoA >= ladoCimaB
 				&& ladoCimaA <= ladoBaixoB) {
 			return "direita";
-			
+
 			// COLISAO LADO DE BAIXO DO GURI
 		} else if (ladoDireitoA >= ladoEsquerdoB && ladoEsquerdoA <= ladoDireitoB && ladoBaixoA >= ladoCimaB
 				&& ladoBaixoA <= ladoBaixoB - 40) {
@@ -186,12 +349,12 @@ public class jogo2SalaPrinc extends JPanel implements ActionListener {
 		} else if (ladoEsquerdoA <= ladoDireitoB && ladoDireitoA >= ladoEsquerdoB && ladoCimaA >= ladoBaixoB - 4
 				&& ladoCimaA <= ladoBaixoB) {
 			return "baixo";
-		
+
 			// COLISAO DO GURI DENTRO DO OBJETO
-		}else if(ladoDireitoA >= ladoEsquerdoB + 10 && ladoEsquerdoA <= ladoDireitoB - 10 && ladoBaixoA >= ladoCimaB
+		} else if (ladoDireitoA >= ladoEsquerdoB + 10 && ladoEsquerdoA <= ladoDireitoB - 10 && ladoBaixoA >= ladoCimaB
 				&& ladoBaixoA <= ladoBaixoB) {
 			return "dentro";
-			
+
 		}
 		return null;
 	}
@@ -199,7 +362,11 @@ public class jogo2SalaPrinc extends JPanel implements ActionListener {
 	private class Teclado extends KeyAdapter {
 		public void keyPressed(KeyEvent e) {
 			if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-				try {dao.bd.c.close();} catch (SQLException e1) {e1.printStackTrace();}
+				try {
+					dao.bd.c.close();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
 				System.exit(0);
 			}
 			jogador.keyPressed(e);
@@ -209,5 +376,34 @@ public class jogo2SalaPrinc extends JPanel implements ActionListener {
 			jogador.keyReleased(e);
 		}
 	}
-}
 
+	private class Tremer extends Thread {
+		public void run() {
+			try{
+	            long sleepTime = 20;
+	            
+	            for(int i =0; i <=2 ; i++){
+	                setLocation(originalX + 2, originalY);
+	                Thread.sleep(sleepTime);
+	                setLocation(originalX+ 2, originalY +2);
+	                Thread.sleep(sleepTime);
+	                setLocation(originalX, originalY + 2);
+	                Thread.sleep(sleepTime);
+	                setLocation(originalX, originalY);
+	                Thread.sleep(sleepTime);
+	                setLocation(originalX - 2, originalY);
+	                Thread.sleep(sleepTime);
+	                setLocation(originalX - 2, originalY - 2);
+	                Thread.sleep(sleepTime);
+	                setLocation(originalX, originalY - 2);
+	                Thread.sleep(sleepTime);
+	            }
+
+	            setLocation(originalX, originalY);
+
+	        } catch(Exception ex){
+	            System.out.println(ex.toString());
+	        }			
+		}
+	}
+}
