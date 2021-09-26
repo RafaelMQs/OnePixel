@@ -14,8 +14,6 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 
-import BancoDeDados.telaInicial;
-
 public class jogo extends JFrame {
 
 	private JLabel gifFundoRed, pngFundoRed, pngFundoFloresta, pngFundoCidadeGrande, guriColoridoAndando,

@@ -35,9 +35,9 @@ public class telaLoading extends JFrame {
 		public void run() {
 			while (load < 100) {
 				try {
-					sleep(115);
+					sleep(100);
 					load += 1;
-					System.out.println(load);
+					System.out.print("");
 					// Quando chegar 100%, esta função chamarar outra tela.
 					if (load >= 100) {
 						setVisible(false);

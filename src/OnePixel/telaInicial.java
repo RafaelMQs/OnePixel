@@ -2,15 +2,25 @@ package OnePixel;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.*;
 import javax.swing.*;
+import javax.swing.table.*;
+
 import BancoDeDados.*;
+
 public class telaInicial extends JFrame {
-	private onePixelDAO dao;
-	
+	onePixelDAO dao;
+	public PreparedStatement statement;
+	public ResultSet resultado;
+
 //	LARGURA E ALTURA DO FRAME
 	int larguraFrame = 600;
 	int alturaFrame = 310;
-	
+
+//	TABELA	
+	private JScrollPane scrollTable;
+	private JTable table;
+
 //	IMGs DO FUNDO E DA LOGO
 	ImageIcon imgLogo = new ImageIcon("res/IconGame.png");
 	ImageIcon imgFundo = new ImageIcon("res2/imgTelaInicial/NewBackgroundTela.gif");
@@ -25,14 +35,14 @@ public class telaInicial extends JFrame {
 	private JButton btnSair, btnJogar, btnCarregar, btnInstrucao, btnConfirmUsu, btnVoltar;
 
 // VAR PARA VER SE ELE ESTA NA TELA DE INSTRUCAO OU NAO
-	boolean verificInstrucao = false, verificJogar = false;
-	
+	boolean verificInstrucao = false, verificOutraTela = false;
+
 // LABELs DA TELA DE INSTRUCAO
 	JLabel comandosInstrucao;
-	
+
 // TF DA TELA JOGAR
 	JTextField nomeUsu;
-		
+
 	public telaInicial() {
 		componentes();
 		eventos();
@@ -73,10 +83,10 @@ public class telaInicial extends JFrame {
 		add(btnInstrucao);
 
 // JLABELs DA TELA INSTRUCAO
-		comandosInstrucao = new JLabel("<html> <center> <h1> COMANDOS: </h1> </center> <br> <p> SETAS: Andar || ESC: Fechar Game <br><br>"
-				+ "ESPAÇO: Pula/Completa dialogo <br><br>"
-				+ "ENTER: Confirma ações <br><br>"
-				+ " Z: Volta para o menu anterior </p> </html>");
+		comandosInstrucao = new JLabel(
+				"<html> <center> <h1> COMANDOS: </h1> </center> <br> <p> SETAS: Andar || ESC: Fechar Game <br><br>"
+						+ "ESPAÇO: Pula/Completa dialogo <br><br>" + "ENTER: Confirma ações <br><br>"
+						+ " Z: Volta para o menu anterior </p> </html>");
 		comandosInstrucao.setFont(new Font("Pixel Operator 8", Font.PLAIN, 14));
 		comandosInstrucao.setForeground(Color.black);
 		comandosInstrucao.setBounds(125, -60, 380, 400);
@@ -91,27 +101,34 @@ public class telaInicial extends JFrame {
 		nomeUsu.setBorder(null);
 		nomeUsu.setVisible(false);
 		add(nomeUsu);
-		
+
 		// BTN CONFIRMAR JOGAR
 		btnConfirmUsu = new JButton("Confirmar");
 		btnConfirmUsu.setBounds(55, 201, 173, 23);
 		btnConfirmUsu.setVisible(false);
 		add(btnConfirmUsu);
-		
+
 		// BTN VOLTATR (JOGAR)
 		btnVoltar = new JButton("Voltar");
 		btnVoltar.setBounds(55, 234, 173, 23);
 		btnVoltar.setVisible(false);
 		add(btnVoltar);
-		
+
+// COMPONENTES/TABELA DA TELA CARREGAR		
+		// SCROLL
+		scrollTable = new JScrollPane();
+		scrollTable.setBounds(20, 150, 250, 100);
+		scrollTable.setVisible(false);
+		add(scrollTable);
+
 // DEFININDO FUNDO
 		gifFundo = new JLabel(imgFundo);
 		gifFundo.setBounds(0, 0, 600, 310);
 		add(gifFundo);
-		
+
 		dao = new onePixelDAO();
-		if(!dao.bd.connection()){ //verificação da conexão com o bd.
-			JOptionPane.showMessageDialog(null,"Falha na conexão!");
+		if (!dao.bd.connection()) { // verificação da conexão com o bd.
+			JOptionPane.showMessageDialog(null, "Falha na conexão!");
 			System.exit(0);
 		}
 	}
@@ -121,6 +138,7 @@ public class telaInicial extends JFrame {
 		btnSair.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
+				try {dao.bd.c.close();} catch (SQLException e1) {e1.printStackTrace();}
 				System.exit(0);
 			}
 
@@ -144,22 +162,23 @@ public class telaInicial extends JFrame {
 				btnJogar.setVisible(false);
 				btnCarregar.setVisible(false);
 				btnInstrucao.setVisible(false);
-				verificJogar = true;
+				verificOutraTela = true;
 				nomeUsu.setVisible(true);
 				btnConfirmUsu.setVisible(true);
 				btnVoltar.setVisible(true);
-				
+				btnVoltar.setBounds(55, 234, 173, 23);
+
 				btnConfirmUsu.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mousePressed(MouseEvent e) {
-						if(nomeUsu.getText().equals("")) {
+						if (nomeUsu.getText().equals("")) {
 							dao.pixel.setName("Guri");
 							dao.pixel.setGenero("M");
 							dao.pixel.setCheckpoint("0");
 							dao.atualizar(1);
 							setVisible(false);
 							new telaLoading().setVisible(true);
-						}else {
+						} else {
 							dao.pixel.setName(nomeUsu.getText());
 							dao.pixel.setGenero("M");
 							dao.pixel.setCheckpoint("0");
@@ -167,31 +186,6 @@ public class telaInicial extends JFrame {
 							setVisible(false);
 							new prologo().setVisible(true);
 						}
-					}
-
-					@Override
-					public void mouseEntered(MouseEvent e) {
-//						imgBtnSair = new ImageIcon("res2/imgTelaInicial/Sair-Selected.png");
-//						btnSair.setIcon(imgBtnSair);
-					}
-
-					@Override
-					public void mouseExited(MouseEvent e) {
-//						imgBtnSair = new ImageIcon("res2/imgTelaInicial/Sair-NoSelected.png");
-//						btnSair.setIcon(imgBtnSair);
-					}
-				});
-				
-				btnVoltar.addMouseListener(new MouseAdapter() {
-					@Override
-					public void mousePressed(MouseEvent e) {
-						btnJogar.setVisible(true);
-						btnCarregar.setVisible(true);
-						btnInstrucao.setVisible(true);
-						verificJogar = false;
-						nomeUsu.setVisible(false);
-						btnConfirmUsu.setVisible(false);
-						btnVoltar.setVisible(false);
 					}
 
 					@Override
@@ -225,7 +219,28 @@ public class telaInicial extends JFrame {
 		btnCarregar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
+				btnJogar.setVisible(false);
+				btnCarregar.setVisible(false);
+				btnInstrucao.setVisible(false);
 
+				btnVoltar.setBounds(55, 260, 173, 23);
+				btnVoltar.setVisible(true);
+
+				verificOutraTela = true;
+				executarTabela();
+				scrollTable.setVisible(true);
+
+				table.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						String nomeUsu = String.valueOf(table.getValueAt(table.getSelectedRow(), 0));
+						dao.pixel.setName(nomeUsu);
+						System.out.println(dao.pixel.getName());
+						dao.buscar();
+						new telaMain().salaPrinc.setVisible(true);
+						setVisible(false);
+					}
+				});
 			}
 
 			@Override
@@ -264,8 +279,71 @@ public class telaInicial extends JFrame {
 				btnInstrucao.setIcon(imgBtnInstrucao);
 			}
 		});
-	 
-		
+
+		btnVoltar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				btnJogar.setVisible(true);
+				btnCarregar.setVisible(true);
+				btnInstrucao.setVisible(true);
+				verificOutraTela = false;
+				scrollTable.setVisible(false);
+				nomeUsu.setVisible(false);
+				btnConfirmUsu.setVisible(false);
+				btnVoltar.setVisible(false);
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+//				imgBtnSair = new ImageIcon("res2/imgTelaInicial/Sair-Selected.png");
+//				btnSair.setIcon(imgBtnSair);
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+//				imgBtnSair = new ImageIcon("res2/imgTelaInicial/Sair-NoSelected.png");
+//				btnSair.setIcon(imgBtnSair);
+			}
+		});
+
+	}
+	
+	public void executarTabela() {
+		try {
+			String sql = "SELECT user_name, checkpoint FROM user";
+			statement = dao.bd.c.prepareStatement(sql);
+			resultado = statement.executeQuery();
+			DefaultTableModel tableModel = new DefaultTableModel(new String[] { "Usuario", "Fase" }, 0) {
+				public boolean isCellEditable(int row, int col) {
+					return false;
+				}
+			};
+			int qtdeColunas = resultado.getMetaData().getColumnCount();
+			for (int indice = 1; indice <= qtdeColunas; indice++) {
+//				tableModel.addColumn(resultado.getMetaData().getColumnName(indice));
+			}
+			table = new JTable(tableModel);
+			DefaultTableModel dtm = (DefaultTableModel) table.getModel();
+
+			while (resultado.next()) {
+				try {
+					String[] dados = new String[qtdeColunas];
+					for (int i = 1; i <= qtdeColunas; i++) {
+						dados[i - 1] = resultado.getString(i);
+					}
+					dtm.addRow(dados);
+					System.out.print("");
+				} catch (SQLException erro) {
+					System.out.println(erro);
+				}
+				scrollTable.setViewportView(table);
+			}
+
+			resultado.close();
+			statement.close();
+		} catch (SQLException erro) {
+			System.out.println("ERRO");
+		}
 	}
 
 	public void frame() {
@@ -282,17 +360,20 @@ public class telaInicial extends JFrame {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+					try {dao.bd.c.close();} catch (SQLException e1) {e1.printStackTrace();}
 					System.exit(0);
-				}if (e.getKeyCode() == KeyEvent.VK_Z && verificInstrucao == true) {
-					 new closeTelaIntroducao().start();
-				}else if (e.getKeyCode() == KeyEvent.VK_Z && verificJogar == true) {
+				}
+				if (e.getKeyCode() == KeyEvent.VK_Z && verificInstrucao == true) {
+					new closeTelaIntroducao().start();
+				} else if (e.getKeyCode() == KeyEvent.VK_Z && verificOutraTela == true) {
 					btnJogar.setVisible(true);
 					btnCarregar.setVisible(true);
 					btnInstrucao.setVisible(true);
 					nomeUsu.setVisible(false);
+					scrollTable.setVisible(false);
 					btnConfirmUsu.setVisible(false);
 					btnVoltar.setVisible(false);
-					verificJogar = false;
+					verificOutraTela = false;
 				}
 			}
 		});
@@ -302,24 +383,32 @@ public class telaInicial extends JFrame {
 	public static void main(String args[]) {
 		new telaInicial();
 	}
-	
-	public class openTelaIntroducao extends Thread{
+
+	public class openTelaIntroducao extends Thread {
 		public void run() {
-			imgFundo = new ImageIcon("res2/imgTelaInicial/01FadeInInstru.gif");	
+			imgFundo = new ImageIcon("res2/imgTelaInicial/01FadeInInstru.gif");
 			gifFundo.setIcon(imgFundo);
-			try {Thread.sleep(3000);} catch (InterruptedException e1) {e1.printStackTrace();}
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
 			comandosInstrucao.setVisible(true);
 //			imgFundo = new ImageIcon("res2/imgTelaInicial/01FadeInInstru.gif");
 			verificInstrucao = true;
 		}
 	}
-	
-	public class closeTelaIntroducao extends Thread{
+
+	public class closeTelaIntroducao extends Thread {
 		public void run() {
-			comandosInstrucao.setVisible(false);		
+			comandosInstrucao.setVisible(false);
 			imgFundo = new ImageIcon("res2/imgTelaInicial/02FadeOutInstru.gif");
 			gifFundo.setIcon(imgFundo);
-			try {Thread.sleep(1800);} catch (InterruptedException e1) {e1.printStackTrace();}
+			try {
+				Thread.sleep(1800);
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
 			verificInstrucao = false;
 			imgFundo = new ImageIcon("res2/imgTelaInicial/NewBackgroundTela.gif");
 			gifFundo.setIcon(imgFundo);

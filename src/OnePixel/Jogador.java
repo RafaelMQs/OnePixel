@@ -17,11 +17,11 @@ public class Jogador {
 	private String caminhoImg = "./res2/imgPlayer/guriCima000.png";
 
 	private boolean cima = false, baixo = false, direita = false, esquerda = false, correndo = false;
-	
+	int tecla = 0;
 	
 	public Jogador() {
-		x = 100;
-		y = 100;
+		x = 276;
+		y = 125;
 		
 		xB = x;
 		yB = y;
@@ -54,10 +54,11 @@ public class Jogador {
 	}
 
 	public void keyPressed(KeyEvent e) {
+		tecla = e.getKeyCode();
 		if (e.getKeyCode() == KeyEvent.VK_UP && direita == false && esquerda == false && baixo == false) {
 			cima = true;
 			directY = -2;
-			caminhoImg = "guriCima001.png";
+			caminhoImg = "res2/imgPlayer/guriCima001.png";
 			if(e.isShiftDown()) {
 				correndo = true;
 				directY = -4;
@@ -66,7 +67,7 @@ public class Jogador {
 		if (e.getKeyCode() == KeyEvent.VK_DOWN && direita == false && esquerda == false && cima == false) {
 			baixo = true;
 			directY = 2;
-			caminhoImg = "guriBaixo001.png";
+			caminhoImg = "res2/imgPlayer/guriBaixo001.png";
 			if(e.isShiftDown()) {
 				correndo = true;
 				directY = 4;
@@ -76,7 +77,7 @@ public class Jogador {
 		if (e.getKeyCode() == KeyEvent.VK_LEFT && direita == false && cima == false && baixo == false) {
 			esquerda = true;
 			directX = -2;
-			caminhoImg = "guriDireita001.png";
+			caminhoImg = "res2/imgPlayer/guriDireita001.png";
 			if(e.isShiftDown()) {
 				correndo = true;
 				directX = -4;
@@ -86,7 +87,7 @@ public class Jogador {
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT && cima == false && esquerda == false && baixo == false) {
 			direita = true;
 			directX = 2;
-			caminhoImg = "guriEsquerda001.png";
+			caminhoImg = "res2/imgPlayer/guriEsquerda001.png";
 			if(e.isShiftDown()) {
 				correndo = true;
 				directX = 4;
@@ -131,31 +132,43 @@ public class Jogador {
 			while (true) {
 				System.out.print("");
 				if (cima == true) {
+					yB = y + 25;
+					xB = x;
 					carregar();
 					caminhoImg = "res2/imgPlayer/guriCima001.png";
 					carregar();
 					try {sleep(180);} catch (InterruptedException e) {e.printStackTrace();}
+					yB = y + 35;
 					caminhoImg = "res2/imgPlayer/guriCima002.png";
 					carregar();
 					try {sleep(180);} catch (InterruptedException e) {e.printStackTrace();}
 				} else if (baixo == true) {
+					yB = y - 15;
+					xB = x;
 					caminhoImg = "res2/imgPlayer/guriBaixo001.png";
 					carregar();
 					try {sleep(180);} catch (InterruptedException e) {e.printStackTrace();}
+					yB = y - 25;
 					caminhoImg = "res2/imgPlayer/guriBaixo002.png";
 					carregar();
 					try {sleep(180);} catch (InterruptedException e) {e.printStackTrace();}
 				} else if (direita == true) {
+					yB = y;
+					xB = x - 15;
 					caminhoImg = "res2/imgPlayer/guriDireita001.png";
 					carregar();
 					try {sleep(180);} catch (InterruptedException e) {e.printStackTrace();}
+					xB = x - 25;
 					caminhoImg = "res2/imgPlayer/guriDireita002.png";
 					carregar();
 					try {sleep(180);} catch (InterruptedException e) {e.printStackTrace();}
 				} else if (esquerda == true) {
+					yB = y;
+					xB = x +30;
 					caminhoImg = "res2/imgPlayer/guriEsquerda001.png";
 					carregar();
 					try {sleep(180);} catch (InterruptedException e) {e.printStackTrace();}
+					xB = x + 40;
 					caminhoImg = "res2/imgPlayer/guriEsquerda002.png";
 					carregar();
 					try {sleep(180);} catch (InterruptedException e) {e.printStackTrace();}
@@ -212,6 +225,14 @@ public class Jogador {
 
 	public int getAltura() {
 		return altura;
+	}
+
+	public int getTecla() {
+		return tecla;
+	}
+
+	public void setTecla(int tecla) {
+		this.tecla = tecla;
 	}
 
 	public boolean isCima() {

@@ -2,8 +2,8 @@ package BancoDeDados;
 
 public class pixelGetSet {
 
-	private String id, name, genero, checkpoint;
-	private int aliado1 = 0, aliado2 = 0, pixelR = 0, pixelG = 0 , pixelB = 0;
+	static String id, name, genero, checkpoint;
+	static int aliado1 = 0, aliado2 = 0, pixelR = 0, pixelG = 0 , pixelB = 0;
 
 	public String getId() {
 		return id;

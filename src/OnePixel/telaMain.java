@@ -1,7 +1,6 @@
 package OnePixel;
 
 import java.awt.Frame;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
@@ -15,7 +14,7 @@ public class telaMain extends JFrame {
 	public telaMain() {
 		setIconImage(imgLogo.getImage());
 
-		salaPrinc.setVisible(false);
+		salaPrinc.setVisible(true);
 		add(salaPrinc);
 		
 		setTitle("OnePixel - Part2");
