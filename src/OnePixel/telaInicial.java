@@ -84,12 +84,13 @@ public class telaInicial extends JFrame {
 
 // JLABELs DA TELA INSTRUCAO
 		comandosInstrucao = new JLabel(
-				"<html> <center> <h1> COMANDOS: </h1> </center> <br> <p> SETAS: Andar || ESC: Fechar Game <br><br>"
+				"<html> <center> <h1> COMANDOS: </h1> </center> <br> <p> SETAS: Andar || SHIFT: Corre"
+				+ "<br><br> ESC: Fechar Game <br><br>"
 						+ "ESPAÇO: Pula/Completa dialogo <br><br>" + "ENTER: Confirma ações <br><br>"
 						+ " Z: Volta para o menu anterior </p> </html>");
-		comandosInstrucao.setFont(new Font("Pixel Operator 8", Font.PLAIN, 14));
+		comandosInstrucao.setFont(new Font("Pixel Operator 8", Font.PLAIN, 12));
 		comandosInstrucao.setForeground(Color.black);
-		comandosInstrucao.setBounds(125, -60, 380, 400);
+		comandosInstrucao.setBounds(130, -55, 380, 400);
 		comandosInstrucao.setVisible(false);
 		add(comandosInstrucao);
 
@@ -390,11 +391,9 @@ public class telaInicial extends JFrame {
 		public void run() {
 			imgFundo = new ImageIcon("res2/imgTelaInicial/01FadeInInstru.gif");
 			gifFundo.setIcon(imgFundo);
-			try {
-				Thread.sleep(3000);
-			} catch (InterruptedException e1) {
-				e1.printStackTrace();
-			}
+			try {Thread.sleep(2100);} catch (InterruptedException e1) {e1.printStackTrace();}
+			imgFundo = new ImageIcon("res2/imgTelaInicial/01FadeInStatic.png");
+			gifFundo.setIcon(imgFundo);
 			comandosInstrucao.setVisible(true);
 //			imgFundo = new ImageIcon("res2/imgTelaInicial/01FadeInInstru.gif");
 			verificInstrucao = true;
