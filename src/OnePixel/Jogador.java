@@ -19,7 +19,7 @@ public class Jogador {
 	private int largura, altura;
 	private String caminhoImg = "./res2/imgPlayer/guriCima000.png";
 
-	private boolean cima = false, baixo = false, direita = false, esquerda = false, correndo = false;
+	private boolean cima = false, baixo = false, direita = false, esquerda = false, correndo = false, andar = true;
 	int tecla = 0;
 	
 	public Jogador() {
@@ -78,45 +78,48 @@ public class Jogador {
 	}
 
 	public void keyPressed(KeyEvent e) {
-		tecla = e.getKeyCode();
-		if (e.getKeyCode() == KeyEvent.VK_UP && direita == false && esquerda == false && baixo == false) {
-			cima = true;
-			directY = -2;
-			caminhoImg = "res2/imgPlayer/guriCima001.png";
-			if(e.isShiftDown()) {
-				correndo = true;
-				directY = -4;
+		if(andar = true) {
+			tecla = e.getKeyCode();
+			if (e.getKeyCode() == KeyEvent.VK_UP && direita == false && esquerda == false && baixo == false) {
+				cima = true;
+				directY = -2;
+				caminhoImg = "res2/imgPlayer/guriCima001.png";
+				if(e.isShiftDown()) {
+					correndo = true;
+					directY = -4;
+				}
 			}
-		}
-		if (e.getKeyCode() == KeyEvent.VK_DOWN && direita == false && esquerda == false && cima == false) {
-			baixo = true;
-			directY = 2;
-			caminhoImg = "res2/imgPlayer/guriBaixo001.png";
-			if(e.isShiftDown()) {
-				correndo = true;
-				directY = 4;
-			}
+			if (e.getKeyCode() == KeyEvent.VK_DOWN && direita == false && esquerda == false && cima == false) {
+				baixo = true;
+				directY = 2;
+				caminhoImg = "res2/imgPlayer/guriBaixo001.png";
+				if(e.isShiftDown()) {
+					correndo = true;
+					directY = 4;
+				}
 
-		}
-		if (e.getKeyCode() == KeyEvent.VK_LEFT && direita == false && cima == false && baixo == false) {
-			esquerda = true;
-			directX = -2;
-			caminhoImg = "res2/imgPlayer/guriDireita001.png";
-			if(e.isShiftDown()) {
-				correndo = true;
-				directX = -4;
 			}
+			if (e.getKeyCode() == KeyEvent.VK_LEFT && direita == false && cima == false && baixo == false) {
+				esquerda = true;
+				directX = -2;
+				caminhoImg = "res2/imgPlayer/guriDireita001.png";
+				if(e.isShiftDown()) {
+					correndo = true;
+					directX = -4;
+				}
 
-		}
-		if (e.getKeyCode() == KeyEvent.VK_RIGHT && cima == false && esquerda == false && baixo == false) {
-			direita = true;
-			directX = 2;
-			caminhoImg = "res2/imgPlayer/guriEsquerda001.png";
-			if(e.isShiftDown()) {
-				correndo = true;
-				directX = 4;
 			}
+			if (e.getKeyCode() == KeyEvent.VK_RIGHT && cima == false && esquerda == false && baixo == false) {
+				direita = true;
+				directX = 2;
+				caminhoImg = "res2/imgPlayer/guriEsquerda001.png";
+				if(e.isShiftDown()) {
+					correndo = true;
+					directX = 4;
+				}
+			}	
 		}
+		
 	}
 
 	public void keyReleased(KeyEvent e) {
@@ -287,6 +290,14 @@ public class Jogador {
 
 	public void setTecla(int tecla) {
 		this.tecla = tecla;
+	}
+	
+	public boolean isAndar() {
+		return andar;
+	}
+
+	public void setAndar(boolean andar) {
+		this.andar = andar;
 	}
 
 	public boolean isCima() {

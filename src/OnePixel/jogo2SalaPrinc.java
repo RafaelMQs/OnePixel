@@ -2,8 +2,11 @@ package OnePixel;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.sql.SQLException;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 
 import BancoDeDados.*;
@@ -11,10 +14,10 @@ import BancoDeDados.*;
 public class jogo2SalaPrinc extends JFrame implements ActionListener {
 	private Jogador jogador;
 	private onePixelDAO dao;
-	boolean trocarTela = true;
-
 	JPanel panel;
-	JLabel jogadorzin;
+	boolean ganhouPPPT = false, pularDialog = false, podePular = false, liberaEnter = true;
+	String palavra = "";
+
 	private int xPorao1 = 270, yPorao1 = 170, larguraPorao1 = 60, alturaPorao1 = 60, xPortaComum1 = 85,
 			yPortaComum1 = 25, larguraPortasComuns = 60, alturaPortasComuns = 78, xPortaComum2 = 270, yPortaComum2 = 25,
 			xPortaComum3 = 455, yPortaComum3 = 25, xPortaColorida = 270, yPortaColorida = 25, larguraPortaColorida = 60,
@@ -31,6 +34,27 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 
 	// JLABELs DAS IMGs FUNDO
 	JLabel lbFundo, lbChaoFundo;
+
+	// ZEZIN
+	ImageIcon imgZezin;
+	JLabel lbZezin;
+	private int xZezin = 35, yZezin = 130, larguraZezin = 45, alturaZezin = 45;
+
+	// BALAO DE DIALOGO PEQUENO
+	ImageIcon imgBalaoDialog;
+	JLabel lbBalaoDialog;
+
+	// JLABELs DIALOGO
+	String[] TextoInicial = { "<html>Guri: Quem é você? Zezin: Eu sou o zezin. Ajudo o zero daqui de dentro</html>",
+			"<html>Guri: O que tem aqui dentro?</html>",
+			"<html>Zezin: Aqui dentro está os guardiões dos pixels </html>",
+			"<html>Zezin: Estava tudo certo, mas eles foram corrompidos</html>",
+			"<html>Zezin: E dessa forma acabaram corrompendo os pixels </html>",
+			"<html>Zezin: Sua missão é derrotar eles, pegar os pixels de volta e entregar para mim </html>",
+			"<html>Guri: Okay, mas porque eu devo entregar eles pra você ??</html>",
+			"<html>Zezin: Apenas faça o que eu mando que tudo voltara ao normal",
+			"<html>Zezin: Caso queira salvar o seu progresso basta falar comigo"};
+	JLabel dialogoDoGuri;
 
 	// JLABELs DAS IMGs PORTAS
 	JLabel portaComum1, portaComum2, portaComum3, porao, portaVermelha, portaVerde, portaAzul;
@@ -55,11 +79,8 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 	public void componentes() {
 		setLayout(null);
 		setFocusable(true);
-//		setDoubleBuffered(true);
 
-// IMAGENs DAS PORTAS
-		// PORTA COMUM
-		
+		// DEFININDO JPANEL PADRAO
 		panel = new JPanel(null) {
 			public void paint(Graphics g) {
 				super.paint(g);
@@ -74,7 +95,24 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 		};
 		panel.setBounds(0, 0, 600, 310);
 		add(panel);
-		
+
+// LABELs DO DIALOGO DO GURI
+		dialogoDoGuri = new JLabel();
+		dialogoDoGuri.setBounds(58, 45, 120, 100);
+		dialogoDoGuri.setForeground(Color.WHITE);
+		dialogoDoGuri.setFont(new Font("Pixel Operator 8", Font.PLAIN, 8));
+		dialogoDoGuri.setVisible(false);
+		panel.add(dialogoDoGuri);
+
+// IMAGENs DO BALAO DE DIALOGO
+		imgBalaoDialog = new ImageIcon("res2/imgBalaoDialog/BalaoFalaFadeOut.gif");
+		lbBalaoDialog = new JLabel(imgBalaoDialog);
+		lbBalaoDialog.setBounds(50, 70, 130, 60);
+		lbBalaoDialog.setVisible(false);
+		panel.add(lbBalaoDialog);
+
+// IMAGENs DAS PORTAS
+		// PORTA COMUM
 		ImageIcon imgPortaComum = new ImageIcon("res2/imgPortas/000PortaComum.png");
 		portaComum1 = new JLabel(imgPortaComum);
 		portaComum1.setBounds(xPortaComum1, yPortaComum1, larguraPortasComuns, alturaPortasComuns);
@@ -115,6 +153,12 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 		porao.setBounds(xPorao1, yPorao1, larguraPorao1, alturaPorao1);
 		panel.add(porao);
 
+// IMAGENs DO ZEZIN
+		imgZezin = new ImageIcon("res2/imgZezin/Zezin_2.gif");
+		lbZezin = new JLabel(imgZezin);
+		lbZezin.setBounds(xZezin, yZezin, larguraZezin, alturaZezin);
+		panel.add(lbZezin);
+
 // IMAGENs DE FUNDO
 		// CHAO
 		imgChaoFundo = new ImageIcon("res2/imgSalaPrincipal/chaoSalaPrincipal.png");
@@ -142,18 +186,19 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 			JOptionPane.showMessageDialog(null, "Falha na conexão!");
 			System.exit(0);
 		}
-		
+
 	}
-
-
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (salaPrinc) {
+			xZezin = 35; yZezin = 130;
+			lbZezin.setBounds(xZezin, yZezin, larguraZezin, alturaZezin);
 			portaAzul.setVisible(false);
 			portaVermelha.setVisible(false);
 			portaVerde.setVisible(false);
 
+			lbZezin.setVisible(true);
 			portaComum1.setVisible(true);
 			portaComum2.setVisible(true);
 			portaComum3.setVisible(true);
@@ -162,17 +207,78 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 			imgChaoFundo = new ImageIcon("res2/imgSalaPrincipal/chaoSalaPrincipal.png");
 			lbChaoFundo.setIcon(imgChaoFundo);
 
-			// COLISÃO COM A BORDA
+			// COLISAO COM A BORDA
 			checkColisaoBorda(larguraFrame - 30, 30, alturaFrame - 75, 60);
 
-			// COLISÃO COM O PORAO
+			// COLISAO COM ZEZIN
+			String colisaoZezin = colisaoZezin(xZezin, yZezin, larguraZezin, alturaZezin);
+			if (colisaoZezin == "pertoD" && jogador.getTecla() == 10) {
+				jogador.setTecla(0);
+				if(liberaEnter) {
+					new balaoDialogFadeOut().start();
+					new dialogoInicial().start();
+					liberaEnter = false;
+				}
+			}
+			if(colisaoZezin != "pertoD") {
+			}
+			// COLISAO COM O PORAO
 			String retorno = checkColisao(xPorao1, yPorao1, larguraPorao1, alturaPorao1);
 			if (retorno == "dentro" && jogador.getTecla() == 10) {
 				jogador.setTecla(0);
 				if (dao.pixel.getPixelR() == 1 && dao.pixel.getPixelG() == 1 && dao.pixel.getPixelB() == 1) {
-					System.out.println("Entrando");
-					imgPorao = new ImageIcon("res2/imgPortas/porao01.png");
-					porao.setIcon(imgPorao);
+
+					String retornoInput = JOptionPane.showInputDialog(null, "Pedra, Papel ou Tesoura");
+					System.out.println(retornoInput);
+					int random = (int) (Math.random() * 9) + 1;
+
+					// SORTEIA PEDRA, PAPEL OU TESOURA
+					String pedraPapelOuTesoura = "";
+					if (random > 0 && random < 4) {
+						pedraPapelOuTesoura = "pedra";
+					} else if (random > 3 && random < 7) {
+						pedraPapelOuTesoura = "papel";
+					} else if (random > 6 && random < 10) {
+						pedraPapelOuTesoura = "tesoura";
+					}
+					System.out.println(pedraPapelOuTesoura);
+
+					// CASO ELE ESCOLHA PEDRA
+					if (retornoInput.toLowerCase().equals("pedra") && pedraPapelOuTesoura == "pedra") {
+						System.out.println("Pedra com Pedra - EMPATE");
+					} else if (retornoInput.toLowerCase().equals("pedra") && pedraPapelOuTesoura == "papel") {
+						System.out.println("Pedra com Papel - DERROTA");
+					} else if (retornoInput.toLowerCase().equals("pedra") && pedraPapelOuTesoura == "tesoura") {
+						System.out.println("Pedra com Tesoura - VITORIA");
+						ganhouPPPT = true;
+
+						// CASO ELE ESCOLHA PAPEL
+					} else if (retornoInput.toLowerCase().equals("papel") && pedraPapelOuTesoura == "pedra") {
+						System.out.println("Papel com Pedra - VITORIA");
+						ganhouPPPT = true;
+					} else if (retornoInput.toLowerCase().equals("papel") && pedraPapelOuTesoura == "papel") {
+						System.out.println("Papel com Papel - EMPATE");
+					} else if (retornoInput.toLowerCase().equals("papel") && pedraPapelOuTesoura == "tesoura") {
+						System.out.println("Papel com Tesoura - DERROTA");
+
+						// CASO ELE ESCOLHA TESOURA
+					} else if (retornoInput.toLowerCase().equals("tesoura") && pedraPapelOuTesoura == "pedra") {
+						System.out.println("Tesoura com Pedra - DERROTA");
+					} else if (retornoInput.toLowerCase().equals("tesoura") && pedraPapelOuTesoura == "papel") {
+						System.out.println("Tesoura com Papel - VITORIA");
+						ganhouPPPT = true;
+					} else if (retornoInput.toLowerCase().equals("tesoura") && pedraPapelOuTesoura == "tesoura") {
+						System.out.println("Tesoura com Tesoura - EMPATE");
+					}
+
+					if (ganhouPPPT) {
+						System.out.println("Entrando");
+						imgPorao = new ImageIcon("res2/imgPortas/porao01.png");
+						porao.setIcon(imgPorao);
+					} else {
+						JOptionPane.showMessageDialog(this, "Você Perdeu!", "Pedra, Papel ou Tesoura", 0);
+					}
+
 				} else {
 					Tremer tremer = new Tremer();
 					tremer.start();
@@ -222,14 +328,27 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 			porao.setVisible(false);
 			portaVerde.setVisible(false);
 			portaAzul.setVisible(false);
-
+			
 			portaVermelha.setVisible(true);
 
 			checkColisaoBorda(larguraFrame - 150, 150, alturaFrame - 75, 60);
 
 			imgChaoFundo = new ImageIcon("res2/imgSalaPrincipal/chaoCheckpoint.png");
 			lbChaoFundo.setIcon(imgChaoFundo);
-
+			xZezin = 160;
+			yZezin = 120;
+			lbZezin.setBounds(xZezin, yZezin, larguraZezin, alturaZezin);
+			
+			// COLISAO COM ZEZIN
+			String colisaoZezin = colisaoZezin(xZezin, yZezin, larguraZezin, alturaZezin);
+			if (colisaoZezin == "pertoD" && jogador.getTecla() == 10) {
+				jogador.setTecla(0);
+				if(liberaEnter) {
+					System.out.println("asodjsd");
+					liberaEnter = false;
+				}
+			}
+			
 			if (jogador.getY() >= 185 && jogador.getX() >= 260 && jogador.getX() <= 295) {
 				salaPorta1 = false;
 				salaPrinc = true;
@@ -239,18 +358,19 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 				jogador.setxB(jogador.getX());
 			}
 
-			if (trocarTela) {
+			// COLISAO COM A PORTA VERMELHA
+			String colisaoPortaColorida = checkColisao(xPortaColorida, yPortaColorida, larguraPortaColorida, alturaPortaColoria);
+			if(colisaoPortaColorida != null) {
 				setVisible(false);
-				trocarTela = false;
 			}
-
+			
 			// ENTROU NA SEGUNDA PORTA
 		} else if (salaPorta2) {
 			portaComum1.setVisible(false);
 			portaComum2.setVisible(false);
 			portaComum3.setVisible(false);
 			porao.setVisible(false);
-
+			lbZezin.setVisible(false);
 			portaVerde.setVisible(true);
 
 			checkColisaoBorda(larguraFrame - 150, 150, alturaFrame - 75, 60);
@@ -273,7 +393,7 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 			portaComum2.setVisible(false);
 			portaComum3.setVisible(false);
 			porao.setVisible(false);
-
+			lbZezin.setVisible(false);
 			portaAzul.setVisible(true);
 
 			checkColisaoBorda(larguraFrame - 150, 150, alturaFrame - 75, 60);
@@ -290,7 +410,7 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 				jogador.setxB(jogador.getX());
 			}
 		}
-		
+
 		movimentacaoPet();
 		jogador.atualizar();
 		repaint();
@@ -386,21 +506,100 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 		return null;
 	}
 
+	public String colisaoZezin(int xB, int yB, int larguraB, int alturaB) {
+		int aX = jogador.getX();
+		int aY = jogador.getY();
+		int ladoDireitoA = aX + jogador.getLargura() - 12;
+		int ladoEsquerdoA = aX + 12;
+		int ladoBaixoA = aY + jogador.getAltura() - 2;
+		int ladoCimaA = aY + 35;
+
+		int bX = xB;
+		int bY = yB;
+		int ladoDireitoB = bX + larguraB;
+		int ladoEsquerdoB = bX;
+		int ladoBaixoB = bY + alturaB - 2;
+		int ladoCimaB = bY + 6;
+
+		String colidiu = "longe";
+
+		if (ladoDireitoA >= ladoEsquerdoB && ladoDireitoA < ladoEsquerdoB + 2 && ladoBaixoA >= ladoCimaB
+				&& ladoCimaA <= ladoBaixoB) {
+			jogador.setX(jogador.getX() - 2);
+			colidiu = "true";
+		} else if (ladoEsquerdoA >= ladoDireitoB - 2 && ladoEsquerdoA <= ladoDireitoB && ladoBaixoA >= ladoCimaB
+				&& ladoCimaA <= ladoBaixoB) {
+			jogador.setX(jogador.getX() + 2);
+			colidiu = "true";
+		} else if (ladoDireitoA >= ladoEsquerdoB && ladoEsquerdoA <= ladoDireitoB && ladoBaixoA >= ladoCimaB
+				&& ladoBaixoA <= ladoBaixoB) {
+			jogador.setY(jogador.getY() - 2);
+			colidiu = "true";
+		} else if (ladoEsquerdoA <= ladoDireitoB && ladoDireitoA >= ladoEsquerdoB && ladoCimaA >= ladoBaixoB - 2
+				&& ladoCimaA <= ladoBaixoB) {
+			jogador.setY(jogador.getY() + 2);
+			colidiu = "true";
+
+		} else if (ladoEsquerdoA >= ladoDireitoB - 2 && ladoEsquerdoA <= ladoDireitoB + 4 && ladoBaixoA >= ladoCimaB
+				&& ladoCimaA <= ladoBaixoB) {
+			colidiu = "pertoD";
+		}
+
+		if (jogador.isCorrendo()) {
+			if (ladoDireitoA >= ladoEsquerdoB && ladoDireitoA < ladoEsquerdoB + 2 && ladoBaixoA >= ladoCimaB
+					&& ladoCimaA <= ladoBaixoB) {
+				jogador.setX(jogador.getX() - 4);
+				colidiu = "true";
+			} else if (ladoEsquerdoA >= ladoDireitoB - 2 && ladoEsquerdoA <= ladoDireitoB && ladoBaixoA >= ladoCimaB
+					&& ladoCimaA <= ladoBaixoB) {
+				jogador.setX(jogador.getX() + 4);
+				colidiu = "true";
+			} else if (ladoDireitoA >= ladoEsquerdoB && ladoEsquerdoA <= ladoDireitoB && ladoBaixoA >= ladoCimaB
+					&& ladoBaixoA <= ladoBaixoB) {
+				jogador.setY(jogador.getY() - 4);
+				colidiu = "true";
+			} else if (ladoEsquerdoA <= ladoDireitoB && ladoDireitoA >= ladoEsquerdoB && ladoCimaA >= ladoBaixoB - 2
+					&& ladoCimaA <= ladoBaixoB) {
+				jogador.setY(jogador.getY() + 4);
+				colidiu = "true";
+
+			}
+		}
+
+		return colidiu;
+	}
+
+	public void TextEffect(String DialogoBox, JLabel lbDialogo, int z, int milesimos) {
+		try {
+			char letra = DialogoBox.charAt(z);
+			palavra = palavra + letra;
+			if (z >= 6) {
+				lbDialogo.setVisible(true);
+			} else {
+				lbDialogo.setVisible(false);
+			}
+			lbDialogo.setText(palavra);
+			Thread.sleep(milesimos);
+		} catch (InterruptedException ex) {
+			System.out.println(ex);
+		}
+	}
+
 	public void movimentacaoPet() {
-		if(jogador.isCima() ) {
+		if (jogador.isCima()) {
 			// PIXEL VERMELHO
 			jogador.setyR(jogador.getY() + 25);
 			jogador.setxR(jogador.getX() - 15);
-			
+
 			// PIXEL VERDE
 			jogador.setyG(jogador.getY() + 30);
 			jogador.setxG(jogador.getX() + 6);
-			
+
 			// PIXEL AZUL
 			jogador.setyB(jogador.getY() + 25);
 			jogador.setxB(jogador.getX() + 28);
-			
-		}else if(jogador.isBaixo()) {
+
+		} else if (jogador.isBaixo()) {
 			// PIXEL VERMELHO
 			jogador.setyR(jogador.getY() - 20);
 			jogador.setxR(jogador.getX() + 30);
@@ -408,42 +607,49 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 			// PIXEL VERDE
 			jogador.setyG(jogador.getY() - 25);
 			jogador.setxG(jogador.getX() + 8);
-			
-			// PIXEL AZUL			
+
+			// PIXEL AZUL
 			jogador.setyB(jogador.getY() - 20);
 			jogador.setxB(jogador.getX() - 15);
-			
-		}else if(jogador.isDireita()) {
+
+		} else if (jogador.isDireita()) {
 			// PIXEL VERMELHO
-			jogador.setxR(jogador.getX() - 18);	 
+			jogador.setxR(jogador.getX() - 18);
 			jogador.setyR(jogador.getY() - 10);
-					
+
 			// PIXEL VERDE
-			jogador.setxG(jogador.getX() - 25);	 
+			jogador.setxG(jogador.getX() - 25);
 			jogador.setyG(jogador.getY() + 5);
-			
+
 			// PIXEL AZUL
-			jogador.setxB(jogador.getX() - 18);	 
+			jogador.setxB(jogador.getX() - 18);
 			jogador.setyB(jogador.getY() + 20);
-			
-		}else if(jogador.isEsquerda()) {
+
+		} else if (jogador.isEsquerda()) {
 			// PIXEL VERMELHO
 			jogador.setxR(jogador.getX() + 30);
 			jogador.setyR(jogador.getY() + 20);
-		
+
 			// PIXEL VERDE
 			jogador.setxG(jogador.getX() + 38);
 			jogador.setyG(jogador.getY() + 5);
-			
+
 			// PIXEL AZUL
 			jogador.setxB(jogador.getX() + 30);
 			jogador.setyB(jogador.getY() - 10);
-			
+
 		}
 	}
-	
+
 	private class Teclado extends KeyAdapter {
 		public void keyPressed(KeyEvent e) {
+			if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+				if (podePular) {
+					pularDialog = true;
+				} else {
+					pularDialog = false;
+				}
+			}
 			if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 				try {
 					dao.bd.c.close();
@@ -452,7 +658,9 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 				}
 				System.exit(0);
 			}
-			jogador.keyPressed(e);
+			if(jogador.isAndar()) {
+				jogador.keyPressed(e);				
+			}
 		}
 
 		public void keyReleased(KeyEvent e) {
@@ -466,7 +674,7 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 				long sleepTime = 20;
 				int originalX = getLocation().x;
 				int originalY = getLocation().y;
-				
+
 				for (int i = 0; i <= 2; i++) {
 					setLocation(originalX + 2, originalY);
 					Thread.sleep(sleepTime);
@@ -488,6 +696,179 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 
 			} catch (Exception ex) {
 				System.out.println(ex.toString());
+			}
+		}
+	}
+
+	private class balaoDialogFadeOut extends Thread {
+		public void run() {
+			lbBalaoDialog.setVisible(true);
+			imgBalaoDialog = new ImageIcon("res2/imgBalaoDialog/BalaoFalaFadeOut.gif");
+			lbBalaoDialog.setIcon(imgBalaoDialog);
+			try {
+				sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			imgBalaoDialog = new ImageIcon("res2/imgBalaoDialog/BalaoFalaStatic.png");
+			lbBalaoDialog.setIcon(imgBalaoDialog);
+		}
+	}
+
+	private class balaoDialogFadeIn extends Thread {
+		public void run() {
+			imgBalaoDialog = new ImageIcon("res2/imgBalaoDialog/BalaoFalaFadeIn.gif");
+			lbBalaoDialog.setIcon(imgBalaoDialog);
+			try {
+				sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			lbBalaoDialog.setVisible(false);
+			dialogoDoGuri.setVisible(false);
+			jogador.setAndar(true);
+		}
+	}
+
+	private class dialogoInicial extends Thread {
+		public void run() {
+			jogador.setAndar(false);
+			podePular = true;
+			palavra = "";
+			try {
+				jogador.setX(70);
+				jogador.setY(130);
+				System.out.println(dao.pixel.getCheckpoint());
+				if(dao.pixel.getCheckpoint().equals("1")) {
+					for (int z = 0; z < TextoInicial[0].length(); z++) {
+						if (!pularDialog) {
+							TextEffect(TextoInicial[0], dialogoDoGuri, z, 55);
+						} else {
+							dialogoDoGuri.setVisible(true);
+							dialogoDoGuri.setText(TextoInicial[0]);
+							pularDialog = false;
+							break;
+						}
+					}
+					podePular = false;
+					sleep(2000);
+					podePular = true;
+					palavra = "";
+					for (int z = 0; z < TextoInicial[1].length(); z++) {
+						if (!pularDialog) {
+							TextEffect(TextoInicial[1], dialogoDoGuri, z, 55);
+						} else {
+							dialogoDoGuri.setVisible(true);
+							dialogoDoGuri.setText(TextoInicial[1]);
+							pularDialog = false;
+							break;
+						}
+					}
+					podePular = false;
+					sleep(2000);
+					podePular = true;
+					palavra = "";
+					for (int z = 0; z < TextoInicial[2].length(); z++) {
+						if (!pularDialog) {
+							TextEffect(TextoInicial[2], dialogoDoGuri, z, 55);
+						} else {
+							dialogoDoGuri.setVisible(true);
+							dialogoDoGuri.setText(TextoInicial[2]);
+							pularDialog = false;
+							break;
+						}
+					}
+					podePular = false;
+					sleep(2000);
+					podePular = true;
+					palavra = "";
+					for (int z = 0; z < TextoInicial[3].length(); z++) {
+						if (!pularDialog) {
+							TextEffect(TextoInicial[3], dialogoDoGuri, z, 55);
+						} else {
+							dialogoDoGuri.setVisible(true);
+							dialogoDoGuri.setText(TextoInicial[3]);
+							pularDialog = false;
+							break;
+						}
+					}
+					podePular = false;				
+					sleep(2000);
+					podePular = true;
+					palavra = "";
+					for (int z = 0; z < TextoInicial[4].length(); z++) {
+						if (!pularDialog) {
+							TextEffect(TextoInicial[4], dialogoDoGuri, z, 55);
+						} else {
+							dialogoDoGuri.setVisible(true);
+							dialogoDoGuri.setText(TextoInicial[4]);
+							pularDialog = false;
+							break;
+						}
+					}
+					podePular = false;				
+					sleep(2000);
+					podePular = true;
+					palavra = "";
+					for (int z = 0; z < TextoInicial[5].length(); z++) {
+						if (!pularDialog) {
+							TextEffect(TextoInicial[5], dialogoDoGuri, z, 55);
+						} else {
+							dialogoDoGuri.setVisible(true);
+							dialogoDoGuri.setText(TextoInicial[5]);
+							pularDialog = false;
+							break;
+						}
+					}
+					podePular = false;
+					sleep(3000);
+					podePular = true;
+					palavra = "";
+					for (int z = 0; z < TextoInicial[6].length(); z++) {
+						if (!pularDialog) {
+							TextEffect(TextoInicial[6], dialogoDoGuri, z, 55);
+						} else {
+							dialogoDoGuri.setVisible(true);
+							dialogoDoGuri.setText(TextoInicial[6]);
+							pularDialog = false;
+							break;
+						}
+					}
+					podePular = false;
+					sleep(3000);
+					podePular = true;
+					palavra = "";
+					for (int z = 0; z < TextoInicial[7].length(); z++) {
+						if (!pularDialog) {
+							TextEffect(TextoInicial[7], dialogoDoGuri, z, 55);
+						} else {
+							dialogoDoGuri.setVisible(true);
+							dialogoDoGuri.setText(TextoInicial[7]);
+							pularDialog = false;
+							break;
+						}
+					}
+					podePular = false;
+					sleep(3000);
+					podePular = true;
+					palavra = "";
+					for (int z = 0; z < TextoInicial[8].length(); z++) {
+						if (!pularDialog) {
+							TextEffect(TextoInicial[8], dialogoDoGuri, z, 55);
+						} else {
+							dialogoDoGuri.setVisible(true);
+							dialogoDoGuri.setText(TextoInicial[8]);
+							pularDialog = false;
+							break;
+						}
+					}
+					sleep(2000);
+					podePular = false;
+					liberaEnter = true;
+					new balaoDialogFadeIn().start();	
+				}
+			} catch (InterruptedException ex) {
+				System.out.println(ex);
 			}
 		}
 	}
