@@ -54,6 +54,8 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 			"<html>Guri: Okay, mas porque eu devo entregar eles pra você ??</html>",
 			"<html>Zezin: Apenas faça o que eu mando que tudo voltara ao normal",
 			"<html>Zezin: Caso queira salvar o seu progresso basta falar comigo"};
+	
+	String[] TextoUpdate = {"<html>Zezin: Jogo salvo com sucesso!</html>"};
 	JLabel dialogoDoGuri;
 
 	// JLABELs DAS IMGs PORTAS
@@ -344,7 +346,8 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 			if (colisaoZezin == "pertoD" && jogador.getTecla() == 10) {
 				jogador.setTecla(0);
 				if(liberaEnter) {
-					System.out.println("asodjsd");
+					new balaoDialogFadeOut().start();
+					new dialogoUpdate().start();
 					liberaEnter = false;
 				}
 			}
@@ -858,6 +861,37 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 						} else {
 							dialogoDoGuri.setVisible(true);
 							dialogoDoGuri.setText(TextoInicial[8]);
+							pularDialog = false;
+							break;
+						}
+					}
+					sleep(2000);
+					podePular = false;
+					liberaEnter = true;
+					new balaoDialogFadeIn().start();	
+				}
+			} catch (InterruptedException ex) {
+				System.out.println(ex);
+			}
+		}
+	}
+	
+	private class dialogoUpdate extends Thread{
+		public void run() {
+			jogador.setAndar(false);
+			podePular = true;
+			palavra = "";
+			try {
+				jogador.setX(70);
+				jogador.setY(130);
+				System.out.println(dao.pixel.getCheckpoint());
+				if(dao.pixel.getCheckpoint().equals("1")) {
+					for (int z = 0; z < TextoUpdate[0].length(); z++) {
+						if (!pularDialog) {
+							TextEffect(TextoUpdate[0], dialogoDoGuri, z, 55);
+						} else {
+							dialogoDoGuri.setVisible(true);
+							dialogoDoGuri.setText(TextoUpdate[0]);
 							pularDialog = false;
 							break;
 						}
