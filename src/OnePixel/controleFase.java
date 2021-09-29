@@ -12,7 +12,7 @@ public class controleFase {
 		case "0": new introdução().setVisible(true);
 		break;
 		
-		case "1": new telaMain().salaPrinc.setVisible(true);
+		case "1": new jogo2SalaPrinc().setVisible(true);
 		break;
 		
 		}

@@ -88,15 +88,14 @@ public class onePixelDAO {
 	public String atualizar(int operacao) {
 		men = "Operação realizada com sucesso ";
 		try {
-			System.out.println("Entrou no TRY");
 			if (operacao == INCLUSAO) {
 				sql = "INSERT INTO user(user_name,user_genero,checkpoint) values(?,?,?)";
 				statement = bd.c.prepareStatement(sql);
 				statement.setString(1, pixel.getName());
 				statement.setString(2, pixel.getGenero());
 				statement.setString(3, pixel.getCheckpoint());
-				System.out.println("Inclusão user" + statement);
-
+				System.out.println("Inserido com sucesso");
+				
 			} else if (operacao == ALTERACAO) {
 				sql = "UPDATE user set checkpoint = ? WHERE user_id = ? "; // , aliado1
 																											// = ? ,
@@ -120,7 +119,6 @@ public class onePixelDAO {
 		if (operacao == INCLUSAO) {
 			atualizarInventario(INCLUSAO);
 		}
-		System.out.println(operacao);
 		return men;
 
 	}
@@ -137,7 +135,7 @@ public class onePixelDAO {
 				statement.setInt(3, pixel.getPixelB());
 				statement.setInt(4, pixel.getAliado1());
 				statement.setInt(5, pixel.getAliado2());
-				System.out.println("Inclusão inventario :" + statement);
+				System.out.println("Inventario inserido com sucesso");
 
 			} else if (operacao == ALTERACAO) {
 				sql = "UPDATE inventario set pixel_R = ?,pixel_G = ?,pixel_B = ?,aliado1 = ?,aliado2 = ? WHERE user_id = ? ";

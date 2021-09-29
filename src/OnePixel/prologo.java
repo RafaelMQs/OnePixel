@@ -229,7 +229,6 @@ public class prologo extends JFrame implements KeyListener {
 				if (!pulouTudo) {
 					setVisible(false);
 					new introdução().setVisible(true);
-					System.out.println("CHAMANDO A CORNA");
 				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();

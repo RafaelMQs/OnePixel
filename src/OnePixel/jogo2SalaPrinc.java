@@ -8,12 +8,13 @@ import javax.swing.*;
 
 import BancoDeDados.*;
 
-public class jogo2SalaPrinc extends JPanel implements ActionListener {
+public class jogo2SalaPrinc extends JFrame implements ActionListener {
 	private Jogador jogador;
 	private onePixelDAO dao;
-    int originalX = getLocation().x;
-    int originalY = getLocation().y;
-    
+	boolean trocarTela = true;
+
+	JPanel panel;
+	JLabel jogadorzin;
 	private int xPorao1 = 270, yPorao1 = 170, larguraPorao1 = 60, alturaPorao1 = 60, xPortaComum1 = 85,
 			yPortaComum1 = 25, larguraPortasComuns = 60, alturaPortasComuns = 78, xPortaComum2 = 270, yPortaComum2 = 25,
 			xPortaComum3 = 455, yPortaComum3 = 25, xPortaColorida = 270, yPortaColorida = 25, larguraPortaColorida = 60,
@@ -39,66 +40,90 @@ public class jogo2SalaPrinc extends JPanel implements ActionListener {
 
 	public jogo2SalaPrinc() {
 		componentes();
+
+		setIconImage(imgLogo.getImage());
+		setBackground(Color.red);
+		setTitle("OnePixel - Part2");
+		setSize(larguraFrame, alturaFrame);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
+		setResizable(false);
+		setUndecorated(true);
+		setVisible(true);
 	}
 
 	public void componentes() {
 		setLayout(null);
 		setFocusable(true);
-		setDoubleBuffered(true);
+//		setDoubleBuffered(true);
 
 // IMAGENs DAS PORTAS
 		// PORTA COMUM
+		
+		panel = new JPanel(null) {
+			public void paint(Graphics g) {
+				super.paint(g);
+				Graphics2D grafico = (Graphics2D) g;
+				grafico.drawImage(jogador.getImgPlayer(), jogador.getX(), jogador.getY(), jogador.getLargura(),
+						jogador.getAltura(), this);
+				grafico.drawImage(jogador.getImgPet(), jogador.getXB(), jogador.getYB(), 32, 32, this);
+				grafico.dispose();
+			}
+		};
+		panel.setBounds(0, 0, 600, 310);
+		add(panel);
+		
 		ImageIcon imgPortaComum = new ImageIcon("res2/imgPortas/000PortaComum.png");
 		portaComum1 = new JLabel(imgPortaComum);
 		portaComum1.setBounds(xPortaComum1, yPortaComum1, larguraPortasComuns, alturaPortasComuns);
-		add(portaComum1);
+		panel.add(portaComum1);
 
 		portaComum2 = new JLabel(imgPortaComum);
 		portaComum2.setBounds(xPortaComum2, yPortaComum2, larguraPortasComuns, alturaPortasComuns);
-		add(portaComum2);
+		panel.add(portaComum2);
 
 		portaComum3 = new JLabel(imgPortaComum);
 		portaComum3.setBounds(xPortaComum3, yPortaComum3, larguraPortasComuns, alturaPortasComuns);
-		add(portaComum3);
+		panel.add(portaComum3);
 
 		// PORTA VERMELHA
 		ImageIcon imgPortaVermelha = new ImageIcon("res2/imgPortas/000Vermelho.png");
 		portaVermelha = new JLabel(imgPortaVermelha);
 		portaVermelha.setBounds(xPortaColorida, yPortaColorida, larguraPortaColorida, alturaPortaColoria);
 		portaVermelha.setVisible(false);
-		add(portaVermelha);
+		panel.add(portaVermelha);
 
 		// PORTA VERDE
 		ImageIcon imgPortaVerde = new ImageIcon("res2/imgPortas/000Verde.png");
 		portaVerde = new JLabel(imgPortaVerde);
 		portaVerde.setBounds(xPortaColorida, yPortaColorida, larguraPortaColorida, alturaPortaColoria);
 		portaVerde.setVisible(false);
-		add(portaVerde);
+		panel.add(portaVerde);
 
 		// PORTA AZUL
 		ImageIcon imgPortaAzul = new ImageIcon("res2/imgPortas/000Azul.png");
 		portaAzul = new JLabel(imgPortaAzul);
 		portaAzul.setBounds(xPortaColorida, yPortaColorida, larguraPortaColorida, alturaPortaColoria);
 		portaAzul.setVisible(false);
-		add(portaAzul);
+		panel.add(portaAzul);
 
 		// PORAO
 		imgPorao = new ImageIcon("res2/imgPortas/porao00.png");
 		porao = new JLabel(imgPorao);
 		porao.setBounds(xPorao1, yPorao1, larguraPorao1, alturaPorao1);
-		add(porao);
+		panel.add(porao);
 
 // IMAGENs DE FUNDO
 		// CHAO
 		imgChaoFundo = new ImageIcon("res2/imgSalaPrincipal/chaoSalaPrincipal.png");
 		lbChaoFundo = new JLabel(imgChaoFundo);
 		lbChaoFundo.setBounds(0, 0, 600, 310);
-		add(lbChaoFundo);
+		panel.add(lbChaoFundo);
 		// FUNDO
 		ImageIcon imgFundo = new ImageIcon("res2/imgSalaPrincipal/background.png");
 		lbFundo = new JLabel(imgFundo);
 		lbFundo.setBounds(0, 0, 600, 310);
-		add(lbFundo);
+		panel.add(lbFundo);
 
 // CARREGAR OS KEYLISTENERS DA CLASS JOGADOR
 		addKeyListener(new Teclado());
@@ -115,17 +140,10 @@ public class jogo2SalaPrinc extends JPanel implements ActionListener {
 			JOptionPane.showMessageDialog(null, "Falha na conexão!");
 			System.exit(0);
 		}
-
+		
 	}
 
-	public void paint(Graphics g) {
-		super.paint(g);
-		Graphics2D grafico = (Graphics2D) g;
-		grafico.drawImage(jogador.getImgPlayer(), jogador.getX(), jogador.getY(), jogador.getLargura(),
-				jogador.getAltura(), this);
-		grafico.drawImage(jogador.getImgPet(), jogador.getXB(), jogador.getYB(), 32, 32, this);
-		grafico.dispose();
-	}
+
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -217,6 +235,11 @@ public class jogo2SalaPrinc extends JPanel implements ActionListener {
 				jogador.setY(80);
 				jogador.setYB(jogador.getY() + 25);
 				jogador.setXB(jogador.getX());
+			}
+
+			if (trocarTela) {
+				setVisible(false);
+				trocarTela = false;
 			}
 
 			// ENTROU NA SEGUNDA PORTA
@@ -379,31 +402,37 @@ public class jogo2SalaPrinc extends JPanel implements ActionListener {
 
 	private class Tremer extends Thread {
 		public void run() {
-			try{
-	            long sleepTime = 20;
-	            
-	            for(int i =0; i <=2 ; i++){
-	                setLocation(originalX + 2, originalY);
-	                Thread.sleep(sleepTime);
-	                setLocation(originalX+ 2, originalY +2);
-	                Thread.sleep(sleepTime);
-	                setLocation(originalX, originalY + 2);
-	                Thread.sleep(sleepTime);
-	                setLocation(originalX, originalY);
-	                Thread.sleep(sleepTime);
-	                setLocation(originalX - 2, originalY);
-	                Thread.sleep(sleepTime);
-	                setLocation(originalX - 2, originalY - 2);
-	                Thread.sleep(sleepTime);
-	                setLocation(originalX, originalY - 2);
-	                Thread.sleep(sleepTime);
-	            }
+			try {
+				long sleepTime = 20;
+				int originalX = getLocation().x;
+				int originalY = getLocation().y;
+				
+				for (int i = 0; i <= 2; i++) {
+					setLocation(originalX + 2, originalY);
+					Thread.sleep(sleepTime);
+					setLocation(originalX + 2, originalY + 2);
+					Thread.sleep(sleepTime);
+					setLocation(originalX, originalY + 2);
+					Thread.sleep(sleepTime);
+					setLocation(originalX, originalY);
+					Thread.sleep(sleepTime);
+					setLocation(originalX - 2, originalY);
+					Thread.sleep(sleepTime);
+					setLocation(originalX - 2, originalY - 2);
+					Thread.sleep(sleepTime);
+					setLocation(originalX, originalY - 2);
+					Thread.sleep(sleepTime);
+				}
 
-	            setLocation(originalX, originalY);
+				setLocation(originalX, originalY);
 
-	        } catch(Exception ex){
-	            System.out.println(ex.toString());
-	        }			
+			} catch (Exception ex) {
+				System.out.println(ex.toString());
+			}
 		}
+	}
+
+	public static void main(String args[]) {
+		new jogo2SalaPrinc();
 	}
 }

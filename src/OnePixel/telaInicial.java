@@ -89,7 +89,7 @@ public class telaInicial extends JFrame {
 						+ "ESPAÇO: Pula/Completa dialogo <br><br>" + "ENTER: Confirma ações <br><br>"
 						+ " Z: Volta para o menu anterior </p> </html>");
 		comandosInstrucao.setFont(new Font("Pixel Operator 8", Font.PLAIN, 12));
-		comandosInstrucao.setForeground(Color.black);
+		comandosInstrucao.setForeground(Color.white);
 		comandosInstrucao.setBounds(130, -55, 380, 400);
 		comandosInstrucao.setVisible(false);
 		add(comandosInstrucao);
@@ -178,13 +178,12 @@ public class telaInicial extends JFrame {
 							dao.pixel.setCheckpoint("0");
 							dao.atualizar(1);
 							setVisible(false);
-							new telaLoading().setVisible(true);
+							new prologo().setVisible(true);
 						} else {
 							dao.pixel.setName(nomeUsu.getText());
 							dao.pixel.setGenero("M");
 							dao.pixel.setCheckpoint("0");
 							dao.atualizar(1);
-							dao.buscarIdPlayer();
 							dao.buscar();
 							setVisible(false);
 							new prologo().setVisible(true);
