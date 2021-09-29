@@ -7,12 +7,15 @@ import java.io.IOException;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
+import BancoDeDados.*;
 
 public class Jogador {
-	private int x, y, xB, yB;
+	onePixelDAO dao = new onePixelDAO();
+	
+	private int x, y, xR, yR, xG, yG, xB, yB;;
 	private int directX, directY;
-	private Image imgPlayer, imgPet;
-	private ImageIcon jogadorzinho, petzinho;
+	private Image imgPlayer, imgPixelRed, imgPixelGreen, imgPixelBlue;
+	private ImageIcon jogadorzinho, pixelRed, pixelGreen, pixelBlue;
 	private int largura, altura;
 	private String caminhoImg = "./res2/imgPlayer/guriCima000.png";
 
@@ -23,8 +26,14 @@ public class Jogador {
 		x = 276;
 		y = 125;
 		
-		xB = x;
-		yB = y;
+		xR = x - 15;
+		yR = y + 25;
+		
+		xG = x + 6;
+		yG = y + 30;
+		
+		xB = x + 28;
+		yB = y + 25;
 		
 		new Temporizador().start();
 	}
@@ -33,8 +42,16 @@ public class Jogador {
 		jogadorzinho = new ImageIcon(caminhoImg);
 		imgPlayer = jogadorzinho.getImage();
 		
-		petzinho = new ImageIcon("res2/imgPlayer/gato.png");
-		imgPet = petzinho.getImage();
+		if(dao.pixel.getPixelR() == 1) {
+			pixelRed = new ImageIcon("res2/imgPixels/ChamaPixelVermelho.gif");
+			imgPixelRed = pixelRed.getImage();			
+		}if (dao.pixel.getPixelG() == 1) {
+			pixelGreen = new ImageIcon("res2/imgPixels/ChamaPixelVerde.gif");
+			imgPixelGreen = pixelGreen.getImage();			
+		}if (dao.pixel.getPixelB() == 1) {
+			pixelBlue = new ImageIcon("res2/imgPixels/ChamaPixelAzul.gif");
+			imgPixelBlue = pixelBlue.getImage();
+		}
 		
 		altura = 45;
 		largura = 45;
@@ -44,8 +61,15 @@ public class Jogador {
 		x += directX;
 		y += directY;
 		
+		xR = xR;
+		yR = yR;
+		
+		xG = xG;
+		yG = yG;
+		
 		xB = xB;
 		yB = yB;
+ 
 
 	}
 
@@ -132,43 +156,31 @@ public class Jogador {
 			while (true) {
 				System.out.print("");
 				if (cima == true) {
-					yB = y + 25;
-					xB = x;
 					carregar();
 					caminhoImg = "res2/imgPlayer/guriCima001.png";
 					carregar();
 					try {sleep(180);} catch (InterruptedException e) {e.printStackTrace();}
-					yB = y + 35;
 					caminhoImg = "res2/imgPlayer/guriCima002.png";
 					carregar();
 					try {sleep(180);} catch (InterruptedException e) {e.printStackTrace();}
 				} else if (baixo == true) {
-					yB = y - 15;
-					xB = x;
 					caminhoImg = "res2/imgPlayer/guriBaixo001.png";
 					carregar();
 					try {sleep(180);} catch (InterruptedException e) {e.printStackTrace();}
-					yB = y - 25;
 					caminhoImg = "res2/imgPlayer/guriBaixo002.png";
 					carregar();
 					try {sleep(180);} catch (InterruptedException e) {e.printStackTrace();}
 				} else if (direita == true) {
-					yB = y;
-					xB = x - 15;
 					caminhoImg = "res2/imgPlayer/guriDireita001.png";
 					carregar();
 					try {sleep(180);} catch (InterruptedException e) {e.printStackTrace();}
-					xB = x - 25;
 					caminhoImg = "res2/imgPlayer/guriDireita002.png";
 					carregar();
 					try {sleep(180);} catch (InterruptedException e) {e.printStackTrace();}
 				} else if (esquerda == true) {
-					yB = y;
-					xB = x +30;
 					caminhoImg = "res2/imgPlayer/guriEsquerda001.png";
 					carregar();
 					try {sleep(180);} catch (InterruptedException e) {e.printStackTrace();}
-					xB = x + 40;
 					caminhoImg = "res2/imgPlayer/guriEsquerda002.png";
 					carregar();
 					try {sleep(180);} catch (InterruptedException e) {e.printStackTrace();}
@@ -189,14 +201,6 @@ public class Jogador {
 		return y;
 	}
 	
-	public int getXB() {
-		return xB;
-	}
-
-	public int getYB() {
-		return yB;
-	}
-
 	public void setX(int X) {
 		this.x = X;
 	}
@@ -205,20 +209,68 @@ public class Jogador {
 		this.y = Y;
 	}
 
-	public void setXB(int X) {
-		this.xB = X;
+	public int getxR() {
+		return xR;
 	}
 
-	public void setYB(int Y) {
-		this.yB = Y;
+	public void setxR(int xR) {
+		this.xR = xR;
+	}
+
+	public int getyR() {
+		return yR;
+	}
+
+	public void setyR(int yR) {
+		this.yR = yR;
+	}
+
+	public int getxG() {
+		return xG;
+	}
+
+	public void setxG(int xG) {
+		this.xG = xG;
+	}
+
+	public int getyG() {
+		return yG;
+	}
+
+	public void setyG(int yG) {
+		this.yG = yG;
+	}
+
+	public int getxB() {
+		return xB;
+	}
+
+	public void setxB(int xB) {
+		this.xB = xB;
+	}
+
+	public int getyB() {
+		return yB;
+	}
+
+	public void setyB(int yB) {
+		this.yB = yB;
+	}
+
+	public Image getImgPixelRed() {
+		return imgPixelRed;
+	}
+
+	public Image getImgPixelGreen() {
+		return imgPixelGreen;
+	}
+
+	public Image getImgPixelBlue() {
+		return imgPixelBlue;
 	}
 	
 	public Image getImgPlayer() {
 		return imgPlayer;
-	}
-	
-	public Image getImgPet() {
-		return imgPet;
 	}
 
 	public int getLargura() {

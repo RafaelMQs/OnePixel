@@ -66,7 +66,9 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 				Graphics2D grafico = (Graphics2D) g;
 				grafico.drawImage(jogador.getImgPlayer(), jogador.getX(), jogador.getY(), jogador.getLargura(),
 						jogador.getAltura(), this);
-				grafico.drawImage(jogador.getImgPet(), jogador.getXB(), jogador.getYB(), 32, 32, this);
+				grafico.drawImage(jogador.getImgPixelRed(), jogador.getxR(), jogador.getyR(), 32, 32, this);
+				grafico.drawImage(jogador.getImgPixelGreen(), jogador.getxG(), jogador.getyG(), 32, 32, this);
+				grafico.drawImage(jogador.getImgPixelBlue(), jogador.getxB(), jogador.getyB(), 32, 32, this);
 				grafico.dispose();
 			}
 		};
@@ -186,8 +188,8 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 				salaPorta1 = true;
 				jogador.setX(278);
 				jogador.setY(180);
-				jogador.setYB(jogador.getY() + 25);
-				jogador.setXB(jogador.getX());
+				jogador.setyB(jogador.getY() + 25);
+				jogador.setxB(jogador.getX());
 			}
 			// COLISAO PORTA 2
 			retorno = checkColisao(xPortaComum2, yPortaComum2, larguraPortasComuns, alturaPortasComuns);
@@ -197,8 +199,8 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 				salaPorta2 = true;
 				jogador.setX(278);
 				jogador.setY(180);
-				jogador.setYB(jogador.getY() + 25);
-				jogador.setXB(jogador.getX());
+				jogador.setyB(jogador.getY() + 25);
+				jogador.setxB(jogador.getX());
 			}
 			// COLISAO PORTA 3
 			retorno = checkColisao(xPortaComum3, yPortaComum3, larguraPortasComuns, alturaPortasComuns);
@@ -208,8 +210,8 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 				salaPorta3 = true;
 				jogador.setX(278);
 				jogador.setY(180);
-				jogador.setYB(jogador.getY() + 25);
-				jogador.setXB(jogador.getX());
+				jogador.setyB(jogador.getY() + 25);
+				jogador.setxB(jogador.getX());
 			}
 
 			// ENTROU NA PRIMEIRA PORTA
@@ -233,8 +235,8 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 				salaPrinc = true;
 				jogador.setX(95);
 				jogador.setY(80);
-				jogador.setYB(jogador.getY() + 25);
-				jogador.setXB(jogador.getX());
+				jogador.setyB(jogador.getY() + 25);
+				jogador.setxB(jogador.getX());
 			}
 
 			if (trocarTela) {
@@ -261,8 +263,8 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 				salaPrinc = true;
 				jogador.setX(278);
 				jogador.setY(80);
-				jogador.setYB(jogador.getY() + 25);
-				jogador.setXB(jogador.getX());
+				jogador.setyB(jogador.getY() + 25);
+				jogador.setyB(jogador.getX());
 			}
 
 			// ENTROU NA TERCEIRA PORTA
@@ -284,10 +286,12 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 				salaPrinc = true;
 				jogador.setX(464);
 				jogador.setY(80);
-				jogador.setYB(jogador.getY() + 25);
-				jogador.setXB(jogador.getX());
+				jogador.setyB(jogador.getY() + 25);
+				jogador.setxB(jogador.getX());
 			}
 		}
+		
+		movimentacaoPet();
 		jogador.atualizar();
 		repaint();
 	}
@@ -382,6 +386,62 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 		return null;
 	}
 
+	public void movimentacaoPet() {
+		if(jogador.isCima() ) {
+			// PIXEL VERMELHO
+			jogador.setyR(jogador.getY() + 25);
+			jogador.setxR(jogador.getX() - 15);
+			
+			// PIXEL VERDE
+			jogador.setyG(jogador.getY() + 30);
+			jogador.setxG(jogador.getX() + 6);
+			
+			// PIXEL AZUL
+			jogador.setyB(jogador.getY() + 25);
+			jogador.setxB(jogador.getX() + 28);
+			
+		}else if(jogador.isBaixo()) {
+			// PIXEL VERMELHO
+			jogador.setyR(jogador.getY() - 20);
+			jogador.setxR(jogador.getX() + 30);
+
+			// PIXEL VERDE
+			jogador.setyG(jogador.getY() - 25);
+			jogador.setxG(jogador.getX() + 8);
+			
+			// PIXEL AZUL			
+			jogador.setyB(jogador.getY() - 20);
+			jogador.setxB(jogador.getX() - 15);
+			
+		}else if(jogador.isDireita()) {
+			// PIXEL VERMELHO
+			jogador.setxR(jogador.getX() - 18);	 
+			jogador.setyR(jogador.getY() - 10);
+					
+			// PIXEL VERDE
+			jogador.setxG(jogador.getX() - 25);	 
+			jogador.setyG(jogador.getY() + 5);
+			
+			// PIXEL AZUL
+			jogador.setxB(jogador.getX() - 18);	 
+			jogador.setyB(jogador.getY() + 20);
+			
+		}else if(jogador.isEsquerda()) {
+			// PIXEL VERMELHO
+			jogador.setxR(jogador.getX() + 30);
+			jogador.setyR(jogador.getY() + 20);
+		
+			// PIXEL VERDE
+			jogador.setxG(jogador.getX() + 38);
+			jogador.setyG(jogador.getY() + 5);
+			
+			// PIXEL AZUL
+			jogador.setxB(jogador.getX() + 30);
+			jogador.setyB(jogador.getY() - 10);
+			
+		}
+	}
+	
 	private class Teclado extends KeyAdapter {
 		public void keyPressed(KeyEvent e) {
 			if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
