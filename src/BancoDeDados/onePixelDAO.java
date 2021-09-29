@@ -146,7 +146,8 @@ public class onePixelDAO {
 				statement.setInt(4, pixel.getAliado1());
 				statement.setInt(5, pixel.getAliado2());
 				statement.setString(6, pixel.getId());
-				System.out.println("Alteração inventario:" + statement);
+				System.out.println("Update no inventario feito com Sucesso!");
+				
 			} else if (operacao == EXCLUSAO) {
 				sql = "DELETE from inventario WHERE user_id = ?";
 				statement = bd.c.prepareStatement(sql);

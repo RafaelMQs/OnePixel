@@ -15,7 +15,7 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 	private Jogador jogador;
 	private onePixelDAO dao;
 	JPanel panel;
-	boolean ganhouPPPT = false, pularDialog = false, podePular = false, liberaEnter = true;
+	boolean ganhouPPPT = false, pularDialog = false, podePular = false, liberaEnter = true, firstDialog = false, entrou = false;
 	String palavra = "";
 
 	private int xPorao1 = 270, yPorao1 = 170, larguraPorao1 = 60, alturaPorao1 = 60, xPortaComum1 = 85,
@@ -53,7 +53,8 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 			"<html>Zezin: Sua missão é derrotar eles, pegar os pixels de volta e entregar para mim </html>",
 			"<html>Guri: Okay, mas porque eu devo entregar eles pra você ??</html>",
 			"<html>Zezin: Apenas faça o que eu mando que tudo voltara ao normal",
-			"<html>Zezin: Caso queira salvar o seu progresso basta falar comigo"};
+			"<html>Zezin: Caso queira salvar o seu progresso basta falar comigo",
+			"<html>Zezin: Ande logo! Escolha uma porta!!</html>"};
 	
 	String[] TextoUpdate = {"<html>Zezin: Jogo salvo com sucesso!</html>"};
 	JLabel dialogoDoGuri;
@@ -363,8 +364,10 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 
 			// COLISAO COM A PORTA VERMELHA
 			String colisaoPortaColorida = checkColisao(xPortaColorida, yPortaColorida, larguraPortaColorida, alturaPortaColoria);
-			if(colisaoPortaColorida != null) {
+			if(colisaoPortaColorida != null && entrou == false) {
 				setVisible(false);
+				new bossMorcego();
+				entrou = true;
 			}
 			
 			// ENTROU NA SEGUNDA PORTA
@@ -743,132 +746,155 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 				jogador.setY(130);
 				System.out.println(dao.pixel.getCheckpoint());
 				if(dao.pixel.getCheckpoint().equals("1")) {
-					for (int z = 0; z < TextoInicial[0].length(); z++) {
-						if (!pularDialog) {
-							TextEffect(TextoInicial[0], dialogoDoGuri, z, 55);
-						} else {
-							dialogoDoGuri.setVisible(true);
-							dialogoDoGuri.setText(TextoInicial[0]);
-							pularDialog = false;
-							break;
+					if(!firstDialog) {
+						for (int z = 0; z < TextoInicial[0].length(); z++) {
+							if (!pularDialog) {
+								TextEffect(TextoInicial[0], dialogoDoGuri, z, 55);
+							} else {
+								dialogoDoGuri.setVisible(true);
+								dialogoDoGuri.setText(TextoInicial[0]);
+								pularDialog = false;
+								break;
+							}
 						}
-					}
-					podePular = false;
-					sleep(2000);
-					podePular = true;
-					palavra = "";
-					for (int z = 0; z < TextoInicial[1].length(); z++) {
-						if (!pularDialog) {
-							TextEffect(TextoInicial[1], dialogoDoGuri, z, 55);
-						} else {
-							dialogoDoGuri.setVisible(true);
-							dialogoDoGuri.setText(TextoInicial[1]);
-							pularDialog = false;
-							break;
+						podePular = false;
+						sleep(2000);
+						podePular = true;
+						palavra = "";
+						for (int z = 0; z < TextoInicial[1].length(); z++) {
+							if (!pularDialog) {
+								TextEffect(TextoInicial[1], dialogoDoGuri, z, 55);
+							} else {
+								dialogoDoGuri.setVisible(true);
+								dialogoDoGuri.setText(TextoInicial[1]);
+								pularDialog = false;
+								break;
+							}
 						}
-					}
-					podePular = false;
-					sleep(2000);
-					podePular = true;
-					palavra = "";
-					for (int z = 0; z < TextoInicial[2].length(); z++) {
-						if (!pularDialog) {
-							TextEffect(TextoInicial[2], dialogoDoGuri, z, 55);
-						} else {
-							dialogoDoGuri.setVisible(true);
-							dialogoDoGuri.setText(TextoInicial[2]);
-							pularDialog = false;
-							break;
+						podePular = false;
+						sleep(2000);
+						podePular = true;
+						palavra = "";
+						for (int z = 0; z < TextoInicial[2].length(); z++) {
+							if (!pularDialog) {
+								TextEffect(TextoInicial[2], dialogoDoGuri, z, 55);
+							} else {
+								dialogoDoGuri.setVisible(true);
+								dialogoDoGuri.setText(TextoInicial[2]);
+								pularDialog = false;
+								break;
+							}
 						}
-					}
-					podePular = false;
-					sleep(2000);
-					podePular = true;
-					palavra = "";
-					for (int z = 0; z < TextoInicial[3].length(); z++) {
-						if (!pularDialog) {
-							TextEffect(TextoInicial[3], dialogoDoGuri, z, 55);
-						} else {
-							dialogoDoGuri.setVisible(true);
-							dialogoDoGuri.setText(TextoInicial[3]);
-							pularDialog = false;
-							break;
+						podePular = false;
+						sleep(2000);
+						podePular = true;
+						palavra = "";
+						for (int z = 0; z < TextoInicial[3].length(); z++) {
+							if (!pularDialog) {
+								TextEffect(TextoInicial[3], dialogoDoGuri, z, 55);
+							} else {
+								dialogoDoGuri.setVisible(true);
+								dialogoDoGuri.setText(TextoInicial[3]);
+								pularDialog = false;
+								break;
+							}
 						}
-					}
-					podePular = false;				
-					sleep(2000);
-					podePular = true;
-					palavra = "";
-					for (int z = 0; z < TextoInicial[4].length(); z++) {
-						if (!pularDialog) {
-							TextEffect(TextoInicial[4], dialogoDoGuri, z, 55);
-						} else {
-							dialogoDoGuri.setVisible(true);
-							dialogoDoGuri.setText(TextoInicial[4]);
-							pularDialog = false;
-							break;
+						podePular = false;				
+						sleep(2000);
+						podePular = true;
+						palavra = "";
+						for (int z = 0; z < TextoInicial[4].length(); z++) {
+							if (!pularDialog) {
+								TextEffect(TextoInicial[4], dialogoDoGuri, z, 55);
+							} else {
+								dialogoDoGuri.setVisible(true);
+								dialogoDoGuri.setText(TextoInicial[4]);
+								pularDialog = false;
+								break;
+							}
 						}
-					}
-					podePular = false;				
-					sleep(2000);
-					podePular = true;
-					palavra = "";
-					for (int z = 0; z < TextoInicial[5].length(); z++) {
-						if (!pularDialog) {
-							TextEffect(TextoInicial[5], dialogoDoGuri, z, 55);
-						} else {
-							dialogoDoGuri.setVisible(true);
-							dialogoDoGuri.setText(TextoInicial[5]);
-							pularDialog = false;
-							break;
+						podePular = false;				
+						sleep(2000);
+						podePular = true;
+						palavra = "";
+						for (int z = 0; z < TextoInicial[5].length(); z++) {
+							if (!pularDialog) {
+								TextEffect(TextoInicial[5], dialogoDoGuri, z, 55);
+							} else {
+								dialogoDoGuri.setVisible(true);
+								dialogoDoGuri.setText(TextoInicial[5]);
+								pularDialog = false;
+								break;
+							}
 						}
-					}
-					podePular = false;
-					sleep(3000);
-					podePular = true;
-					palavra = "";
-					for (int z = 0; z < TextoInicial[6].length(); z++) {
-						if (!pularDialog) {
-							TextEffect(TextoInicial[6], dialogoDoGuri, z, 55);
-						} else {
-							dialogoDoGuri.setVisible(true);
-							dialogoDoGuri.setText(TextoInicial[6]);
-							pularDialog = false;
-							break;
+						podePular = false;
+						sleep(3000);
+						podePular = true;
+						palavra = "";
+						for (int z = 0; z < TextoInicial[6].length(); z++) {
+							if (!pularDialog) {
+								TextEffect(TextoInicial[6], dialogoDoGuri, z, 55);
+							} else {
+								dialogoDoGuri.setVisible(true);
+								dialogoDoGuri.setText(TextoInicial[6]);
+								pularDialog = false;
+								break;
+							}
 						}
-					}
-					podePular = false;
-					sleep(3000);
-					podePular = true;
-					palavra = "";
-					for (int z = 0; z < TextoInicial[7].length(); z++) {
-						if (!pularDialog) {
-							TextEffect(TextoInicial[7], dialogoDoGuri, z, 55);
-						} else {
-							dialogoDoGuri.setVisible(true);
-							dialogoDoGuri.setText(TextoInicial[7]);
-							pularDialog = false;
-							break;
+						podePular = false;
+						sleep(3000);
+						podePular = true;
+						palavra = "";
+						for (int z = 0; z < TextoInicial[7].length(); z++) {
+							if (!pularDialog) {
+								TextEffect(TextoInicial[7], dialogoDoGuri, z, 55);
+							} else {
+								dialogoDoGuri.setVisible(true);
+								dialogoDoGuri.setText(TextoInicial[7]);
+								pularDialog = false;
+								break;
+							}
 						}
-					}
-					podePular = false;
-					sleep(3000);
-					podePular = true;
-					palavra = "";
-					for (int z = 0; z < TextoInicial[8].length(); z++) {
-						if (!pularDialog) {
-							TextEffect(TextoInicial[8], dialogoDoGuri, z, 55);
-						} else {
-							dialogoDoGuri.setVisible(true);
-							dialogoDoGuri.setText(TextoInicial[8]);
-							pularDialog = false;
-							break;
+						podePular = false;
+						sleep(3000);
+						podePular = true;
+						palavra = "";
+						for (int z = 0; z < TextoInicial[8].length(); z++) {
+							if (!pularDialog) {
+								TextEffect(TextoInicial[8], dialogoDoGuri, z, 55);
+							} else {
+								dialogoDoGuri.setVisible(true);
+								dialogoDoGuri.setText(TextoInicial[8]);
+								pularDialog = false;
+								break;
+							}
 						}
+						
+						sleep(2000);
+						podePular = false;
+						liberaEnter = true;
+						firstDialog = true;
+						new balaoDialogFadeIn().start();
+						
+					}else if (firstDialog) {
+						podePular = true;
+						palavra = "";
+						for (int z = 0; z < TextoInicial[9].length(); z++) {
+							if (!pularDialog) {
+								TextEffect(TextoInicial[9], dialogoDoGuri, z, 55);
+							} else {
+								dialogoDoGuri.setVisible(true);
+								dialogoDoGuri.setText(TextoInicial[9]);
+								pularDialog = false;
+								break;
+							}
+						}
+						sleep(2000);
+						podePular = false;
+						liberaEnter = true;
+						new balaoDialogFadeIn().start();
 					}
-					sleep(2000);
-					podePular = false;
-					liberaEnter = true;
-					new balaoDialogFadeIn().start();	
+
 				}
 			} catch (InterruptedException ex) {
 				System.out.println(ex);
@@ -882,9 +908,11 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 			podePular = true;
 			palavra = "";
 			try {
-				jogador.setX(70);
-				jogador.setY(130);
+				jogador.setX(195);
+				jogador.setY(120);
 				System.out.println(dao.pixel.getCheckpoint());
+				dao.atualizarInventario(2);
+				dao.buscar();
 				if(dao.pixel.getCheckpoint().equals("1")) {
 					for (int z = 0; z < TextoUpdate[0].length(); z++) {
 						if (!pularDialog) {
