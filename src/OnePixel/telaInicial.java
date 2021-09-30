@@ -31,6 +31,8 @@ public class telaInicial extends JFrame {
 	ImageIcon imgBtnJogar = new ImageIcon("./res2/imgTelaInicial/Jogar-NoSelected.png");
 	ImageIcon imgBtnCarregar = new ImageIcon("./res2/imgTelaInicial/Carregar-NoSelected.png");
 	ImageIcon imgBtnInstrucao = new ImageIcon("./res2/imgTelaInicial/Instrucoes-NoSelected.png");
+	ImageIcon imgBtnConfirmar = new ImageIcon("./res2/imgTelaInicial/Confirmar-NoSelected.png");
+	ImageIcon imgBtnVoltar = new ImageIcon ("./res2/imgTelaInicial/Voltar-NoSelected.png");
 	// BTNs DA TELA DE INICO
 	private JButton btnSair, btnJogar, btnCarregar, btnInstrucao, btnConfirmUsu, btnVoltar;
 
@@ -104,14 +106,18 @@ public class telaInicial extends JFrame {
 		add(nomeUsu);
 
 		// BTN CONFIRMAR JOGAR
-		btnConfirmUsu = new JButton("Confirmar");
+		btnConfirmUsu = new JButton(imgBtnConfirmar);
 		btnConfirmUsu.setBounds(55, 201, 173, 23);
+		btnConfirmUsu.setBorder(null);
+		btnConfirmUsu.setContentAreaFilled(false);
 		btnConfirmUsu.setVisible(false);
 		add(btnConfirmUsu);
 
 		// BTN VOLTATR (JOGAR)
-		btnVoltar = new JButton("Voltar");
+		btnVoltar = new JButton(imgBtnVoltar);
 		btnVoltar.setBounds(55, 234, 173, 23);
+		btnVoltar.setBorder(null);
+		btnVoltar.setContentAreaFilled(false);
 		btnVoltar.setVisible(false);
 		add(btnVoltar);
 
@@ -192,14 +198,14 @@ public class telaInicial extends JFrame {
 
 					@Override
 					public void mouseEntered(MouseEvent e) {
-//						imgBtnSair = new ImageIcon("res2/imgTelaInicial/Sair-Selected.png");
-//						btnSair.setIcon(imgBtnSair);
+						imgBtnConfirmar = new ImageIcon("res2/imgTelaInicial/Confirmar-Selected.png");
+						btnConfirmUsu.setIcon(imgBtnConfirmar);
 					}
 
 					@Override
 					public void mouseExited(MouseEvent e) {
-//						imgBtnSair = new ImageIcon("res2/imgTelaInicial/Sair-NoSelected.png");
-//						btnSair.setIcon(imgBtnSair);
+						imgBtnConfirmar = new ImageIcon("res2/imgTelaInicial/Confirmar-NoSelected.png");
+						btnConfirmUsu.setIcon(imgBtnConfirmar);
 					}
 				});
 			}
@@ -297,14 +303,14 @@ public class telaInicial extends JFrame {
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-//				imgBtnSair = new ImageIcon("res2/imgTelaInicial/Sair-Selected.png");
-//				btnSair.setIcon(imgBtnSair);
+				imgBtnVoltar = new ImageIcon("res2/imgTelaInicial/Voltar-Selected.png");
+				btnVoltar.setIcon(imgBtnVoltar);
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-//				imgBtnSair = new ImageIcon("res2/imgTelaInicial/Sair-NoSelected.png");
-//				btnSair.setIcon(imgBtnSair);
+				imgBtnVoltar = new ImageIcon("res2/imgTelaInicial/Voltar-NoSelected.png");
+				btnVoltar.setIcon(imgBtnVoltar);
 			}
 		});
 

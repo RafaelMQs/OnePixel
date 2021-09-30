@@ -2,11 +2,8 @@ package OnePixel;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.IOException;
 import java.sql.SQLException;
 
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 
 import BancoDeDados.*;
@@ -15,7 +12,7 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 	private Jogador jogador;
 	private onePixelDAO dao;
 	JPanel panel;
-	boolean ganhouPPPT = false, pularDialog = false, podePular = false, liberaEnter = true, firstDialog = false, entrou = false;
+	boolean ganhouPPPT = false, pularDialog = false, podePular = false, liberaEnter = true, firstDialog = false, entrou = false, dentro =true;
 	String palavra = "";
 
 	private int xPorao1 = 270, yPorao1 = 170, larguraPorao1 = 60, alturaPorao1 = 60, xPortaComum1 = 85,
@@ -192,7 +189,6 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (salaPrinc) {
 			xZezin = 35; yZezin = 130;
@@ -365,9 +361,11 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 			// COLISAO COM A PORTA VERMELHA
 			String colisaoPortaColorida = checkColisao(xPortaColorida, yPortaColorida, larguraPortaColorida, alturaPortaColoria);
 			if(colisaoPortaColorida != null && entrou == false) {
-				setVisible(false);
-				new bossMorcego();
 				entrou = true;
+				labirintoPuzzleRed labirinto = new labirintoPuzzleRed();
+				labirinto.setVisible(true);
+				timer.stop();
+				setVisible(false);
 			}
 			
 			// ENTROU NA SEGUNDA PORTA
@@ -647,6 +645,11 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 		}
 	}
 
+	public void close() {
+		WindowEvent winClose = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
+		Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(winClose);
+	}
+	
 	private class Teclado extends KeyAdapter {
 		public void keyPressed(KeyEvent e) {
 			if (e.getKeyCode() == KeyEvent.VK_SPACE) {

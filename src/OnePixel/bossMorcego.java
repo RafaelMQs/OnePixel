@@ -6,13 +6,17 @@ import java.sql.SQLException;
 
 import javax.swing.*;
 import BancoDeDados.*;
+import BossMorcego.*;
 
 public class bossMorcego extends JFrame implements ActionListener {
 	private Jogador jogador;
 	private onePixelDAO dao;
 	JPanel panel;
 
-	boolean podePular = false, pularDialog = false;
+	private inimigo inimigo;
+	private tiroDoInimigo tiro;
+
+	boolean podePular = false, pularDialog = false, morto = false, iniciou = true, intangivel = false;
 	// LARGURA E ALTURA DO FRAME
 	static int larguraFrame = 600;
 	static int alturaFrame = 310;
@@ -23,9 +27,19 @@ public class bossMorcego extends JFrame implements ActionListener {
 	// IMG FUNDO
 	ImageIcon imgFundo;
 	JLabel lbFundo;
-	
+
 	// TIMER
 	Timer timer;
+
+	// BALAO DE DIALOGO PEQUENO
+	ImageIcon imgBalaoDialog;
+	JLabel lbBalaoDialog;
+
+	String textoMorte = "<html> <center>Você morreu!</center><br> Para recomeçar <center>aperte R</center> </html>";
+	JLabel dialogoMorte;
+
+	String palavra = "";
+	int tempo = 0;
 
 	public bossMorcego() {
 		componentes();
@@ -50,34 +64,65 @@ public class bossMorcego extends JFrame implements ActionListener {
 			public void paint(Graphics g) {
 				super.paint(g);
 				Graphics2D grafico = (Graphics2D) g;
-				grafico.drawImage(jogador.getImgPlayer(), jogador.getX(), jogador.getY(), jogador.getLargura(),
-						jogador.getAltura(), this);
 				grafico.drawImage(jogador.getImgPixelRed(), jogador.getxR(), jogador.getyR(), 32, 32, this);
 				grafico.drawImage(jogador.getImgPixelGreen(), jogador.getxG(), jogador.getyG(), 32, 32, this);
 				grafico.drawImage(jogador.getImgPixelBlue(), jogador.getxB(), jogador.getyB(), 32, 32, this);
+				grafico.drawImage(inimigo.getImgInimigo(), inimigo.getX(), inimigo.getY(), inimigo.getLargura(),
+						inimigo.getAltura(), this);
+				if (tiro.getStopTiro() != 1) {
+					grafico.drawImage(tiro.getImgTiro(), tiro.getXtiro(), tiro.getYtiro(), 54, 50, this);
+					grafico.drawImage(tiro.getImgTiro(), tiro.getXtiro(), tiro.getYtiro() + 25, 54, 50, this);
+
+				}
+				grafico.drawImage(jogador.getImgPlayer(), jogador.getX(), jogador.getY(), jogador.getLargura(),
+						jogador.getAltura(), this);
 				grafico.dispose();
 			}
 		};
-		panel.setBounds(0, 0, 600, 310);
+		panel.setFocusable(true);
 		panel.setDoubleBuffered(true);
+		panel.setBounds(0, 0, 600, 310);
 		add(panel);
+
+		dialogoMorte = new JLabel();
+		dialogoMorte.setBounds(100, 38, 100, 60);
+		dialogoMorte.setFont(new Font("Pixel Operator 8", Font.PLAIN, 8));
+		dialogoMorte.setForeground(Color.WHITE);
+		dialogoMorte.setVisible(false);
+		panel.add(dialogoMorte);
+
+		// IMAGENs DO BALAO DE DIALOGO
+		imgBalaoDialog = new ImageIcon("res2/imgBalaoDialog/BalaoFalaFadeOut.gif");
+		lbBalaoDialog = new JLabel(imgBalaoDialog);
+		lbBalaoDialog.setBounds(50, 70, 130, 60);
+		lbBalaoDialog.setVisible(false);
+		panel.add(lbBalaoDialog);
 
 		// CRIANDO IMG FUNDO
 		imgFundo = new ImageIcon("res2/imgCenarioBoss1/BossCenary.png");
 		lbFundo = new JLabel(imgFundo);
 		lbFundo.setBounds(0, 0, 600, 310);
 		panel.add(lbFundo);
-		
-		
-		
+
 		// CARREGAR OS KEYLISTENERS DA CLASS JOGADOR
 		addKeyListener(new Teclado());
 		// CARREGAR CLASS JOGADOR
 		jogador = new Jogador();
 		jogador.carregar();
+		jogador.setX(35);
+
+		inimigo = new inimigo();
+		inimigo.carregar();
+
+		tiro = new tiroDoInimigo();
+		tiro.carregarComponents();
+
 		// TIMER
 		timer = new Timer(5, this);
 		timer.start();
+
+//		tiro = new tiroDoInimigo();
+//		tiro.carregarComponents();
 
 		// INICIANDO BANCO DE DADOS
 		dao = new onePixelDAO();
@@ -85,17 +130,41 @@ public class bossMorcego extends JFrame implements ActionListener {
 			JOptionPane.showMessageDialog(null, "Falha na conexão!");
 			System.exit(0);
 		}
+
+		new Temporizador().start();
+
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		checkColisaoBorda(larguraFrame- 42, 40, alturaFrame - 36, 0);
-		
+		checkColisaoBorda(larguraFrame - 42, 40, alturaFrame - 36, 0);
+
+		if (colisaoTiro()) {
+			if(!intangivel) {
+				if (!morto) {
+					System.out.println("Morreu");
+					tiro.setStopTiro(1);
+					inimigo.setParar(true);
+					morto = true;
+					jogador.setAndar(false);
+					new dialogoDeMorte().start();
+				}
+			}
+		}
+
+		if (morto) {
+			iniciou = false;
+			jogador.setCaminhoImg("res/imgGuri/Guri05.gif");
+			jogador.carregar();
+		}
+
 		movimentacaoPet();
 		jogador.atualizar();
+		inimigo.atualizar();
+		tiro.atualizar();
 		repaint();
 	}
-	
+
 	public void checkColisaoBorda(int xLarguraFrameP, int xLarguraFrameN, int yAlturaFrameP, int yAlturaFrameN) {
 		// COLISAO GURI LADO DIREITO
 		if (jogador.getX() + jogador.getLargura() >= xLarguraFrameP) {
@@ -128,7 +197,7 @@ public class bossMorcego extends JFrame implements ActionListener {
 			}
 		}
 	}
-	
+
 	public void movimentacaoPet() {
 		if (jogador.isCima()) {
 			// PIXEL VERMELHO
@@ -185,12 +254,50 @@ public class bossMorcego extends JFrame implements ActionListener {
 		}
 	}
 
-	public static void main(String args[]) {
-		new bossMorcego();
+	public boolean colisaoTiro() {
+		int aX = jogador.getX();
+		int aY = jogador.getY();
+		int ladoDireitoA = aX + jogador.getLargura() - 12;
+		int ladoEsquerdoA = aX + 12;
+		int ladoBaixoA = aY + jogador.getAltura() - 2;
+		int ladoCimaA = aY + 35;
+
+		int tiroX = tiro.getXtiro();
+		int tiroY = tiro.getYtiro();
+		int ladoDireitoTiro = tiroX + 15;
+		int ladoEsquerdoTiro = tiroX;
+		int ladoBaixoTiro = tiroY + 50;
+		int ladoCimaTiro = tiroY + 10;
+
+		boolean colidiu = false;
+		// TIRO
+
+		if (ladoDireitoA >= ladoEsquerdoTiro && ladoDireitoA < ladoEsquerdoTiro + 2 && ladoBaixoA >= ladoCimaTiro
+				&& ladoCimaA <= ladoBaixoTiro) {
+			colidiu = true;
+		} else if (ladoEsquerdoA >= ladoDireitoTiro - 2 && ladoEsquerdoA <= ladoDireitoTiro
+				&& ladoBaixoA >= ladoCimaTiro && ladoCimaA <= ladoBaixoTiro) {
+			colidiu = true;
+		} else if (ladoDireitoA >= ladoEsquerdoTiro && ladoEsquerdoA <= ladoDireitoTiro
+				&& ladoBaixoA >= ladoCimaTiro - 8 && ladoBaixoA <= ladoBaixoTiro) {
+			colidiu = true;
+		} else if (ladoEsquerdoA <= ladoDireitoTiro && ladoDireitoA >= ladoEsquerdoTiro
+				&& ladoCimaA >= ladoBaixoTiro - 2 && ladoCimaA <= ladoBaixoTiro + 35) {
+			colidiu = true;
+		}
+
+		return colidiu;
+
 	}
-	
+
 	private class Teclado extends KeyAdapter {
 		public void keyPressed(KeyEvent e) {
+			if (e.getKeyCode() == 82 && morto) {
+				setVisible(false);
+				timer.stop();
+				new labirintoPuzzleRed();
+			}
+
 			if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 				if (podePular) {
 					pularDialog = true;
@@ -206,8 +313,8 @@ public class bossMorcego extends JFrame implements ActionListener {
 				}
 				System.exit(0);
 			}
-			if(jogador.isAndar()) {
-				jogador.keyPressed(e);				
+			if (jogador.isAndar()) {
+				jogador.keyPressed(e);
 			}
 		}
 
@@ -216,4 +323,97 @@ public class bossMorcego extends JFrame implements ActionListener {
 		}
 	}
 
+	private class Temporizador extends Thread {
+		public void run() {
+			while (tempo < 40) {
+				if (iniciou) {
+
+					try {
+						sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					tempo += 1;
+					System.out.println(tempo);
+					if (tempo >= 20 && tempo <= 40) {
+						tiro.setVelocidade(12);
+						System.out.println("18");
+					}if(tempo >= 41 && tempo <= 60) {
+						tiro.setVelocidade(16);
+						System.out.println("16");
+					}if(tempo >= 61 && tempo <= 80) {
+						tiro.setVelocidade(14);
+						System.out.println("14");
+					}if(tempo >= 81 && tempo <= 100) {
+						tiro.setVelocidade(12);
+						System.out.println("12");
+					}if(tempo >= 101 && tempo <= 120) {
+						tiro.setVelocidade(10);
+						System.out.println("10");
+					}
+					
+				} else {
+					break;
+				}
+			}
+			
+			if(!morto) {
+				intangivel = true;
+				System.out.println("GANHOU");
+				tiro.setStopTiro(1);
+				inimigo.setParar(true);
+			}
+
+		}
+	}
+
+	private class balaoDialogFadeOut extends Thread {
+		public void run() {
+			lbBalaoDialog.setVisible(true);
+			imgBalaoDialog = new ImageIcon("res2/imgBalaoDialog/BalaoFalaFadeOut.gif");
+			lbBalaoDialog.setIcon(imgBalaoDialog);
+			try {
+				sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			imgBalaoDialog = new ImageIcon("res2/imgBalaoDialog/BalaoFalaStatic.png");
+			lbBalaoDialog.setIcon(imgBalaoDialog);
+		}
+	}
+
+	private class dialogoDeMorte extends Thread {
+		public void run() {
+			lbBalaoDialog.setBounds(jogador.getX(), jogador.getY() - 60, 130, 60);
+			dialogoMorte.setBounds(jogador.getX() + 20, jogador.getY() - 64, 100, 60);
+			jogador.setCaminhoImg("res/imgGuri/Guri05.gif");
+			jogador.carregar();
+			new balaoDialogFadeOut().start();
+			dialogoMorte.setVisible(true);
+			palavra = "";
+			for (int i = 0; i < textoMorte.length(); i++) {
+				TextEffect(textoMorte, dialogoMorte, i, 55);
+			}
+		}
+	}
+
+	public void TextEffect(String DialogoBox, JLabel lbDialogo, int z, int milesimos) {
+		try {
+			char letra = DialogoBox.charAt(z);
+			palavra = palavra + letra;
+			if (z >= 6) {
+				lbDialogo.setVisible(true);
+			} else {
+				lbDialogo.setVisible(false);
+			}
+			lbDialogo.setText(palavra);
+			Thread.sleep(milesimos);
+		} catch (InterruptedException ex) {
+			System.out.println(ex);
+		}
+	}
+
+	public static void main(String args[]) {
+		new bossMorcego();
+	}
 }

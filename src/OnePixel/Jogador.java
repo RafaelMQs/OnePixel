@@ -259,6 +259,14 @@ public class Jogador {
 	public void setyB(int yB) {
 		this.yB = yB;
 	}
+	
+	public String getCaminhoImg() {
+		return caminhoImg;
+	}
+
+	public void setCaminhoImg(String caminhoImg) {
+		this.caminhoImg = caminhoImg;
+	}
 
 	public Image getImgPixelRed() {
 		return imgPixelRed;
