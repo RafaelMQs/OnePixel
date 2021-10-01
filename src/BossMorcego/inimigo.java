@@ -100,6 +100,15 @@ public class inimigo {
 	public void setParar(boolean parar) {
 		this.parar = parar;
 	}
+
+	public String getCaminhoImg() {
+		return caminhoImg;
+	}
+
+	public void setCaminhoImg(String caminhoImg) {
+		this.caminhoImg = caminhoImg;
+	}
+	
 	
 	
 

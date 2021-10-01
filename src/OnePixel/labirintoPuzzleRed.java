@@ -113,7 +113,7 @@ public class labirintoPuzzleRed extends JFrame implements ActionListener {
 
 		addKeyListener(new Teclado());
 
-		timer = new Timer(5, this);
+		timer = new Timer(6, this);
 		timer.start();
 
 		add(panel);
@@ -244,6 +244,7 @@ public class labirintoPuzzleRed extends JFrame implements ActionListener {
 				jogador.setCaminhoImg("res/imgGuri/Guri05.gif");
 				jogador.carregar();
 				if(morreu == false) {
+					new balaoDialogFadeOut().start();
 					new dialogoDeMorte().start();
 					morreu = true;
 				}
@@ -257,6 +258,7 @@ public class labirintoPuzzleRed extends JFrame implements ActionListener {
 				jogador.setCaminhoImg("res/imgGuri/Guri05.gif");
 				jogador.carregar();
 				if(morreu == false) {
+					new balaoDialogFadeOut().start();
 					new dialogoDeMorte().start();
 					morreu = true;
 				}
@@ -337,6 +339,7 @@ public class labirintoPuzzleRed extends JFrame implements ActionListener {
 		movimentacaoPet();
 		jogador.atualizar();
 		repaint();
+		
 
 	}
 
@@ -508,10 +511,11 @@ public class labirintoPuzzleRed extends JFrame implements ActionListener {
 	private class Teclado extends KeyAdapter {
 		public void keyPressed(KeyEvent e) {
 			if(e.getKeyCode() == 82 && morreu) {
-				setVisible(false);
 				timer.stop();
-				labirintoPuzzleRed labirinto = new labirintoPuzzleRed();
-				labirinto.setVisible(true);
+				setVisible(false);
+				jogo2SalaPrinc salaPrincipal = new jogo2SalaPrinc();
+				salaPrincipal.salaPrinc = false;
+				salaPrincipal.salaPorta1 = true;
 			}
 			
 			if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
@@ -563,7 +567,6 @@ public class labirintoPuzzleRed extends JFrame implements ActionListener {
 			dialogoMorte.setBounds(jogador.getX() + 20, jogador.getY() - 64, 100, 60);
 			jogador.setCaminhoImg("res/imgGuri/Guri05.gif");
 			jogador.carregar();
-			new balaoDialogFadeOut().start();
 			dialogoMorte.setVisible(true);
 			palavra = "";
 			for(int i = 0; i < textoMorte.length(); i++) {

@@ -177,8 +177,6 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 		jogador = new Jogador();
 		jogador.carregar();
 // TIMER
-		timer = new Timer(5, this);
-		timer.start();
 
 // INICIANDO BANCO DE DADOS
 		dao = new onePixelDAO();
@@ -186,10 +184,15 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 			JOptionPane.showMessageDialog(null, "Falha na conexão!");
 			System.exit(0);
 		}
+		
+		timer = new Timer(5, this);
+		timer.start();
 
 	}
 
+	boolean jogando = false;
 	public void actionPerformed(ActionEvent e) {
+		
 		if (salaPrinc) {
 			xZezin = 35; yZezin = 130;
 			lbZezin.setBounds(xZezin, yZezin, larguraZezin, alturaZezin);
@@ -666,6 +669,16 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 					e1.printStackTrace();
 				}
 				System.exit(0);
+			}
+
+			if(!jogando) {
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				jogando = true;
 			}
 			if(jogador.isAndar()) {
 				jogador.keyPressed(e);				
