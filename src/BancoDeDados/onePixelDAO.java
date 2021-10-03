@@ -102,9 +102,9 @@ public class onePixelDAO {
 																											// aliado2 =
 																											// ?
 				statement = bd.c.prepareStatement(sql);
-				statement.setString(1, pixel.getUpdateCheck());
+				statement.setString(1, pixelGetSet.getUpdateCheck());
 				statement.setString(2, pixel.getId());
-				System.out.println("Alteração user" + statement);
+				System.out.println("Alteração user");
 			} else if (operacao == EXCLUSAO) {
 				sql = "DELETE from user WHERE user_id  = ?";
 				statement = bd.c.prepareStatement(sql);

@@ -2,7 +2,16 @@ package OnePixel;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
 import java.sql.*;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import javax.swing.table.*;
 
@@ -12,6 +21,7 @@ public class telaInicial extends JFrame {
 	onePixelDAO dao;
 	public PreparedStatement statement;
 	public ResultSet resultado;
+	private Clip SoundTrack;
 
 //	LARGURA E ALTURA DO FRAME
 	int larguraFrame = 600;
@@ -138,6 +148,21 @@ public class telaInicial extends JFrame {
 			JOptionPane.showMessageDialog(null, "Falha na conexão!");
 			System.exit(0);
 		}
+		
+		File file = new File("SoundTrackInicial.wav");
+		AudioInputStream audioStream;
+		try {
+			audioStream = AudioSystem.getAudioInputStream(file);
+			SoundTrack = AudioSystem.getClip();
+			SoundTrack.open(audioStream);
+		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		FloatControl gainControl = (FloatControl) SoundTrack.getControl(FloatControl.Type.MASTER_GAIN);
+		gainControl.setValue(-18.0f); 
+		SoundTrack.start();
+		
 	}
 
 	public void eventos() {
@@ -151,6 +176,9 @@ public class telaInicial extends JFrame {
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
+				try { audio("BtnHoverSong", -5, 0, 0); } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+					e1.printStackTrace();
+				}
 				imgBtnSair = new ImageIcon("res2/imgTelaInicial/Sair-Selected.png");
 				btnSair.setIcon(imgBtnSair);
 			}
@@ -185,6 +213,7 @@ public class telaInicial extends JFrame {
 							dao.atualizar(1);
 							setVisible(false);
 							new prologo().setVisible(true);
+							SoundTrack.stop();
 						} else {
 							dao.pixel.setName(nomeUsu.getText());
 							dao.pixel.setGenero("M");
@@ -193,11 +222,15 @@ public class telaInicial extends JFrame {
 							dao.buscar();
 							setVisible(false);
 							new prologo().setVisible(true);
+							SoundTrack.stop();
 						}
 					}
 
 					@Override
 					public void mouseEntered(MouseEvent e) {
+						try { audio("BtnHoverSong", -5, 0, 0); } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+							e1.printStackTrace();
+						}
 						imgBtnConfirmar = new ImageIcon("res2/imgTelaInicial/Confirmar-Selected.png");
 						btnConfirmUsu.setIcon(imgBtnConfirmar);
 					}
@@ -212,6 +245,9 @@ public class telaInicial extends JFrame {
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
+				try { audio("BtnHoverSong", -5, 0, 0); } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+					e1.printStackTrace();
+				}
 				imgBtnJogar = new ImageIcon("res2/imgTelaInicial/Jogar-Selected.png");
 				btnJogar.setIcon(imgBtnJogar);
 			}
@@ -246,6 +282,7 @@ public class telaInicial extends JFrame {
 						System.out.println(dao.pixel.getName());
 						dao.buscar();
 						new controleFase();
+						SoundTrack.stop();
 						setVisible(false);
 					}
 				});
@@ -253,6 +290,9 @@ public class telaInicial extends JFrame {
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
+				try { audio("BtnHoverSong", -5, 0, 0); } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+					e1.printStackTrace();
+				}
 				imgBtnCarregar = new ImageIcon("res2/imgTelaInicial/Carregar-Selected.png");
 				btnCarregar.setIcon(imgBtnCarregar);
 			}
@@ -277,6 +317,9 @@ public class telaInicial extends JFrame {
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
+				try { audio("BtnHoverSong", -5, 0, 0); } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+					e1.printStackTrace();
+				}
 				imgBtnInstrucao = new ImageIcon("res2/imgTelaInicial/Instrucoes-Selected.png");
 				btnInstrucao.setIcon(imgBtnInstrucao);
 			}
@@ -303,6 +346,9 @@ public class telaInicial extends JFrame {
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
+				try { audio("BtnHoverSong", -8, 0, 0); } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+					e1.printStackTrace();
+				}
 				imgBtnVoltar = new ImageIcon("res2/imgTelaInicial/Voltar-Selected.png");
 				btnVoltar.setIcon(imgBtnVoltar);
 			}
@@ -314,6 +360,25 @@ public class telaInicial extends JFrame {
 			}
 		});
 
+	}
+	
+	public void audio(String nome, float volume, int loop, int action)
+			throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+
+		File file = new File("./" + nome + ".wav");
+		AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+		Clip clip = AudioSystem.getClip();
+		clip.open(audioStream);
+
+		FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+		gainControl.setValue(-volume); // Reduce volume by 10 decibels.
+		clip.loop(loop);
+		if (action == 0) {
+			clip.start();
+		} else {
+			clip.stop();
+		}
+		
 	}
 	
 	public void executarTabela() {

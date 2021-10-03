@@ -16,7 +16,7 @@ public class bossMorcego extends JFrame implements ActionListener {
 	private inimigo inimigo;
 	private tiroDoInimigo tiro;
 
-	boolean podePular = false, pularDialog = false, morto = false, iniciou = true, intangivel = false, derrotou = false;
+	boolean podePular = false, pularDialog = false, morto = false, iniciou = true, intangivel = false, derrotou = false, update = false;
 	// LARGURA E ALTURA DO FRAME
 	static int larguraFrame = 600;
 	static int alturaFrame = 310;
@@ -177,8 +177,12 @@ public class bossMorcego extends JFrame implements ActionListener {
 			if(colisaoPixel != "longe") {
 				redPixel.setVisible(false);
 				try { Thread.sleep(1000); } catch (InterruptedException e1) { e1.printStackTrace(); }
-				dao.pixel.setPixelR(1);
-				dao.pixel.setCheckpoint("2");
+				if(!update) {
+					dao.pixel.setPixelR(1);
+					int checkAtual = Integer.parseInt(dao.pixel.getCheckpoint()) + 1;
+					pixelGetSet.setUpdateCheck(String.valueOf(checkAtual));
+					update = true;
+				}
 				timer.stop();
 				setVisible(false);
 				jogo2SalaPrinc salaPrincipal = new jogo2SalaPrinc();
@@ -297,8 +301,8 @@ public class bossMorcego extends JFrame implements ActionListener {
 		int tiroY = tiro.getYtiro();
 		int ladoDireitoTiro = tiroX + 15;
 		int ladoEsquerdoTiro = tiroX;
-		int ladoBaixoTiro = tiroY + 50;
-		int ladoCimaTiro = tiroY + 10;
+		int ladoBaixoTiro = tiroY + 45;
+		int ladoCimaTiro = tiroY + 15;
 
 		boolean colidiu = false;
 		// TIRO
@@ -421,25 +425,25 @@ public class bossMorcego extends JFrame implements ActionListener {
 
 	private class Temporizador extends Thread {
 		public void run() {
-			while (tempoInimigo < 40) {
+			while (tempoInimigo < 10) {
 				if (iniciou) {
 					try {
-						sleep(100);
+						sleep(500);
 						tempoInimigo += 1;
 						System.out.println(tempoInimigo);
-						if (tempoInimigo >= 20 && tempoInimigo <= 40) {
+						if (tempoInimigo >= 10 && tempoInimigo <= 20) {
 							tiro.setVelocidade(18);
 							System.out.println("18");
-						}if(tempoInimigo >= 41 && tempoInimigo <= 60) {
+						}if(tempoInimigo >= 21 && tempoInimigo <= 30) {
 							tiro.setVelocidade(16);
 							System.out.println("16");
-						}if(tempoInimigo >= 61 && tempoInimigo <= 80) {
+						}if(tempoInimigo >= 31 && tempoInimigo <= 40) {
 							tiro.setVelocidade(14);
 							System.out.println("14");
-						}if(tempoInimigo >= 81 && tempoInimigo <= 100) {
+						}if(tempoInimigo >= 41 && tempoInimigo <= 50) {
 							tiro.setVelocidade(12);
 							System.out.println("12");
-						}if(tempoInimigo >= 101 && tempoInimigo <= 120) {
+						}if(tempoInimigo >= 51 && tempoInimigo <= 60) {
 							tiro.setVelocidade(10);
 							System.out.println("10");
 						}

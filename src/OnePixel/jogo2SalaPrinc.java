@@ -12,7 +12,8 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 	private Jogador jogador;
 	private onePixelDAO dao;
 	JPanel panel;
-	boolean ganhouPPPT = false, pularDialog = false, podePular = false, liberaEnter = true, firstDialog = false, entrou = false, dentro =true;
+	boolean ganhouPPPT = false, pularDialog = false, podePular = false, liberaEnter = true, firstDialog = false,
+			entrou = false, dentro = true;
 	String palavra = "";
 
 	private int xPorao1 = 270, yPorao1 = 170, larguraPorao1 = 60, alturaPorao1 = 60, xPortaComum1 = 85,
@@ -43,17 +44,22 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 
 	// JLABELs DIALOGO
 	String[] TextoInicial = { "<html>Guri: Quem é você? Zezin: Eu sou o zezin. Ajudo o zero daqui de dentro</html>",
-			"<html>Guri: O que tem aqui dentro?</html>",
+			"<html>Zezin: Este que vos fala é apenas um de meus clones</html>",
 			"<html>Zezin: Aqui dentro está os guardiões dos pixels </html>",
 			"<html>Zezin: Estava tudo certo, mas eles foram corrompidos</html>",
 			"<html>Zezin: E dessa forma acabaram corrompendo os pixels </html>",
 			"<html>Zezin: Sua missão é derrotar eles, pegar os pixels de volta e entregar para mim </html>",
-			"<html>Guri: Okay, mas porque eu devo entregar eles pra você ??</html>",
-			"<html>Zezin: Apenas faça o que eu mando que tudo voltara ao normal",
-			"<html>Zezin: Caso queira salvar o seu progresso basta falar comigo",
-			"<html>Zezin: Ande logo! Escolha uma porta!!</html>"};
-	
-	String[] TextoUpdate = {"<html>Zezin: Jogo salvo com sucesso!</html>"};
+			"<html>Guri: Okay, mas porque você mesmo não pega??</html>",
+			"<html>Zezin: Eu nao tenho poder o suficiente, mas isso nao vem ao caso",
+			"<html>Guri: Okay, mas porque eu devo entregar eles pra você?",
+			"<html>Zezin: Apenas faça o que eu mando, garoto!</html>",
+			"<html>Zezin: Tera um clone meu em cada sala, basta chegar nele e apertar enter",
+			"<html>Zezin: Ele salvara o seus itens para sempre",
+			"<html>Zezin: Estarei embaixo daquele porao, apenas entre quando tiver todos os pixels",
+			"<html>Zezin: ANDE! Entre logo em uma porta!" };
+
+	String[] TextoUpdate = { "<html>Zezin: Jogo salvo com sucesso!</html>",
+			"<html> Zezin: Parabens! Você pegou o pixel vermelho" };
 	JLabel dialogoDoGuri;
 
 	// JLABELs DAS IMGs PORTAS
@@ -184,17 +190,19 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 			JOptionPane.showMessageDialog(null, "Falha na conexão!");
 			System.exit(0);
 		}
-		
+
 		timer = new Timer(5, this);
 		timer.start();
 
 	}
 
 	boolean jogando = false;
+
 	public void actionPerformed(ActionEvent e) {
-		
+
 		if (salaPrinc) {
-			xZezin = 35; yZezin = 130;
+			xZezin = 35;
+			yZezin = 130;
 			lbZezin.setBounds(xZezin, yZezin, larguraZezin, alturaZezin);
 			portaAzul.setVisible(false);
 			portaVermelha.setVisible(false);
@@ -216,13 +224,13 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 			String colisaoZezin = colisaoZezin(xZezin, yZezin, larguraZezin, alturaZezin);
 			if (colisaoZezin == "pertoD" && jogador.getTecla() == 10) {
 				jogador.setTecla(0);
-				if(liberaEnter) {
+				if (liberaEnter) {
 					new balaoDialogFadeOut().start();
 					new dialogoInicial().start();
 					liberaEnter = false;
 				}
 			}
-			if(colisaoZezin != "pertoD") {
+			if (colisaoZezin != "pertoD") {
 			}
 			// COLISAO COM O PORAO
 			String retorno = checkColisao(xPorao1, yPorao1, larguraPorao1, alturaPorao1);
@@ -330,7 +338,7 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 			porao.setVisible(false);
 			portaVerde.setVisible(false);
 			portaAzul.setVisible(false);
-			
+
 			portaVermelha.setVisible(true);
 
 			checkColisaoBorda(larguraFrame - 150, 150, alturaFrame - 75, 60);
@@ -340,18 +348,18 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 			xZezin = 160;
 			yZezin = 120;
 			lbZezin.setBounds(xZezin, yZezin, larguraZezin, alturaZezin);
-			
+
 			// COLISAO COM ZEZIN
 			String colisaoZezin = colisaoZezin(xZezin, yZezin, larguraZezin, alturaZezin);
 			if (colisaoZezin == "pertoD" && jogador.getTecla() == 10) {
 				jogador.setTecla(0);
-				if(liberaEnter) {
+				if (liberaEnter) {
 					new balaoDialogFadeOut().start();
 					new dialogoUpdate().start();
 					liberaEnter = false;
 				}
 			}
-			
+
 			if (jogador.getY() >= 185 && jogador.getX() >= 260 && jogador.getX() <= 295) {
 				salaPorta1 = false;
 				salaPrinc = true;
@@ -361,16 +369,21 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 				jogador.setxB(jogador.getX());
 			}
 
-			// COLISAO COM A PORTA VERMELHA
-			String colisaoPortaColorida = checkColisao(xPortaColorida, yPortaColorida, larguraPortaColorida, alturaPortaColoria);
-			if(colisaoPortaColorida != null && entrou == false) {
-				entrou = true;
-				labirintoPuzzleRed labirinto = new labirintoPuzzleRed();
-				labirinto.setVisible(true);
-				timer.stop();
-				setVisible(false);
+			if (dao.pixel.getPixelR() == 1) {
+				portaVermelha.setVisible(false);
+			} else {
+				portaVermelha.setVisible(true);
+				// COLISAO COM A PORTA VERMELHA
+				String colisaoPortaColorida = checkColisao(xPortaColorida, yPortaColorida, larguraPortaColorida,
+						alturaPortaColoria);
+				if (colisaoPortaColorida != null && entrou == false) {
+					entrou = true;
+					labirintoPuzzleRed labirinto = new labirintoPuzzleRed();
+					labirinto.setVisible(true);
+					timer.stop();
+					setVisible(false);
+				}
 			}
-			
 			// ENTROU NA SEGUNDA PORTA
 		} else if (salaPorta2) {
 			portaComum1.setVisible(false);
@@ -652,7 +665,7 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 		WindowEvent winClose = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
 		Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(winClose);
 	}
-	
+
 	private class Teclado extends KeyAdapter {
 		public void keyPressed(KeyEvent e) {
 			if (e.getKeyCode() == KeyEvent.VK_SPACE) {
@@ -671,7 +684,7 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 				System.exit(0);
 			}
 
-			if(!jogando) {
+			if (!jogando) {
 				try {
 					Thread.sleep(1000);
 				} catch (InterruptedException e1) {
@@ -680,8 +693,8 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 				}
 				jogando = true;
 			}
-			if(jogador.isAndar()) {
-				jogador.keyPressed(e);				
+			if (jogador.isAndar()) {
+				jogador.keyPressed(e);
 			}
 		}
 
@@ -713,7 +726,7 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 					setLocation(originalX, originalY - 2);
 					Thread.sleep(sleepTime);
 				}
-
+				interrupt();
 				setLocation(originalX, originalY);
 
 			} catch (Exception ex) {
@@ -761,8 +774,8 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 				jogador.setX(70);
 				jogador.setY(130);
 				System.out.println(dao.pixel.getCheckpoint());
-				if(dao.pixel.getCheckpoint().equals("1")) {
-					if(!firstDialog) {
+				if (dao.pixel.getCheckpoint().equals("1")) {
+					if (!firstDialog) {
 						for (int z = 0; z < TextoInicial[0].length(); z++) {
 							if (!pularDialog) {
 								TextEffect(TextoInicial[0], dialogoDoGuri, z, 55);
@@ -815,7 +828,7 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 								break;
 							}
 						}
-						podePular = false;				
+						podePular = false;
 						sleep(2000);
 						podePular = true;
 						palavra = "";
@@ -829,7 +842,7 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 								break;
 							}
 						}
-						podePular = false;				
+						podePular = false;
 						sleep(2000);
 						podePular = true;
 						palavra = "";
@@ -885,14 +898,9 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 								break;
 							}
 						}
-						
-						sleep(2000);
+
 						podePular = false;
-						liberaEnter = true;
-						firstDialog = true;
-						new balaoDialogFadeIn().start();
-						
-					}else if (firstDialog) {
+						sleep(2000);
 						podePular = true;
 						palavra = "";
 						for (int z = 0; z < TextoInicial[9].length(); z++) {
@@ -905,31 +913,153 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 								break;
 							}
 						}
+
+						podePular = false;
+						sleep(2000);
+						podePular = true;
+						palavra = "";
+						for (int z = 0; z < TextoInicial[10].length(); z++) {
+							if (!pularDialog) {
+								TextEffect(TextoInicial[10], dialogoDoGuri, z, 55);
+							} else {
+								dialogoDoGuri.setVisible(true);
+								dialogoDoGuri.setText(TextoInicial[10]);
+								pularDialog = false;
+								break;
+							}
+						}
+
+						podePular = false;
+						sleep(2000);
+						podePular = true;
+						palavra = "";
+						for (int z = 0; z < TextoInicial[11].length(); z++) {
+							if (!pularDialog) {
+								TextEffect(TextoInicial[11], dialogoDoGuri, z, 55);
+							} else {
+								dialogoDoGuri.setVisible(true);
+								dialogoDoGuri.setText(TextoInicial[11]);
+								pularDialog = false;
+								break;
+							}
+						}
+
+						podePular = false;
+						sleep(2000);
+						podePular = true;
+						palavra = "";
+						for (int z = 0; z < TextoInicial[12].length(); z++) {
+							if (!pularDialog) {
+								TextEffect(TextoInicial[12], dialogoDoGuri, z, 55);
+							} else {
+								dialogoDoGuri.setVisible(true);
+								dialogoDoGuri.setText(TextoInicial[12]);
+								pularDialog = false;
+								break;
+							}
+						}
+
+						sleep(2000);
+						podePular = false;
+						liberaEnter = true;
+						firstDialog = true;
+						new balaoDialogFadeIn().start();
+
+					} else if (firstDialog) {
+						podePular = true;
+						palavra = "";
+						for (int z = 0; z < TextoInicial[13].length(); z++) {
+							if (!pularDialog) {
+								TextEffect(TextoInicial[13], dialogoDoGuri, z, 55);
+							} else {
+								dialogoDoGuri.setVisible(true);
+								dialogoDoGuri.setText(TextoInicial[13]);
+								pularDialog = false;
+								break;
+							}
+						}
 						sleep(2000);
 						podePular = false;
 						liberaEnter = true;
 						new balaoDialogFadeIn().start();
 					}
 
+				}else {
+					podePular = true;
+					palavra = "";
+					for (int z = 0; z < TextoInicial[13].length(); z++) {
+						if (!pularDialog) {
+							TextEffect(TextoInicial[13], dialogoDoGuri, z, 55);
+						} else {
+							dialogoDoGuri.setVisible(true);
+							dialogoDoGuri.setText(TextoInicial[13]);
+							pularDialog = false;
+							break;
+						}
+					}
+					sleep(2000);
+					podePular = false;
+					liberaEnter = true;
+					new balaoDialogFadeIn().start();
 				}
 			} catch (InterruptedException ex) {
 				System.out.println(ex);
 			}
 		}
 	}
-	
-	private class dialogoUpdate extends Thread{
+
+	private class dialogoUpdate extends Thread {
 		public void run() {
 			jogador.setAndar(false);
 			podePular = true;
 			palavra = "";
 			try {
-				jogador.setX(195);
-				jogador.setY(120);
-				System.out.println(dao.pixel.getCheckpoint());
-				dao.atualizarInventario(2);
-				dao.buscar();
-				if(dao.pixel.getCheckpoint().equals("1")) {
+				if (dao.pixel.getPixelR() == 1 && salaPorta1 == true) {
+					jogador.setX(195);
+					jogador.setY(120);
+					System.out.println(dao.pixel.getCheckpoint());
+					dao.atualizarInventario(2);
+					dao.atualizar(2);
+					dao.buscar();
+					dao.pixel.getCheckpoint();
+//					if(dao.pixel.getCheckpoint().equals("1") || dao.pixel.getCheckpoint().equals("2") || dao.pixel.getCheckpoint().equals("3")) {
+					for (int z = 0; z < TextoUpdate[1].length(); z++) {
+						if (!pularDialog) {
+							TextEffect(TextoUpdate[1], dialogoDoGuri, z, 55);
+						} else {
+							dialogoDoGuri.setVisible(true);
+							dialogoDoGuri.setText(TextoUpdate[1]);
+							pularDialog = false;
+							break;
+						}
+					}
+					podePular = false;
+					sleep(2000);
+					podePular = true;
+					palavra = "";
+					for (int z = 0; z < TextoUpdate[0].length(); z++) {
+						if (!pularDialog) {
+							TextEffect(TextoUpdate[0], dialogoDoGuri, z, 55);
+						} else {
+							dialogoDoGuri.setVisible(true);
+							dialogoDoGuri.setText(TextoUpdate[0]);
+							pularDialog = false;
+							break;
+						}
+					}
+					podePular = false;
+					sleep(2000);
+					liberaEnter = true;
+					new balaoDialogFadeIn().start();
+				} else {
+					jogador.setX(195);
+					jogador.setY(120);
+					System.out.println(dao.pixel.getCheckpoint());
+					dao.atualizarInventario(2);
+					dao.atualizar(2);
+					dao.buscar();
+					dao.pixel.getCheckpoint();
+//				if(dao.pixel.getCheckpoint().equals("1") || dao.pixel.getCheckpoint().equals("2") || dao.pixel.getCheckpoint().equals("3")) {
 					for (int z = 0; z < TextoUpdate[0].length(); z++) {
 						if (!pularDialog) {
 							TextEffect(TextoUpdate[0], dialogoDoGuri, z, 55);
@@ -943,7 +1073,8 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 					sleep(2000);
 					podePular = false;
 					liberaEnter = true;
-					new balaoDialogFadeIn().start();	
+					new balaoDialogFadeIn().start();
+//				}
 				}
 			} catch (InterruptedException ex) {
 				System.out.println(ex);
