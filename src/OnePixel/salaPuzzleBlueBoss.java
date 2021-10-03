@@ -35,7 +35,7 @@ public class salaPuzzleBlueBoss extends JFrame implements ActionListener {
 	JLabel lbBalaoDialog;
 	
 	// LOCAL AONDE ELE ESTA
-	int localTerreno = 0;
+	int localTerreno = 1;
 	
 	
 	
@@ -79,8 +79,8 @@ public class salaPuzzleBlueBoss extends JFrame implements ActionListener {
 		//INICIANDO JOGADOR
 		jogador = new Jogador();
 		jogador.carregar();
-		jogador.setX(270);
-		jogador.setY(260);
+		jogador.setX(278);
+		jogador.setY(140);
 		movimentacaoPet();
 		
 		// IMG FUNDO
@@ -93,8 +93,7 @@ public class salaPuzzleBlueBoss extends JFrame implements ActionListener {
 		timer.start();
 		
 		addKeyListener(new Teclado());
-	    jogador.atualizar();
-	    repaint();
+
 
 		
 		
@@ -106,10 +105,21 @@ public class salaPuzzleBlueBoss extends JFrame implements ActionListener {
 			// IMG FUNDO
 			imgFundo = new ImageIcon("res2/imgPuzzleBlueBoss/CenarioAzul1.png");
 			lbFundo.setIcon(imgFundo);
+			colisao(0,0,230,310);  // Barreira direita
+			colisao(365,0,230,310);// Barreira esquerda
+			colisao(0,195,600,20); // Barreira de baixo
 		}else {
 			// IMG FUNDO
 			imgFundo = new ImageIcon("res2/imgPuzzleBlueBoss/CenarioAzul2.png");
 			lbFundo.setIcon(imgFundo);
+			colisao(0,0,600,80);    // Barreira de cima
+			colisao(0,0,100,310);   // Barreira esquerda
+			colisao(485,0,100,310); // Barreira direita
+			colisao(100,260,100,80);//Barreira esquerda baixo
+			colisao(200,290,30,20);
+			colisao(400,260,100,80);//Barreira direita baixo
+			colisao(360,290,40,20);   
+			
 		}
 		
 		// VOLTA SALA 1 - BAIXO
@@ -127,6 +137,53 @@ public class salaPuzzleBlueBoss extends JFrame implements ActionListener {
 	    jogador.atualizar();
 	    repaint();
 		
+	}
+	public void colisao(int xB, int yB, int larguraB, int alturaB) {
+
+		int aX = jogador.getX();
+		int aY = jogador.getY();
+		int ladoDireitoA = aX + jogador.getLargura() - 12;
+		int ladoEsquerdoA = aX + 12;
+		int ladoBaixoA = aY + jogador.getAltura() - 5;
+		int ladoCimaA = aY + 35;
+
+		int bX = xB;
+		int bY = yB;
+		int ladoDireitoB = bX + larguraB;
+		int ladoEsquerdoB = bX;
+		int ladoBaixoB = bY + alturaB;
+		int ladoCimaB = bY;
+
+		if (ladoDireitoA >= ladoEsquerdoB && ladoDireitoA < ladoEsquerdoB + 2 && ladoBaixoA >= ladoCimaB
+				&& ladoCimaA <= ladoBaixoB) {
+			jogador.setX(jogador.getX() - 2);
+		} else if (ladoEsquerdoA >= ladoDireitoB - 2 && ladoEsquerdoA <= ladoDireitoB && ladoBaixoA >= ladoCimaB
+				&& ladoCimaA <= ladoBaixoB) {
+			jogador.setX(jogador.getX() + 2);
+		} else if (ladoDireitoA >= ladoEsquerdoB && ladoEsquerdoA <= ladoDireitoB && ladoBaixoA >= ladoCimaB
+				&& ladoBaixoA <= ladoBaixoB) {
+			jogador.setY(jogador.getY() - 2);
+		} else if (ladoEsquerdoA <= ladoDireitoB && ladoDireitoA >= ladoEsquerdoB && ladoCimaA >= ladoBaixoB - 2
+				&& ladoCimaA <= ladoBaixoB) {
+			jogador.setY(jogador.getY() + 2);
+		}
+
+		if (jogador.isCorrendo()) {
+			if (ladoDireitoA >= ladoEsquerdoB - 2 && ladoDireitoA < ladoEsquerdoB + 2 && ladoBaixoA >= ladoCimaB
+					&& ladoCimaA <= ladoBaixoB) {
+				jogador.setX(jogador.getX() - 2);
+			} else if (ladoEsquerdoA >= ladoDireitoB - 2 && ladoEsquerdoA <= ladoDireitoB + 2 && ladoBaixoA >= ladoCimaB
+					&& ladoCimaA <= ladoBaixoB) {
+				jogador.setX(jogador.getX() + 2);
+			} else if (ladoDireitoA >= ladoEsquerdoB && ladoEsquerdoA <= ladoDireitoB && ladoBaixoA >= ladoCimaB - 2
+					&& ladoBaixoA <= ladoBaixoB + 2) {
+				jogador.setY(jogador.getY() - 2);
+			} else if (ladoEsquerdoA <= ladoDireitoB && ladoDireitoA >= ladoEsquerdoB && ladoCimaA >= ladoBaixoB - 2
+					&& ladoCimaA <= ladoBaixoB + 2) {
+				jogador.setY(jogador.getY() + 4);
+			}
+		}
+
 	}
 	
 	public void movimentacaoPet() {
