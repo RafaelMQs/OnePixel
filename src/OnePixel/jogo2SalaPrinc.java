@@ -429,6 +429,22 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 				jogador.setyB(jogador.getY() + 25);
 				jogador.setxB(jogador.getX());
 			}
+			
+			if (dao.pixel.getPixelG() == 1) {
+				portaAzul.setVisible(false);
+			} else {
+				portaAzul.setVisible(true);
+				// COLISAO COM A PORTA VERMELHA
+				String colisaoPortaColorida = checkColisao(xPortaColorida, yPortaColorida, larguraPortaColorida,
+						alturaPortaColoria);
+				if (colisaoPortaColorida != null && entrou == false) {
+					entrou = true;
+					salaPuzzleBlueBoss salaDaNeve = new salaPuzzleBlueBoss();
+					salaDaNeve.setVisible(true);
+					timer.stop();
+					setVisible(false);
+				}
+			}
 		}
 
 		movimentacaoPet();

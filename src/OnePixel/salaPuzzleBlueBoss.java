@@ -30,12 +30,17 @@ public class salaPuzzleBlueBoss extends JFrame implements ActionListener {
 	ImageIcon imgFundo;
 	JLabel lbFundo;
 	
+	//SAPO - BOSS
+	
+	ImageIcon imgSapo;
+	JLabel lbSapo;
+	
 	// BALAO DE DIALOGO PEQUENO
 	ImageIcon imgBalaoDialog;
 	JLabel lbBalaoDialog;
 	
 	// LOCAL AONDE ELE ESTA
-	int localTerreno = 1;
+	int localTerreno = 0;
 	
 	
 	
@@ -83,6 +88,11 @@ public class salaPuzzleBlueBoss extends JFrame implements ActionListener {
 		jogador.setY(140);
 		movimentacaoPet();
 		
+		// SAPO - BOSS
+		imgSapo = new ImageIcon("res2/imgPuzzleBlueBoss/sapoNormal.gif");
+		lbSapo = new JLabel(imgSapo);
+		panel.add(lbSapo);
+		
 		// IMG FUNDO
 		imgFundo = new ImageIcon("res2/imgPuzzleBlueBoss/CenarioAzul1.png");
 		lbFundo = new JLabel(imgFundo);
@@ -105,6 +115,7 @@ public class salaPuzzleBlueBoss extends JFrame implements ActionListener {
 			// IMG FUNDO
 			imgFundo = new ImageIcon("res2/imgPuzzleBlueBoss/CenarioAzul1.png");
 			lbFundo.setIcon(imgFundo);
+			lbSapo.setVisible(false);
 			colisao(0,0,230,310);  // Barreira direita
 			colisao(365,0,230,310);// Barreira esquerda
 			colisao(0,195,600,20); // Barreira de baixo
@@ -112,13 +123,22 @@ public class salaPuzzleBlueBoss extends JFrame implements ActionListener {
 			// IMG FUNDO
 			imgFundo = new ImageIcon("res2/imgPuzzleBlueBoss/CenarioAzul2.png");
 			lbFundo.setIcon(imgFundo);
+			lbSapo.setVisible(true);
+			lbSapo.setBounds(242,30,111,130);
 			colisao(0,0,600,80);    // Barreira de cima
 			colisao(0,0,100,310);   // Barreira esquerda
 			colisao(485,0,100,310); // Barreira direita
-			colisao(100,260,100,80);//Barreira esquerda baixo
+			
+			//Barreira esquerda baixo
+			colisao(100,260,100,80);
 			colisao(200,290,30,20);
-			colisao(400,260,100,80);//Barreira direita baixo
-			colisao(360,290,40,20);   
+			
+			//Barreira direita baixo
+			colisao(400,260,100,80);
+			colisao(360,290,40,20);
+			
+			//Sapo - Boss
+			colisao(242,30,111,150);
 			
 		}
 		
