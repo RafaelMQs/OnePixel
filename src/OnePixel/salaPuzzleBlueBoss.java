@@ -39,6 +39,8 @@ public class salaPuzzleBlueBoss extends JFrame implements ActionListener {
 	
 	
 	
+	
+	
 	public salaPuzzleBlueBoss() {
 		componentes();
 		setIconImage(imgLogo.getImage());
@@ -50,6 +52,8 @@ public class salaPuzzleBlueBoss extends JFrame implements ActionListener {
 		setResizable(false);
 		setUndecorated(true);
 		setVisible(true);
+		
+
 	}
 	
 	public void componentes() {
@@ -72,12 +76,137 @@ public class salaPuzzleBlueBoss extends JFrame implements ActionListener {
 		panel.setBounds(0, 0, 600, 310);
 		add(panel);
 		
+		//INICIANDO JOGADOR
+		jogador = new Jogador();
+		jogador.carregar();
+		jogador.setX(270);
+		jogador.setY(260);
+		movimentacaoPet();
+		
+		// IMG FUNDO
+		imgFundo = new ImageIcon("res2/imgPuzzleBlueBoss/CenarioAzul1.png");
+		lbFundo = new JLabel(imgFundo);
+		lbFundo.setBounds(0, 0, 600, 310);
+		panel.add(lbFundo);
+		
+		timer = new Timer(6, this);
+		timer.start();
+		
+		addKeyListener(new Teclado());
+	    jogador.atualizar();
+	    repaint();
+
+		
+		
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		if( localTerreno == 0) { 		
+			// IMG FUNDO
+			imgFundo = new ImageIcon("res2/imgPuzzleBlueBoss/CenarioAzul1.png");
+			lbFundo.setIcon(imgFundo);
+		}else {
+			// IMG FUNDO
+			imgFundo = new ImageIcon("res2/imgPuzzleBlueBoss/CenarioAzul2.png");
+			lbFundo.setIcon(imgFundo);
+		}
 		
+		// VOLTA SALA 1 - BAIXO
+		if (jogador.getY() >= 280 && jogador.getX() >= 165 && jogador.getX() <= 385) {
+			localTerreno = 0;
+			jogador.setY(0);
+
+			// VAI SALA 7 - CIMA
+		} else if (jogador.getY() <= -20 && jogador.getX() >= 165 && jogador.getX() <= 385) {
+			localTerreno = 1;
+			jogador.setY(255);
+		}
+		
+		movimentacaoPet();
+	    jogador.atualizar();
+	    repaint();
+		
+	}
+	
+	public void movimentacaoPet() {
+		if (jogador.isCima()) {
+			// PIXEL VERMELHO
+			jogador.setyR(jogador.getY() + 25);
+			jogador.setxR(jogador.getX() - 15);
+
+			// PIXEL VERDE
+			jogador.setyG(jogador.getY() + 30);
+			jogador.setxG(jogador.getX() + 6);
+
+			// PIXEL AZUL
+			jogador.setyB(jogador.getY() + 25);
+			jogador.setxB(jogador.getX() + 28);
+
+		} else if (jogador.isBaixo()) {
+			// PIXEL VERMELHO
+			jogador.setyR(jogador.getY() - 20);
+			jogador.setxR(jogador.getX() + 30);
+
+			// PIXEL VERDE
+			jogador.setyG(jogador.getY() - 25);
+			jogador.setxG(jogador.getX() + 8);
+
+			// PIXEL AZUL
+			jogador.setyB(jogador.getY() - 20);
+			jogador.setxB(jogador.getX() - 15);
+
+		} else if (jogador.isDireita()) {
+			// PIXEL VERMELHO
+			jogador.setxR(jogador.getX() - 18);
+			jogador.setyR(jogador.getY() - 10);
+
+			// PIXEL VERDE
+			jogador.setxG(jogador.getX() - 25);
+			jogador.setyG(jogador.getY() + 5);
+
+			// PIXEL AZUL
+			jogador.setxB(jogador.getX() - 18);
+			jogador.setyB(jogador.getY() + 20);
+
+		} else if (jogador.isEsquerda()) {
+			// PIXEL VERMELHO
+			jogador.setxR(jogador.getX() + 30);
+			jogador.setyR(jogador.getY() + 20);
+
+			// PIXEL VERDE
+			jogador.setxG(jogador.getX() + 38);
+			jogador.setyG(jogador.getY() + 5);
+
+			// PIXEL AZUL
+			jogador.setxB(jogador.getX() + 30);
+			jogador.setyB(jogador.getY() - 10);
+
+		}
+	}
+	
+	private class Teclado extends KeyAdapter {
+		public void keyPressed(KeyEvent e) {
+			if(e.getKeyCode() == 82 && morreu) {
+				timer.stop();
+				setVisible(false);
+				jogo2SalaPrinc salaPrincipal = new jogo2SalaPrinc();
+				salaPrincipal.salaPrinc = false;
+				salaPrincipal.salaPorta1 = true;
+			}
+			
+			if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+				System.exit(0);
+			}
+
+			if (jogador.isAndar()) {
+				jogador.keyPressed(e);
+			}
+		}
+
+		public void keyReleased(KeyEvent e) {
+			jogador.keyReleased(e);
+		}
 	}
 	
 	public static void main(String args[]) {
