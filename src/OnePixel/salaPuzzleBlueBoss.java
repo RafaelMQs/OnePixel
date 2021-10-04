@@ -1,7 +1,11 @@
 package OnePixel;
 
 import javax.swing.*;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
+
 import BancoDeDados.onePixelDAO;
+import BancoDeDados.pixelGetSet;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -39,11 +43,23 @@ public class salaPuzzleBlueBoss extends JFrame implements ActionListener {
 	JLabel lbFundo;
 	
 	//SAPO - BOSS
-	
 	ImageIcon imgSapo;
 	Image sapo;
 	JLabel dialogoDoSapo;
+	String bravo = "";
 	private int sapoX = 242, sapoY = 30;
+	
+	// IMGs DO PIXEL RED
+	ImageIcon imgBluePixel;
+	JLabel bluePixel;
+	
+	//Jokenpo
+	
+	ImageIcon imgTesouraEsquerda,imgPedraEsquerda,imgPapelEsquerda,
+			  imgTesouraDireita,imgPedraDireita,imgPapelDireita,imgRandomJokenpo;
+	
+	JLabel tesouraEsquerda,pedraEsquerda,papelEsquerda,
+	       tesouraDireita, pedraDireita, papelDireita,randomJokenpo;
 	
 	// BALAO DE DIALOGO PEQUENO
 	ImageIcon imgBalaoDialog;
@@ -54,7 +70,15 @@ public class salaPuzzleBlueBoss extends JFrame implements ActionListener {
 			
 	//Exibir cena em uma unica vez
 	boolean fazerUmaVez = true;
-
+	
+	//Barreira
+	
+	int reduzir = 0;
+	// JOGO 
+	private String jokenpo = "", empate = "";
+	int pontosGuri = 2;
+	int pontosSapo = 0;
+    boolean win = false, derrotou = false,update = false;
 	
 	
 	
@@ -62,6 +86,7 @@ public class salaPuzzleBlueBoss extends JFrame implements ActionListener {
 	
 	public salaPuzzleBlueBoss() {
 		componentes();
+		eventosClick();
 		setIconImage(imgLogo.getImage());
 		setBackground(Color.red);
 		setTitle("OnePixel - Part2");
@@ -120,7 +145,49 @@ public class salaPuzzleBlueBoss extends JFrame implements ActionListener {
 		lbBalaoDialog.setVisible(false);
 		panel.add(lbBalaoDialog);
 		
-
+		// JOKENPO - GURI
+		imgPedraEsquerda = new ImageIcon("res2/imgPuzzleBlueBoss/Pedra2.png");
+		pedraEsquerda = new JLabel(imgPedraEsquerda);
+		pedraEsquerda.setVisible(false);
+		panel.add(pedraEsquerda);
+		
+		imgTesouraEsquerda = new ImageIcon("res2/imgPuzzleBlueBoss/Tesoura2.png");
+		tesouraEsquerda = new JLabel(imgTesouraEsquerda);
+		tesouraEsquerda.setVisible(false);
+		panel.add(tesouraEsquerda);
+		
+		imgPapelEsquerda = new ImageIcon("res2/imgPuzzleBlueBoss/Papel2.png");
+		papelEsquerda = new JLabel(imgPapelEsquerda);
+		papelEsquerda.setVisible(false);
+		panel.add(papelEsquerda);
+		
+		
+		imgPedraDireita = new ImageIcon("res2/imgPuzzleBlueBoss/Pedra1.png");
+		pedraDireita = new JLabel(imgPedraDireita);
+		pedraDireita.setVisible(false);
+		panel.add(pedraDireita);
+		
+		imgTesouraDireita = new ImageIcon("res2/imgPuzzleBlueBoss/Tesoura1.png");
+		tesouraDireita = new JLabel(imgTesouraDireita);
+		tesouraDireita.setVisible(false);
+		panel.add(tesouraDireita);
+		
+		imgPapelDireita = new ImageIcon("res2/imgPuzzleBlueBoss/Papel1.png");
+		papelDireita = new JLabel(imgPapelDireita);
+		papelDireita.setVisible(false);
+		panel.add(papelDireita);
+		
+		imgRandomJokenpo = new ImageIcon("res2/imgPuzzleBlueBoss/sorteioJokenpo.gif");
+		randomJokenpo = new JLabel(imgRandomJokenpo);
+		randomJokenpo.setVisible(false);
+		panel.add(randomJokenpo);
+		
+		// PIXEL AZUL
+		imgBluePixel = new ImageIcon("res2/imgPixels/ChamaPixelAzul.gif");
+		bluePixel = new JLabel(imgBluePixel);
+		bluePixel.setVisible(false);
+		panel.add(bluePixel);
+		
 		
 		// IMG FUNDO
 		imgFundo = new ImageIcon("res2/imgPuzzleBlueBoss/CenarioAzul1.png");
@@ -128,13 +195,18 @@ public class salaPuzzleBlueBoss extends JFrame implements ActionListener {
 		lbFundo.setBounds(0, 0, 600, 310);
 		panel.add(lbFundo);
 		
-
+		// INICIANDO BANCO DE DADOS
+		dao = new onePixelDAO();
+		if (!dao.bd.connection()) { // verificação da conexão com o bd.
+			JOptionPane.showMessageDialog(null, "Falha na conexão!");
+			System.exit(0);
+		}
 		
-		
+		addKeyListener(new Teclado());
+				
 		timer = new Timer(6, this);
 		timer.start();
 		
-		addKeyListener(new Teclado());
 
 
 		
@@ -144,7 +216,18 @@ public class salaPuzzleBlueBoss extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// SAPO - BOSS
-		imgSapo = new ImageIcon("res2/imgPuzzleBlueBoss/sapoNormal.gif");
+		// VOLTA SALA 1 - BAIXO
+		if (jogador.getY() >= 280 && jogador.getX() >= 165 && jogador.getX() <= 385) {
+			localTerreno = 0;
+			jogador.setY(0);
+
+			// VAI SALA 7 - CIMA
+		} else if (jogador.getY() <= -20 && jogador.getX() >= 165 && jogador.getX() <= 385) {
+			localTerreno = 1;
+			jogador.setY(255);
+		}
+		
+		imgSapo = new ImageIcon("res2/imgPuzzleBlueBoss/sapo"+bravo+".gif");
 		sapo = imgSapo.getImage();
 		
 		if( localTerreno == 0) { 		
@@ -171,7 +254,7 @@ public class salaPuzzleBlueBoss extends JFrame implements ActionListener {
 			colisao(360,290,40,20);
 			
 			//Sapo - Boss
-			colisao(0,0,600,250);
+			colisao(0,0,600,250-reduzir);
 			
 			if(checkColisao(0,0,600,260) != null && fazerUmaVez != false ) {
 				fazerUmaVez = false;
@@ -182,22 +265,33 @@ public class salaPuzzleBlueBoss extends JFrame implements ActionListener {
                 new dialogo_Movimento_Do_sapo().start();
                 new balaoDialogFadeOut().start();
                 
-
-               
 			}
-			
+				
 		}
 		
-		// VOLTA SALA 1 - BAIXO
-		if (jogador.getY() >= 280 && jogador.getX() >= 165 && jogador.getX() <= 385) {
-			localTerreno = 0;
-			jogador.setY(0);
-
-			// VAI SALA 7 - CIMA
-		} else if (jogador.getY() <= -20 && jogador.getX() >= 165 && jogador.getX() <= 385) {
-			localTerreno = 1;
-			jogador.setY(255);
+		if(derrotou) {
+			// COLISAO COM Pixel
+			bluePixel.setBounds(sapoX+30, sapoY+160, 47,38);
+			bluePixel.setVisible(true);
+			String colisaoPixel = checkColisao(sapoX+30, sapoY+160, 47,38);
+			if(colisaoPixel != null) {
+				bluePixel.setVisible(false);
+				try { Thread.sleep(1000); } catch (InterruptedException e1) { e1.printStackTrace(); }
+				if(!update) {
+					dao.pixel.setPixelB(1);
+					int checkAtual = Integer.parseInt(dao.pixel.getCheckpoint()) + 1;
+					pixelGetSet.setUpdateCheck(String.valueOf(checkAtual));
+					update = true;
+				}
+				timer.stop();
+				setVisible(false);
+				jogo2SalaPrinc salaPrincipal = new jogo2SalaPrinc();
+				salaPrincipal.salaPrinc = false;
+				salaPrincipal.salaPorta3 = true;
+			}
 		}
+		
+
 		
 		movimentacaoPet();
 	    jogador.atualizar();
@@ -208,6 +302,7 @@ public class salaPuzzleBlueBoss extends JFrame implements ActionListener {
 	private class dialogo_Movimento_Do_sapo extends Thread {
 		public void run() {
 			try {
+				//Fala do sapo
 				for(int z = 0 ; z < falaDoSapo[0].length();z++) {
 					TextEffect(falaDoSapo[0],dialogoDoSapo,z,55);
 				}
@@ -220,23 +315,211 @@ public class salaPuzzleBlueBoss extends JFrame implements ActionListener {
 				palavra = "";
 				dialogoDoSapo.setVisible(false);
 				new balaoDialogFadeIn().start();
+				jogador.setAndar(false);
 				sleep(2000);
-				//jogador.setAndar(false);
+				
+				//Depois da fala do Sapo. O guri andará para atrás 
 				int i = 0;
 				while( i < 10) {
 					jogador.setY(jogador.getY()+i);
 					sleep(60);
 					i++;
 				}
-
+				sleep(1000);
+				pedraEsquerda.setBounds(30,230,47,38);
+				pedraEsquerda.setVisible(true);
+				papelEsquerda.setBounds(80,230,47,38);
+				papelEsquerda.setVisible(true);
+				tesouraEsquerda.setBounds(140,230,47,38);
+				tesouraEsquerda.setVisible(true);
+				sleep(60);
+				
+				
+				// JOGO 
+				while(pontosGuri <3 && pontosSapo < 3) {
+					randomJokenpo.setBounds(sapoX+30, sapoY+130, 47,38);
+					sleep(1000);
+					papelDireita.setVisible(false);
+					pedraDireita.setVisible(false);
+					tesouraDireita.setVisible(false);
+					randomJokenpo.setVisible(true);
+					jogoJokenpo();
+					sleep(1000);
+					pedraEsquerda.setBounds(30,230,47,38);
+					papelEsquerda.setBounds(80,230,47,38);
+					tesouraEsquerda.setBounds(140,230,47,38);
+				}
+				jogador.setAndar(true);
+				reduzir = 50; //reduzir o tamaho da barreira que não deixa o usuario chegar no sapo
+				papelDireita.setVisible(false);
+				pedraDireita.setVisible(false);
+				tesouraDireita.setVisible(false);
+				randomJokenpo.setVisible(false);
+				
+				
 				
 
-				
+	
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
+			
+
 		}
 	}
+	
+	public void eventosClick() {
+		pedraEsquerda.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+               pedraEsquerda.setVisible(false);
+               papelEsquerda.setVisible(false);
+               tesouraEsquerda.setVisible(false);
+               pedraEsquerda.setBounds(280,210,47,38);
+               jokenpo = "pedra";
+               System.out.println("Guri escolheu : "+jokenpo);
+			}
+		});	
+		
+		papelEsquerda.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+               pedraEsquerda.setVisible(false);
+               papelEsquerda.setVisible(false);
+               tesouraEsquerda.setVisible(false);
+               papelEsquerda.setBounds(280,210,47,38);
+               jokenpo = "papel";
+               System.out.println("Guri escolheu : "+jokenpo);
+			}
+		});	
+		
+		tesouraEsquerda.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+               pedraEsquerda.setVisible(false);
+               papelEsquerda.setVisible(false);
+               tesouraEsquerda.setVisible(false);
+               tesouraEsquerda.setBounds(280,210,47,38);
+               jokenpo = "tesoura";
+               System.out.println("Guri escolheu : "+jokenpo);
+			}
+		});	
+	}
+	
+	public void jogoJokenpo() {
+		int random = (int) (Math.random() * 9) + 1;
+		if(jokenpo != "") {
+			randomJokenpo.setVisible(false);
+			// SORTEIA PEDRA, PAPEL OU TESOURA
+			String pedraPapelOuTesoura = "";
+			if (random > 0 && random < 4) {
+				pedraPapelOuTesoura = "pedra";
+				pedraDireita.setBounds(sapoX+30, sapoY+130, 47,38);
+				pedraDireita.setVisible(true);
+				papelDireita.setVisible(false);
+				tesouraDireita.setVisible(false);
+			} else if (random > 3 && random < 7) {
+				pedraPapelOuTesoura = "papel";
+				papelDireita.setBounds(sapoX+30, sapoY+130, 47,38);
+				papelDireita.setVisible(true);
+				pedraDireita.setVisible(false);
+				tesouraDireita.setVisible(false);
+			} else if (random > 6 && random < 10) {
+				pedraPapelOuTesoura = "tesoura";
+				tesouraDireita.setBounds(sapoX+30, sapoY+130, 47,38);
+				tesouraDireita.setVisible(true);
+				papelDireita.setVisible(false);
+				pedraDireita.setVisible(false);
+			}
+			System.out.println("Sapo escolheu : "+pedraPapelOuTesoura);
+			
+			// CASO ELE ESCOLHA PEDRA
+			if (pedraPapelOuTesoura == "pedra" && jokenpo == "pedra") {
+				System.out.println("Pedra com Pedra - EMPATE");
+				empate = "empate";
+				bravo = "";
+			} else if (pedraPapelOuTesoura == "papel" && jokenpo == "pedra") {
+				System.out.println("Pedra com Papel - DERROTA");
+				win = false;
+				empate = "";
+				bravo = "";
+			} else if (pedraPapelOuTesoura == "tesoura" && jokenpo == "pedra") {
+				System.out.println("Pedra com Tesoura - VITORIA");
+				win = true;
+				bravo = "Bravo";
+				empate = "";
+
+				// CASO ELE ESCOLHA PAPEL
+			} else if (jokenpo == "papel" && pedraPapelOuTesoura == "pedra") {
+				System.out.println("Papel com Pedra - VITORIA");
+				win = true;
+				empate = "";
+				bravo = "Bravo";
+			} else if (jokenpo == "papel" && pedraPapelOuTesoura == "papel") {
+				System.out.println("Papel com Papel - EMPATE");
+				empate = "empate";
+				bravo = "";
+			} else if (jokenpo == "papel" && pedraPapelOuTesoura == "tesoura") {
+				System.out.println("Papel com Tesoura - DERROTA");
+				win = false;
+				empate = "";
+				bravo = "";
+
+				// CASO ELE ESCOLHA TESOURA
+			} else if (jokenpo == "tesoura" && pedraPapelOuTesoura == "pedra") {
+				System.out.println("Tesoura com Pedra - DERROTA");
+				win = false;
+				empate = "";
+				bravo = "";
+			} else if (jokenpo == "tesoura" && pedraPapelOuTesoura == "papel") {
+				System.out.println("Tesoura com Papel - VITORIA");
+				win = true;
+				empate = "";
+				bravo = "Bravo";
+			} else if (jokenpo == "tesoura" && pedraPapelOuTesoura == "tesoura") {
+				System.out.println("Tesoura com Tesoura - EMPATE");
+				empate = "empate";
+				bravo = "";
+			}
+
+			if (win && empate != "empate") {
+				pontosGuri +=1;
+				pedraEsquerda.setVisible(true);
+				papelEsquerda.setVisible(true);
+				tesouraEsquerda.setVisible(true);
+	            if(pontosGuri == 3) {
+	            	System.out.println("Ganhouuuu! "+pontosGuri);
+	            	derrotou = true;
+	    			pedraEsquerda.setVisible(false);
+	    			papelEsquerda.setVisible(false);
+	    			tesouraEsquerda.setVisible(false);
+	            }
+			} else if(!win && empate != "empate") {
+				pontosSapo +=1;
+				pedraEsquerda.setVisible(true);
+				papelEsquerda.setVisible(true);
+				tesouraEsquerda.setVisible(true);
+	            if(pontosSapo == 3) {
+	            	System.out.println("Perdeu! "+pontosSapo);
+	    			pedraEsquerda.setVisible(false);
+	    			papelEsquerda.setVisible(false);
+	    			tesouraEsquerda.setVisible(false);
+	            }
+	            
+			}
+
+			if(pontosGuri < 3 && pontosSapo < 3) {
+				jokenpo = "";
+				System.out.println("Sapo pontos "+pontosSapo+" X "+pontosGuri+" Pontos guri \n");
+				pedraEsquerda.setVisible(true);
+				papelEsquerda.setVisible(true);
+				tesouraEsquerda.setVisible(true);
+			}
+			
+			
+			
+		}
+	
+	}
+     
+	
 	
 	// COLISÂO COM A BARREIRA
 	public void colisao(int xB, int yB, int larguraB, int alturaB) {
@@ -286,6 +569,7 @@ public class salaPuzzleBlueBoss extends JFrame implements ActionListener {
 		}
 
 	}
+	
 	
 	// CHECAR ONDE COLIDIU
 	public String checkColisao(int xB, int yB, int larguraB, int alturaB) {
@@ -344,7 +628,6 @@ public class salaPuzzleBlueBoss extends JFrame implements ActionListener {
 				e.printStackTrace();
 			}
 			lbBalaoDialog.setVisible(false);
-			jogador.setAndar(true);
 		}
 	}
 	
