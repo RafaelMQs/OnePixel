@@ -4,10 +4,13 @@ import javax.swing.*;
 import BancoDeDados.onePixelDAO;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.event.*;
 import java.sql.SQLException;
+import java.util.Iterator;
 
 
 public class salaPuzzleBlueBoss extends JFrame implements ActionListener {
@@ -15,6 +18,11 @@ public class salaPuzzleBlueBoss extends JFrame implements ActionListener {
 	private onePixelDAO dao;
 	private Timer timer;
 	private JPanel panel;
+	
+	// FALA DO SAPO
+	
+	private String[] falaDoSapo = {"<html>SAPO: Então você quer me desafiar...?",
+			"<html>SAPO: Vem pro x1"};
 	
 	// LOGO
 	static ImageIcon imgLogo = new ImageIcon("res/IconGame.png");
@@ -33,7 +41,9 @@ public class salaPuzzleBlueBoss extends JFrame implements ActionListener {
 	//SAPO - BOSS
 	
 	ImageIcon imgSapo;
-	JLabel lbSapo;
+	Image sapo;
+	JLabel dialogoDoSapo;
+	private int sapoX = 242, sapoY = 30;
 	
 	// BALAO DE DIALOGO PEQUENO
 	ImageIcon imgBalaoDialog;
@@ -41,6 +51,10 @@ public class salaPuzzleBlueBoss extends JFrame implements ActionListener {
 	
 	// LOCAL AONDE ELE ESTA
 	int localTerreno = 0;
+			
+	//Exibir cena em uma unica vez
+	boolean fazerUmaVez = true;
+
 	
 	
 	
@@ -72,6 +86,9 @@ public class salaPuzzleBlueBoss extends JFrame implements ActionListener {
 				Graphics2D grafico = (Graphics2D) g;
 				grafico.drawImage(jogador.getImgPlayer(), jogador.getX(), jogador.getY(), jogador.getLargura(),
 						jogador.getAltura(), this);
+				if(localTerreno == 1) {
+					grafico.drawImage(sapo,sapoX,sapoY,111,130,this);
+				}
 				grafico.drawImage(jogador.getImgPixelRed(), jogador.getxR(), jogador.getyR(), 32, 32, this);
 				grafico.drawImage(jogador.getImgPixelGreen(), jogador.getxG(), jogador.getyG(), 32, 32, this);
 				grafico.drawImage(jogador.getImgPixelBlue(), jogador.getxB(), jogador.getyB(), 32, 32, this);
@@ -88,16 +105,31 @@ public class salaPuzzleBlueBoss extends JFrame implements ActionListener {
 		jogador.setY(140);
 		movimentacaoPet();
 		
-		// SAPO - BOSS
-		imgSapo = new ImageIcon("res2/imgPuzzleBlueBoss/sapoNormal.gif");
-		lbSapo = new JLabel(imgSapo);
-		panel.add(lbSapo);
+
+
+		
+		dialogoDoSapo = new JLabel();
+		dialogoDoSapo.setForeground(Color.BLACK);
+		dialogoDoSapo.setFont(new Font("Pixel Operator 8", Font.PLAIN, 10));
+		dialogoDoSapo.setVisible(false);
+		panel.add(dialogoDoSapo);
+		
+		// IMAGENs DO BALAO DE DIALOGO
+		imgBalaoDialog = new ImageIcon("res2/imgBalaoDialog/BalaoFalaFadeOut.gif");
+		lbBalaoDialog = new JLabel(imgBalaoDialog);
+		lbBalaoDialog.setVisible(false);
+		panel.add(lbBalaoDialog);
+		
+
 		
 		// IMG FUNDO
 		imgFundo = new ImageIcon("res2/imgPuzzleBlueBoss/CenarioAzul1.png");
 		lbFundo = new JLabel(imgFundo);
 		lbFundo.setBounds(0, 0, 600, 310);
 		panel.add(lbFundo);
+		
+
+		
 		
 		timer = new Timer(6, this);
 		timer.start();
@@ -111,11 +143,14 @@ public class salaPuzzleBlueBoss extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		// SAPO - BOSS
+		imgSapo = new ImageIcon("res2/imgPuzzleBlueBoss/sapoNormal.gif");
+		sapo = imgSapo.getImage();
+		
 		if( localTerreno == 0) { 		
 			// IMG FUNDO
 			imgFundo = new ImageIcon("res2/imgPuzzleBlueBoss/CenarioAzul1.png");
 			lbFundo.setIcon(imgFundo);
-			lbSapo.setVisible(false);
 			colisao(0,0,230,310);  // Barreira direita
 			colisao(365,0,230,310);// Barreira esquerda
 			colisao(0,195,600,20); // Barreira de baixo
@@ -123,8 +158,6 @@ public class salaPuzzleBlueBoss extends JFrame implements ActionListener {
 			// IMG FUNDO
 			imgFundo = new ImageIcon("res2/imgPuzzleBlueBoss/CenarioAzul2.png");
 			lbFundo.setIcon(imgFundo);
-			lbSapo.setVisible(true);
-			lbSapo.setBounds(242,30,111,130);
 			colisao(0,0,600,80);    // Barreira de cima
 			colisao(0,0,100,310);   // Barreira esquerda
 			colisao(485,0,100,310); // Barreira direita
@@ -138,7 +171,20 @@ public class salaPuzzleBlueBoss extends JFrame implements ActionListener {
 			colisao(360,290,40,20);
 			
 			//Sapo - Boss
-			colisao(242,30,111,150);
+			colisao(0,0,600,250);
+			
+			if(checkColisao(0,0,600,260) != null && fazerUmaVez != false ) {
+				fazerUmaVez = false;
+				jogador.setAndar(false);
+				dialogoDoSapo.setBounds(115, 40, 130, 50);
+				lbBalaoDialog.setBounds(110, 40, 130, 60);
+			
+                new dialogo_Movimento_Do_sapo().start();
+                new balaoDialogFadeOut().start();
+                
+
+               
+			}
 			
 		}
 		
@@ -158,6 +204,41 @@ public class salaPuzzleBlueBoss extends JFrame implements ActionListener {
 	    repaint();
 		
 	}
+	
+	private class dialogo_Movimento_Do_sapo extends Thread {
+		public void run() {
+			try {
+				for(int z = 0 ; z < falaDoSapo[0].length();z++) {
+					TextEffect(falaDoSapo[0],dialogoDoSapo,z,55);
+				}
+				sleep(3000);
+				palavra = "";
+				for(int z = 0 ; z < falaDoSapo[1].length();z++) {
+					TextEffect(falaDoSapo[1],dialogoDoSapo,z,55);
+				}
+				sleep(3000);
+				palavra = "";
+				dialogoDoSapo.setVisible(false);
+				new balaoDialogFadeIn().start();
+				sleep(2000);
+				//jogador.setAndar(false);
+				int i = 0;
+				while( i < 10) {
+					jogador.setY(jogador.getY()+i);
+					sleep(60);
+					i++;
+				}
+
+				
+
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
+	}
+	
+	// COLISÂO COM A BARREIRA
 	public void colisao(int xB, int yB, int larguraB, int alturaB) {
 
 		int aX = jogador.getX();
@@ -204,6 +285,83 @@ public class salaPuzzleBlueBoss extends JFrame implements ActionListener {
 			}
 		}
 
+	}
+	
+	// CHECAR ONDE COLIDIU
+	public String checkColisao(int xB, int yB, int larguraB, int alturaB) {
+		int aX = jogador.getX();
+		int aY = jogador.getY();
+		int ladoDireitoA = aX + jogador.getLargura() - 12;
+		int ladoEsquerdoA = aX + 12;
+		int ladoBaixoA = aY + jogador.getAltura() - 2;
+		int ladoCimaA = aY + 35;
+
+		int bX = xB;
+		int bY = yB;
+		int ladoDireitoB = bX + larguraB;
+		int ladoEsquerdoB = bX;
+		int ladoBaixoB = bY + alturaB;
+		int ladoCimaB = bY;
+
+        // COLISAO COM O ITEM B
+		// COLISAO LADO DIREITO DO GURI
+		if (ladoDireitoA >= ladoEsquerdoB && ladoDireitoA < ladoEsquerdoB + 2 && ladoBaixoA >= ladoCimaB
+				&& ladoCimaA <= ladoBaixoB) {
+			return "esquerda";
+
+			// COLISAO LADO ESQUERDO DO GURI
+		} else if (ladoEsquerdoA >= ladoDireitoB - 2 && ladoEsquerdoA <= ladoDireitoB && ladoBaixoA >= ladoCimaB
+				&& ladoCimaA <= ladoBaixoB) {
+			return "direita";
+
+			// COLISAO LADO DE BAIXO DO GURI
+		} else if (ladoDireitoA >= ladoEsquerdoB && ladoEsquerdoA <= ladoDireitoB && ladoBaixoA >= ladoCimaB
+				&& ladoBaixoA <= ladoBaixoB - 70) {
+			return "cima";
+
+			// COLISAO LADO DE CIMA DO GURI
+		} else if (ladoEsquerdoA <= ladoDireitoB && ladoDireitoA >= ladoEsquerdoB && ladoCimaA >= ladoBaixoB - 4
+				&& ladoCimaA <= ladoBaixoB) {
+			return "baixo";
+
+			// COLISAO DO GURI DENTRO DO OBJETO
+		} else if (ladoDireitoA >= ladoEsquerdoB + 10 && ladoEsquerdoA <= ladoDireitoB - 10 && ladoBaixoA >= ladoCimaB
+				&& ladoBaixoA <= ladoBaixoB) {
+			return "dentro";
+
+		}
+		return null;
+	}
+	
+	// FECHA O BALÃO
+	private class balaoDialogFadeIn extends Thread {
+		public void run() {
+			imgBalaoDialog = new ImageIcon("res2/imgBalaoDialog/BalaoFalaFadeIn.gif");
+			lbBalaoDialog.setIcon(imgBalaoDialog);
+			try {
+				sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			lbBalaoDialog.setVisible(false);
+			jogador.setAndar(true);
+		}
+	}
+	
+	// ABRIR O BALÃO
+	private class balaoDialogFadeOut extends Thread {
+		public void run() {
+			lbBalaoDialog.setVisible(true);
+			imgBalaoDialog = new ImageIcon("res2/imgBalaoDialog/BalaoFalaFadeOut.gif");
+			lbBalaoDialog.setIcon(imgBalaoDialog);
+			try {
+				sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			imgBalaoDialog = new ImageIcon("res2/imgBalaoDialog/BalaoFalaStatic.png");
+			lbBalaoDialog.setIcon(imgBalaoDialog);
+		}
 	}
 	
 	public void movimentacaoPet() {
@@ -259,6 +417,23 @@ public class salaPuzzleBlueBoss extends JFrame implements ActionListener {
 			jogador.setxB(jogador.getX() + 30);
 			jogador.setyB(jogador.getY() - 10);
 
+		}
+	}
+	
+	// TEXTO NO BALÃO
+	public void TextEffect(String DialogoBox, JLabel lbDialogo, int z, int milesimos) {
+		try {
+			char letra = DialogoBox.charAt(z);
+			palavra = palavra + letra;
+			if (z >= 6) {
+				lbDialogo.setVisible(true);
+			} else {
+				lbDialogo.setVisible(false);
+			}
+			lbDialogo.setText(palavra);
+			Thread.sleep(milesimos);
+		} catch (InterruptedException ex) {
+			System.out.println(ex);
 		}
 	}
 	
