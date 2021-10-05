@@ -250,10 +250,7 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 						pedraPapelOuTesoura = "papel";
 					} else if (random > 6 && random < 10) {
 						pedraPapelOuTesoura = "tesoura";
-					}
-					System.out.println(pedraPapelOuTesoura);
-
-					// CASO ELE ESCOLHA PEDRA
+					}	// CASO ELE ESCOLHA PEDRA
 					if (retornoInput.toLowerCase().equals("pedra") && pedraPapelOuTesoura == "pedra") {
 						System.out.println("Pedra com Pedra - EMPATE");
 					} else if (retornoInput.toLowerCase().equals("pedra") && pedraPapelOuTesoura == "papel") {
@@ -288,6 +285,9 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 					} else {
 						JOptionPane.showMessageDialog(this, "Você Perdeu!", "Pedra, Papel ou Tesoura", 0);
 					}
+					System.out.println(pedraPapelOuTesoura);
+
+				
 
 				} else {
 					Tremer tremer = new Tremer();
@@ -422,6 +422,21 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 
 			imgChaoFundo = new ImageIcon("res2/imgSalaPrincipal/chaoCheckpoint.png");
 			lbChaoFundo.setIcon(imgChaoFundo);
+			
+			xZezin = 160;
+			yZezin = 120;
+			lbZezin.setBounds(xZezin, yZezin, larguraZezin, alturaZezin);
+			
+			// COLISAO COM ZEZIN
+			String colisaoZezin = colisaoZezin(xZezin, yZezin, larguraZezin, alturaZezin);
+			if (colisaoZezin == "pertoD" && jogador.getTecla() == 10) {
+				jogador.setTecla(0);
+				if (liberaEnter) {
+					new balaoDialogFadeOut().start();
+					new dialogoUpdate().start();
+					liberaEnter = false;
+				}
+			}
 
 			if (jogador.getY() >= 185 && jogador.getX() >= 260 && jogador.getX() <= 295) {
 				salaPorta3 = false;
@@ -430,6 +445,23 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 				jogador.setY(80);
 				jogador.setyB(jogador.getY() + 25);
 				jogador.setxB(jogador.getX());
+			}
+			
+			if (dao.pixel.getPixelB() == 1) {
+				portaAzul.setVisible(false);
+				lbZezin.setVisible(true);
+			} else {
+				portaAzul.setVisible(true);
+				// COLISAO COM A PORTA Azul
+				String colisaoPortaColorida = checkColisao(xPortaColorida, yPortaColorida, larguraPortaColorida,
+						alturaPortaColoria);
+				if (colisaoPortaColorida != null && entrou == false) {
+					entrou = true;
+					salaPuzzleBlueBoss salaDaNeve = new salaPuzzleBlueBoss();
+					salaDaNeve.setVisible(true);
+					timer.stop();
+					setVisible(false);
+				}
 			}
 		}
 
@@ -1016,7 +1048,7 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 			podePular = true;
 			palavra = "";
 			try {
-				if (dao.pixel.getPixelR() == 1 && salaPorta1 == true) {
+				if (dao.pixel.getPixelR() == 1 && salaPorta1 == true || dao.pixel.getPixelB() == 1 && salaPorta3 == true) {
 					jogador.setX(195);
 					jogador.setY(120);
 					System.out.println(dao.pixel.getCheckpoint());
