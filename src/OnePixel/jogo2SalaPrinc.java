@@ -293,6 +293,8 @@ public class jogo2SalaPrinc extends JFrame implements ActionListener {
 					Tremer tremer = new Tremer();
 					tremer.start();
 					JOptionPane.showMessageDialog(this, "Colete os outros PIXELs!", "Busque pixels", 0);
+					new bossFinal();
+					setVisible(false);
 				}
 			}
 

@@ -346,7 +346,7 @@ public class telaInicial extends JFrame {
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				try { audio("BtnHoverSong", -8, 0, 0); } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+				try { audio("BtnHoverSong", -5, 0, 0); } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
 					e1.printStackTrace();
 				}
 				imgBtnVoltar = new ImageIcon("res2/imgTelaInicial/Voltar-Selected.png");
