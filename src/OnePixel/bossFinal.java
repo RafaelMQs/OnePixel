@@ -33,37 +33,36 @@ public class bossFinal extends JFrame {
 	ImageIcon imgBalaoDialog;
 	JLabel lbBalaoDialog;
 
-	String textoDialogo[] = {"<html>Guri: Consegui derrotar todos os guaridões",
+	String textoDialogo[] = { "<html>Guri: Consegui derrotar todos os guaridões",
 			"<html>Zezin: Parabens, agora me de esses pixels",
 			"<html>Guri: Eu ainda estou com receio de te entregar isso",
 			"<html>Zezin: EU TE AJUDEI A SALVAR SEU JOGO, AGORA ANDE LOGO E ME ENTREGUE ISSO!",
 			"<html>Guri: Eu sei... mas minha missão era pegar os pixels, e nao entrega-los pra você",
-			"<html>Zezin: SE VOCÊ NAO ME ENTREGAR AGORA, PEGAREI A FORÇA",
-			"<html>Guri: TENTE SE FOR CAPAZ!"};
+			"<html>Zezin: SE VOCÊ NAO ME ENTREGAR AGORA, PEGAREI A FORÇA", "<html>Guri: TENTE SE FOR CAPAZ!" };
 	JLabel lbDialogo;
-	
+
 	// CONTEUDOS DA BATALHA FINAL
 	JProgressBar vidaGuri, vidaZezin;
-	int porcemHpGuri , porcemHpZezin;
+	int porcemHpGuri, porcemHpZezin;
 	JButton ataqueGuri, defesaGuri;
 	JLabel escolhaAtkOuDef, descConsole;
-	
+
 	// BTNs ATAQUES
 	JButton atkNormal;
-	
+
 	// BTNs DEFESA
 	JButton defNormal;
-	
+
 	// DANOS
 	int danoAtkNormal = 50, danoAtkNormalZ = 52;
-	
+
 	// VIDA
-	int hpGuri = 1200, hpZezin = 1350;
+	int hpGuri = 590, hpZezin = 615;
 	int escudoHpGuri = 0, escudoHpZezin = 0;
-	
+
 	boolean podeClickar = true;
-	boolean atacou = false, defendeu = false;
-	
+	boolean atacou = false, defendeu = false, perdeu = false, ganhou = false;
+
 	public bossFinal() {
 		componentes();
 		eventos();
@@ -97,14 +96,14 @@ public class bossFinal extends JFrame {
 			}
 		};
 		panel.setBounds(0, 0, 600, 310);
-		panel.setVisible(false);
+		panel.setVisible(true);
 		add(panel);
 
 		imgZezin = new ImageIcon("res2/imgZezin/Zezin_1.gif");
 		lbZezin = new JLabel(imgZezin);
 		lbZezin.setBounds(xZezin, yZezin, larguraZezin, alturaZezin);
 		panel.add(lbZezin);
-		
+
 		// LABELs DO DIALOGO DO GURI
 		lbDialogo = new JLabel();
 		lbDialogo.setBounds(395, 45, 120, 100);
@@ -119,49 +118,49 @@ public class bossFinal extends JFrame {
 		lbBalaoDialog.setBounds(385, 70, 130, 60);
 		lbBalaoDialog.setVisible(false);
 		panel.add(lbBalaoDialog);
-		
-		// PAINEL DO JOGO 
+
+		// PAINEL DO JOGO
 		panelPokemonTotal = new JPanel(null);
 		panelPokemonTotal.setBounds(0, 0, 600, 310);
-		panelPokemonTotal.setVisible(true);
+		panelPokemonTotal.setVisible(false);
 		add(panelPokemonTotal);
-		
-	// CONTEUDOS DA BATALHA
+
+		// CONTEUDOS DA BATALHA
 		vidaGuri = new JProgressBar();
 		vidaGuri.setBounds(10, 10, 200, 20);
 		vidaGuri.setStringPainted(true);
-		vidaGuri.setString("HP: 1200");
-		vidaGuri.setMaximum(1200);
+		vidaGuri.setString("HP:"+hpGuri);
+		vidaGuri.setMaximum(hpGuri);
 		vidaGuri.setValue(hpGuri);
 		vidaGuri.setFont(new Font("Pixel Operator 8", Font.BOLD, 12));
 //		vidaGuri.setForeground(Color.red);
 		vidaGuri.setBorder(null);
 		panelPokemonTotal.add(vidaGuri);
-		
+
 		vidaZezin = new JProgressBar();
 		vidaZezin.setBounds(390, 10, 200, 20);
 		vidaZezin.setStringPainted(true);
-		vidaZezin.setString("HP: 1350");
-		vidaZezin.setMaximum(1350);
+		vidaZezin.setString("HP:"+hpZezin);
+		vidaZezin.setMaximum(hpZezin);
 		vidaZezin.setValue(hpZezin);
 		vidaZezin.setFont(new Font("Pixel Operator 8", Font.BOLD, 12));
 //		vidaZezin.setForeground(Color.red);
 		vidaZezin.setBorder(null);
 		panelPokemonTotal.add(vidaZezin);
-		
+
 		ataqueGuri = new JButton("Ataque");
 		ataqueGuri.setBounds(10, 35, 135, 35);
 		ataqueGuri.setFont(new Font("Pixel Operator 8", Font.PLAIN, 12));
 		ataqueGuri.setFocusable(false);
 		panelPokemonTotal.add(ataqueGuri);
-		
+
 		defesaGuri = new JButton("Defesa");
 		defesaGuri.setBounds(10, 80, 120, 35);
 		defesaGuri.setFont(new Font("Pixel Operator 8", Font.PLAIN, 12));
 		defesaGuri.setFocusable(false);
 		panelPokemonTotal.add(defesaGuri);
 
-		// PAINEL DE ESCOLHER OS TIPOS DE ATAQUES OU DEFESAS 
+		// PAINEL DE ESCOLHER OS TIPOS DE ATAQUES OU DEFESAS
 		panelAtkDef = new JPanel(null) {
 			public void paint(Graphics g) {
 				super.paint(g);
@@ -179,37 +178,34 @@ public class bossFinal extends JFrame {
 		panelAtkDef.setBorder(BorderFactory.createTitledBorder(lineBorder, "", TitledBorder.CENTER, TitledBorder.TOP,
 				new Font("Arial", Font.BOLD, 18), Color.black));
 		panelPokemonTotal.add(panelAtkDef);
-		
+
 		descConsole = new JLabel("Console: Esperando sua escolha");
 		descConsole.setFont(new Font("Pixel Operator 8", Font.PLAIN, 12));
 		descConsole.setBounds(10, -26, 590, 100);
 		descConsole.setVisible(true);
 		panelAtkDef.add(descConsole);
-		
+
 		escolhaAtkOuDef = new JLabel();
 		escolhaAtkOuDef.setText("");
 		escolhaAtkOuDef.setFont(new Font("Pixel Operator 8", Font.PLAIN, 12));
 		escolhaAtkOuDef.setBounds(60, 26, 200, 100);
 		escolhaAtkOuDef.setVisible(true);
 		panelAtkDef.add(escolhaAtkOuDef);
-		
+
 		atkNormal = new JButton("ATK Normal");
 		atkNormal.setFont(new Font("Pixel Operator 8", Font.PLAIN, 12));
 		atkNormal.setBounds(240, 52, 140, 25);
 		atkNormal.setVisible(false);
 		atkNormal.setFocusable(false);
 		panelAtkDef.add(atkNormal);
-		
+
 		defNormal = new JButton("DEF Normal");
 		defNormal.setFont(new Font("Pixel Operator 8", Font.PLAIN, 12));
 		defNormal.setBounds(240, 52, 140, 25);
 		defNormal.setVisible(false);
 		defNormal.setFocusable(false);
 		panelAtkDef.add(defNormal);
-		
-		
-		
-		
+
 		// CARREGAR OS KEYLISTENERS DA CLASS JOGADOR
 		addKeyListener(new Teclado());
 		// CARREGAR CLASS JOGADOR
@@ -227,11 +223,12 @@ public class bossFinal extends JFrame {
 			JOptionPane.showMessageDialog(null, "Falha na conexão!");
 			System.exit(0);
 		}
+		
+		new movimentacaoInicial().start();
 	}
 
 	public void eventos() {
 //		new movimentacaoInicial().start();
-		
 		ataqueGuri.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				defNormal.setVisible(false);
@@ -240,7 +237,7 @@ public class bossFinal extends JFrame {
 				atkNormal.setVisible(true);
 			};
 		});
-		
+
 		defesaGuri.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				atkNormal.setVisible(false);
@@ -249,102 +246,152 @@ public class bossFinal extends JFrame {
 				defNormal.setVisible(true);
 			}
 		});
-				
+
 		// ATAQUE NORMAL
 		atkNormal.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				if(podeClickar) {
-					atacou = true;
-					new danoAtaque().start();
+				if (!perdeu || !ganhou) {
+
+					if (podeClickar) {
+						atacou = true;
+						new danoAtaque().start();
+					}
 				}
 			};
-			
+
 			public void mouseEntered(MouseEvent e) {
-				descConsole.setText("ATK Normal: Ataque Simples");
+				if (!perdeu || !ganhou) {
+
+					descConsole.setText("ATK Normal: Ataque Simples");
+				}
 			};
-			
+
 			public void mouseExited(MouseEvent e) {
-				descConsole.setText("Console: Esperando sua escolha");
+				if (!perdeu || !ganhou) {
+
+					descConsole.setText("Console: Esperando sua escolha");
+				}
 			};
 
 		});
-		
+
 		// DEFESA NORMAL
 		defNormal.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				if(podeClickar) {
-					defendeu = true;
-					new danoAtaque().start();
+				if (!perdeu || !ganhou) {
+
+					if (podeClickar) {
+						defendeu = true;
+						new danoAtaque().start();
+					}
 				}
 			};
-			
+
 			public void mouseEntered(MouseEvent e) {
-				descConsole.setText("DEF Normal: Defesa Simples");
+				if (!perdeu || !ganhou) {
+
+					descConsole.setText("DEF Normal: Defesa Simples");
+				}
 			};
-			
+
 			public void mouseExited(MouseEvent e) {
-				descConsole.setText("Console: Esperando sua escolha");
+				if (!perdeu || !ganhou) {
+
+					descConsole.setText("Console: Esperando sua escolha");
+
+				}
 			};
 
 		});
-		
-		
 	}
-	
-	private class danoAtaque extends Thread{
+
+	private class danoAtaque extends Thread {
 		public void run() {
 			podeClickar = false;
-			if(atacou) {
+			if (atacou) {
 				int sobreVida = hpZezin + escudoHpZezin;
-				System.out.println("SobreVida: "+sobreVida);
+				System.out.println("\nSobreVida: " + sobreVida);
 				hpZezin = sobreVida - danoAtkNormal;
-				System.out.println("HpZezin tomando dano: "+hpZezin);
+				System.out.println("HpZezin tomando dano: " + hpZezin);
 				descConsole.setText("Console: Ataque do Guri realizado com sucesso!");
-				for(int i = vidaZezin.getValue(); i >= hpZezin; i-= 2) {
+				for (int i = vidaZezin.getValue(); i >= hpZezin; i -= 2) {
 					vidaZezin.setValue(i);
-					try { sleep(5); } catch (InterruptedException e) { e.printStackTrace(); }
+					try {
+						sleep(5);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 				}
-				System.out.println("Barra de vida: "+vidaZezin.getValue());
+				System.out.println("Barra de vida: " + vidaZezin.getValue());
 				escudoHpZezin = 0;
 				atacou = false;
-			}else if (defendeu) {
+			} else if (defendeu) {
 				escudoHpGuri = 35;
 				descConsole.setText("Console: Guri ativou seu escudo!");
 			}
 
-			if(hpZezin > 0) {
-				try { sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
-				new danoRecebido().start();				
-			}else {
+			if (hpZezin > 0) {
+				try {
+					sleep(500);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				new danoRecebido().start();
+			} else {
 				descConsole.setText("Console: Zezin perdeu!");
+				ganhou = true;
 				new Tremer().start();
 			}
+			
+			vidaGuri.setString("HP:"+hpGuri);
+			vidaZezin.setString("HP:"+hpZezin);
+
 		}
 	}
-	
-	private class danoRecebido extends Thread{
+
+	private class danoRecebido extends Thread {
 		public void run() {
-			int random = (int) (Math.random()*5)+1;
+			int random = (int) (Math.random() * 5) + 1;
 			int sobreVida = hpGuri + escudoHpGuri;
-			System.out.println(random);
-			if(random <= 4) {
-				System.out.println("SobreVida: "+sobreVida);
+			if (random <= 4) {
+				System.out.println("\nSobreVida: " + sobreVida);
 				hpGuri = sobreVida - danoAtkNormalZ;
-				System.out.println("HpGuri tomando dano: "+hpGuri);
+				System.out.println("HpGuri tomando dano: " + hpGuri);
 				descConsole.setText("Console: Ataque do Zezin realizado com sucesso!");
-				for(int i = vidaGuri.getValue(); i >= hpGuri; i-= 2) {
+				for (int i = vidaGuri.getValue(); i >= hpGuri; i -= 2) {
 					vidaGuri.setValue(i);
-					try { sleep(5); } catch (InterruptedException e) { e.printStackTrace(); }
+					try {
+						sleep(5);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 				}
 				escudoHpGuri = 0;
-			}else {
+			} else {
 				escudoHpZezin = 35;
 				descConsole.setText("Console: Zezin ativou seu escudo!");
 			}
 
-			System.out.println("Barra de vida: "+vidaGuri.getValue());
+			System.out.println("Barra de vida: " + vidaGuri.getValue());
 			defendeu = false;
 			podeClickar = true;
+
+			if (hpGuri < 0) {
+				descConsole.setText("Console: Guri perdeu!");
+				perdeu = true;
+				new Tremer().start();
+				try { sleep(1500); } catch (InterruptedException e) { e.printStackTrace(); }
+				descConsole.setText("Console: Guri sera deletado!");
+				try { sleep(2000); } catch (InterruptedException e) { e.printStackTrace(); }
+				dao.atualizarInventario(3);
+				dao.atualizar(3);
+				try { sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
+				System.exit(0);
+				
+			}
+			
+			vidaGuri.setString("HP:"+hpGuri);
+			vidaZezin.setString("HP:"+hpZezin);
 		}
 	}
 
@@ -442,9 +489,9 @@ public class bossFinal extends JFrame {
 			jogador.carregar();
 			repaint();
 			try {
-			new balaoDialogFadeOut().start();
-			podePular = true;
-			palavra = "";
+				new balaoDialogFadeOut().start();
+				podePular = true;
+				palavra = "";
 				for (int z = 0; z < textoDialogo[0].length(); z++) {
 					if (!pularDialog) {
 						TextEffect(textoDialogo[0], lbDialogo, z, 55);
@@ -542,7 +589,7 @@ public class bossFinal extends JFrame {
 						break;
 					}
 				}
-				
+
 				sleep(2000);
 				podePular = false;
 				new balaoDialogFadeIn().start();
@@ -551,8 +598,8 @@ public class bossFinal extends JFrame {
 				panel.removeAll();
 				panelPokemonTotal.setVisible(true);
 				stop();
-			}catch(InterruptedException ex) {
-				
+			} catch (InterruptedException ex) {
+
 			}
 		}
 	}
@@ -589,7 +636,7 @@ public class bossFinal extends JFrame {
 			stop();
 		}
 	}
-	
+
 	private class Teclado extends KeyAdapter {
 		public void keyPressed(KeyEvent e) {
 			if (e.getKeyCode() == KeyEvent.VK_SPACE) {
@@ -609,7 +656,7 @@ public class bossFinal extends JFrame {
 			}
 		}
 	}
-	
+
 	public static void main(String args[]) {
 		new bossFinal();
 	}
