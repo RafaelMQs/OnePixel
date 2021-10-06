@@ -234,28 +234,28 @@ public class bossFinal extends JFrame {
 
 		atkNormal = new JButton("ATK Normal");
 		atkNormal.setFont(new Font("Pixel Operator 8", Font.PLAIN, 12));
-		atkNormal.setBounds(240, 52, 140, 25);
+		atkNormal.setBounds(240, 52, 150, 25);
 		atkNormal.setVisible(false);
 		atkNormal.setFocusable(false);
 		panelAtkDef.add(atkNormal);
 		
 		atkForte = new JButton("ATK forte");
 		atkForte.setFont(new Font("Pixel Operator 8", Font.PLAIN, 12));
-		atkForte.setBounds(400, 52, 140, 25);
+		atkForte.setBounds(400, 52, 150, 25);
 		atkForte.setVisible(false);
 		atkForte.setFocusable(false);
 		panelAtkDef.add(atkForte);
 		
 		atkPixelRGB = new JButton("ATK Pixel RGB");
 		atkPixelRGB.setFont(new Font("Pixel Operator 8", Font.PLAIN, 12));
-		atkPixelRGB.setBounds(240, 80, 140, 25);
+		atkPixelRGB.setBounds(240, 80, 150, 25);
 		atkPixelRGB.setVisible(false);
 		atkPixelRGB.setFocusable(false);
 		panelAtkDef.add(atkPixelRGB);
 
 		defNormal = new JButton("DEF Normal");
 		defNormal.setFont(new Font("Pixel Operator 8", Font.PLAIN, 12));
-		defNormal.setBounds(240, 52, 140, 25);
+		defNormal.setBounds(240, 52, 150, 25);
 		defNormal.setVisible(false);
 		defNormal.setFocusable(false);
 		panelAtkDef.add(defNormal);
@@ -381,7 +381,7 @@ public class bossFinal extends JFrame {
 			public void mouseEntered(MouseEvent e) {
 				if (!perdeu || !ganhou) {
 
-					descConsole.setText("ATK Forte: Ataque forte");
+					descConsole.setText("ATK Pixel: Uni os três pixels");
 				}
 			};
 			
