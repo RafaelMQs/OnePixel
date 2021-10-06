@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Line2D;
 import java.sql.SQLException;
+import java.util.Random;
+
 import javax.swing.*;
 import javax.swing.border.*;
 
@@ -12,7 +14,7 @@ import BancoDeDados.*;
 public class bossFinal extends JFrame {
 	private Jogador jogador;
 	private onePixelDAO dao;
-	JPanel panel, panelPokemonTotal, panelAtkDef;
+	JPanel panel, panelPokemonTotal, panelAtkDef,finalDoJogo;
 
 	// LOGO
 	static ImageIcon imgLogo = new ImageIcon("res/IconGame.png");
@@ -40,6 +42,8 @@ public class bossFinal extends JFrame {
 			"<html>Guri: Eu sei... mas minha missão era pegar os pixels, e nao entrega-los pra você",
 			"<html>Zezin: SE VOCÊ NAO ME ENTREGAR AGORA, PEGAREI A FORÇA", "<html>Guri: TENTE SE FOR CAPAZ!" };
 	JLabel lbDialogo;
+	
+	JLabel  imgFinal1, imgFinal2, imgFinal3, imgFinal4, imgFinal5, imgFinal;
 
 	// CONTEUDOS DA BATALHA FINAL
 	JProgressBar vidaGuri, vidaZezin;
@@ -48,18 +52,19 @@ public class bossFinal extends JFrame {
 	JLabel escolhaAtkOuDef, descConsole;
 
 	// BTNs ATAQUES
-	JButton atkNormal;
+	JButton atkNormal, atkForte,atkPixelRGB;
 
 	// BTNs DEFESA
 	JButton defNormal;
 
 	// DANOS
-	int danoAtkNormal = 50, danoAtkNormalZ = 52;
-
+	int danoAtkNormal = 50, danoAtkNormalZ = 52, danoAtkForte = 52, danoCritico = 50, danoAtkPixelRGB = 200;
+    boolean ataqueForte = false, ataquePixelRGB = false;
 	// VIDA
 	int hpGuri = 590, hpZezin = 615;
 	int escudoHpGuri = 0, escudoHpZezin = 0;
-
+	
+	int chance = 0;
 	boolean podeClickar = true;
 	boolean atacou = false, defendeu = false, perdeu = false, ganhou = false;
 
@@ -124,6 +129,11 @@ public class bossFinal extends JFrame {
 		panelPokemonTotal.setBounds(0, 0, 600, 310);
 		panelPokemonTotal.setVisible(false);
 		add(panelPokemonTotal);
+		
+		finalDoJogo = new JPanel(null);
+		finalDoJogo.setBounds(0, 0, 600, 310);
+		finalDoJogo.setVisible(false);
+		add(finalDoJogo);
 
 		// CONTEUDOS DA BATALHA
 		vidaGuri = new JProgressBar();
@@ -147,6 +157,36 @@ public class bossFinal extends JFrame {
 //		vidaZezin.setForeground(Color.red);
 		vidaZezin.setBorder(null);
 		panelPokemonTotal.add(vidaZezin);
+		
+		imgFinal = new JLabel(new ImageIcon("res2/imgFinal/EndBackground.png"));
+		imgFinal.setBounds(0,0,600,310);
+		imgFinal.setVisible(false);
+		finalDoJogo.add(imgFinal);
+		
+		imgFinal1 = new JLabel(new ImageIcon("res2/imgFinal/End01.png"));
+		imgFinal1.setBounds(0,0,600,310);
+		imgFinal1.setVisible(false);
+		finalDoJogo.add(imgFinal1);
+		
+		imgFinal2 = new JLabel(new ImageIcon("res2/imgFinal/End02.png"));
+		imgFinal2.setBounds(0,0,600,310);
+		imgFinal2.setVisible(false);
+		finalDoJogo.add(imgFinal2);
+		
+		imgFinal3 = new JLabel(new ImageIcon("res2/imgFinal/End03.png"));
+		imgFinal3.setBounds(0,0,600,310);
+		imgFinal3.setVisible(false);
+		finalDoJogo.add(imgFinal3);
+		
+		imgFinal4 = new JLabel(new ImageIcon("res2/imgFinal/End04.png"));
+		imgFinal4.setBounds(0,0,600,310);
+		imgFinal4.setVisible(false);
+		finalDoJogo.add(imgFinal4);
+		
+		imgFinal5 = new JLabel(new ImageIcon("res2/imgFinal/End05.png"));
+		imgFinal5.setBounds(0,0,600,310);
+		imgFinal5.setVisible(false);
+		finalDoJogo.add(imgFinal5);
 
 		ataqueGuri = new JButton("Ataque");
 		ataqueGuri.setBounds(10, 35, 135, 35);
@@ -198,6 +238,20 @@ public class bossFinal extends JFrame {
 		atkNormal.setVisible(false);
 		atkNormal.setFocusable(false);
 		panelAtkDef.add(atkNormal);
+		
+		atkForte = new JButton("ATK forte");
+		atkForte.setFont(new Font("Pixel Operator 8", Font.PLAIN, 12));
+		atkForte.setBounds(400, 52, 140, 25);
+		atkForte.setVisible(false);
+		atkForte.setFocusable(false);
+		panelAtkDef.add(atkForte);
+		
+		atkPixelRGB = new JButton("ATK Pixel RGB");
+		atkPixelRGB.setFont(new Font("Pixel Operator 8", Font.PLAIN, 12));
+		atkPixelRGB.setBounds(240, 80, 140, 25);
+		atkPixelRGB.setVisible(false);
+		atkPixelRGB.setFocusable(false);
+		panelAtkDef.add(atkPixelRGB);
 
 		defNormal = new JButton("DEF Normal");
 		defNormal.setFont(new Font("Pixel Operator 8", Font.PLAIN, 12));
@@ -235,12 +289,16 @@ public class bossFinal extends JFrame {
 				escolhaAtkOuDef.setVisible(true);
 				escolhaAtkOuDef.setText("> ATAQUE");
 				atkNormal.setVisible(true);
+				atkForte.setVisible(true);
+				atkPixelRGB.setVisible(true);
 			};
 		});
 
 		defesaGuri.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
+				atkPixelRGB.setVisible(false);
 				atkNormal.setVisible(false);
+				atkForte.setVisible(false);
 				escolhaAtkOuDef.setVisible(true);
 				escolhaAtkOuDef.setText("> DEFESA");
 				defNormal.setVisible(true);
@@ -265,6 +323,7 @@ public class bossFinal extends JFrame {
 					descConsole.setText("ATK Normal: Ataque Simples");
 				}
 			};
+			
 
 			public void mouseExited(MouseEvent e) {
 				if (!perdeu || !ganhou) {
@@ -274,7 +333,66 @@ public class bossFinal extends JFrame {
 			};
 
 		});
+		
+		// ATAQUE FORTE
+		atkForte.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				if (!perdeu || !ganhou) {
 
+					if (podeClickar) {
+						atacou = true;
+						ataqueForte = true;		
+						chance = 2 + (int) (Math.random() * 6);
+						new danoAtaque().start();
+					}
+				}
+			};
+
+			public void mouseEntered(MouseEvent e) {
+				if (!perdeu || !ganhou) {
+
+					descConsole.setText("ATK Forte: Ataque forte");
+				}
+			};
+
+			public void mouseExited(MouseEvent e) {
+				if (!perdeu || !ganhou) {
+
+					descConsole.setText("Console: Esperando sua escolha");
+				}
+			};
+
+		});
+		
+		// ATAQUE PIXEL RGB
+		atkPixelRGB.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (!perdeu || !ganhou) {
+
+					if (podeClickar) {
+						atacou = true;
+						ataquePixelRGB = true;
+						
+						new danoAtaque().start();
+					}
+				}
+			};
+
+			public void mouseEntered(MouseEvent e) {
+				if (!perdeu || !ganhou) {
+
+					descConsole.setText("ATK Forte: Ataque forte");
+				}
+			};
+			
+			public void mouseExited(MouseEvent e) {
+				if (!perdeu || !ganhou) {
+
+					descConsole.setText("Console: Esperando sua escolha");
+				}
+			};
+
+		});
 		// DEFESA NORMAL
 		defNormal.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
@@ -311,9 +429,31 @@ public class bossFinal extends JFrame {
 			if (atacou) {
 				int sobreVida = hpZezin + escudoHpZezin;
 				System.out.println("\nSobreVida: " + sobreVida);
-				hpZezin = sobreVida - danoAtkNormal;
+				System.out.println("Entrou :"+ataqueForte );
+				if(ataqueForte) {
+					if(chance > 4) {
+						danoAtkForte += danoCritico;
+						hpZezin = sobreVida - danoAtkForte;
+						System.out.println("Dano do ATK do forte"+ danoAtkForte);
+						descConsole.setText("Console: Ataque Forte do Guri realizado com sucesso!");
+
+					}else {
+						hpZezin = sobreVida - danoAtkForte;
+						descConsole.setText("Console: Ataque Forte do Guri falhou!");	
+						System.out.println("Dano do ATK do forte que flopou"+ danoAtkForte);
+
+					}
+				}else if(ataquePixelRGB) {
+					atkPixelRGB.setEnabled(false);
+					hpZezin = sobreVida - danoAtkPixelRGB;
+					System.out.println("Dano do ATK do forte"+ danoAtkForte);
+					descConsole.setText("Console: Ataque Forte do Guri realizado com sucesso!");
+					
+				}else {
+				    hpZezin = sobreVida - danoAtkNormal;
+				    descConsole.setText("Console: Ataque do Guri realizado com sucesso!");
+				}
 				System.out.println("HpZezin tomando dano: " + hpZezin);
-				descConsole.setText("Console: Ataque do Guri realizado com sucesso!");
 				for (int i = vidaZezin.getValue(); i >= hpZezin; i -= 2) {
 					vidaZezin.setValue(i);
 					try {
@@ -340,12 +480,44 @@ public class bossFinal extends JFrame {
 			} else {
 				descConsole.setText("Console: Zezin perdeu!");
 				ganhou = true;
-				new Tremer().start();
+				//new Tremer().start();
+				panelPokemonTotal.removeAll();
+				panelPokemonTotal.setVisible(false);
+				finalDoJogo.setVisible(true);
+				new finalDoJogo().start();
 			}
 			
 			vidaGuri.setString("HP:"+hpGuri);
 			vidaZezin.setString("HP:"+hpZezin);
+			ataquePixelRGB = false;
+			danoAtkForte = 52;
+			ataqueForte = false;
 
+		}
+	}
+	
+	private class finalDoJogo extends Thread{
+		public void run() {
+            try {
+				imgFinal1.setVisible(true);
+				Thread.sleep(2000);
+				imgFinal1.setVisible(false);
+				imgFinal2.setVisible(true);
+				Thread.sleep(2000);
+				imgFinal2.setVisible(false);
+				imgFinal3.setVisible(true);
+				Thread.sleep(2000);
+				imgFinal3.setVisible(false);
+				imgFinal4.setVisible(true);
+				Thread.sleep(2000);
+				imgFinal4.setVisible(false);
+				imgFinal5.setVisible(true);
+				Thread.sleep(2000);
+				imgFinal.setVisible(false);
+				imgFinal.setVisible(true);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
 		}
 	}
 
